@@ -2,12 +2,11 @@
 from terminal_layout.helper import is_ascii
 
 
-class ViewChar(str):
+class Char(object):
     length = None
 
     char_to_length = {
         '\t': 4,
-        '\n': 1,
     }
 
     char_to_str = {
@@ -16,13 +15,17 @@ class ViewChar(str):
     }
 
     def __init__(self, c):
-        super().__init__()
         if len(c) != 1:
             raise TypeError('expected a character, but string of length %d found' % len(c))
         self.c = c
 
     def __len__(self):
         if self.length is not None:
+            return self.length
+
+        temp = self.char_to_length.get(self.c, None)
+        if temp:
+            self.length = temp
             return self.length
 
         if is_ascii(self.c):
@@ -35,30 +38,63 @@ class ViewChar(str):
         return self.char_to_str.get(self.c, self.c)
 
 
-class ViewString(str):
-    length = None
-    text_list = []
+class String(object):
+    """
 
-    def __init__(self, text: str):
-        super().__init__()
+    ex:
+
+    >>> s=String('a啊啊')
+    >>> len(s)
+    5
+    >>> s[:2]
+    'a'
+    >>> s[:3]
+    'a啊'
+
+    """
+    length = None
+    char_list = None
+
+    def __init__(self, text):
+        """
+
+        :param text:
+        :type text:str
+        """
+        self.char_list = []  # type: list[Char]
+        self.origin_text = text
         for c in text:
-            self.text_list.append(ViewChar(c))
+            self.char_list.append(Char(c))
 
     def __len__(self):
         if self.length is not None:
             return self.length
 
         t = 0
-        for c in self.text_list:
+        for c in self.char_list:
             t += len(c)
         self.length = t
 
         return self.length
 
     def __str__(self):
-        return ''.join(self.text_list)
+        return ''.join(str(c) for c in self.char_list)
 
+    def __getitem__(self, item):
+        start = item.start or 0
+        if start != 0:
+            raise TypeError('slice start must be 0 or None')
+        stop = item.stop
+        if stop is None or stop < 0:
+            raise TypeError('slice stop must be positive integer')
 
-class l(list):
+        s = ''
+        for c in self.char_list:
+            length = len(c)
+            if stop >= length:
+                s += str(c)
+            else:
+                break
+            stop -= length
 
-    def __
+        return s
