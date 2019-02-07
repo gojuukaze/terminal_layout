@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 setup(
     name="terminal_layout",
     version="1.0.0",
-    description="The project help you to quickly build layouts in terminal(命令行ui布局工具)",
+    description="The project help you to quickly build layouts in terminal (命令行ui布局工具)",
     long_description=open("README.rst").read(),
     license="GUN V3.0",
 
@@ -30,14 +30,15 @@ setup(
         'Environment :: Console',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-        'Operating System :: MacOS',
-        'Operating System :: POSIX :: Linux',
+        'Operating System :: OS Independent',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Development Status :: 5 - Production/Stable',
+        'Topic :: Terminals',
     ],
 )
