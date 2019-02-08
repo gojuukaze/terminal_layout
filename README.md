@@ -10,9 +10,11 @@ The project help you to quickly build layouts in terminal
 
 # link
 
-- [All Demo](https://github.com/gojuukaze/terminal_layout/tree/master/demo)
-- [Doc](https://github.com/gojuukaze/terminal_layout)
-- [https://asciinema.org/a/226120](https://asciinema.org/a/226120)
+* [All Demo](https://github.com/gojuukaze/terminal_layout/tree/master/demo)
+
+* [Doc](https://github.com/gojuukaze/terminal_layout)
+
+* [https://asciinema.org/a/226120](https://asciinema.org/a/226120)
 
 # install 
 ```bash
@@ -21,7 +23,7 @@ pip install terminal_layout
 
 # Usage
 
-- easy demo:
+ * easy demo:
 
 ```python
 import time
@@ -43,7 +45,7 @@ ctl.re_draw()
 
 
 
-- use table layout:
+ * use table layout:
 
 ```python
 from terminal_layout import *
@@ -71,7 +73,7 @@ ctl.draw()
 
 ![](pic/table.png)
 
-* use python2 unicode
+ * use python2 unicode
 
 ```python
 # -*- coding: utf-8 -*-
@@ -100,63 +102,65 @@ ctl.draw()
 
 属性说明
 
-* fore & back
+ * fore & back
+ 
 ```python
 TextView('','fore',fore=Fore.red)
 TextView('','back',back=Back.red)
 ```
 <img width="560" src="pic/color.jpeg"/>
 
-* style
+ * style
+
 ```python
 TextView('','style',style=Style.dim)
 ```
 <img width="560" src="pic/style.jpeg"/>
 
-* width
+ * width
+ 
 ```python
 TextView('','width',width=10)
 ```
 <img width="560" src="pic/width.jpeg"/>
 
 
-* weight
+ * weight
+ 
 ```python
 TextView('','weight',weight=1)
 ```
 <img width="560" src="pic/weight.jpeg"/>
 
 
-* gravity
+ * gravity
+ 
 ```python
 TextView('','gravity',gravity=Gravity.left)
 ```
 <img width="560" src="pic/gravity.jpeg"/>
 
 
-* visibility
+ * visibility
+ 
 ```python
 TextView('','',visibility=Visibility.visible)
 ```
 <img width="560" src="pic/visibility.jpeg"/>
 
 
-* ex_style
+ * ex_style (not support windows)
 
-**not support windows**
 
 ```python
-from terminal_layout import *
 TextView('','ex_style',style=Style.ex_blink)
 ```
 <img width="560" src="pic/ex_style.jpeg"/>
 
-* ex_fore & ex_back
+ * ex_fore & ex_back (not support windows)
 
-**not support windows**
 
 ```python
-from terminal_layout import *
 TextView('','ex_fore',fore=Fore.ex_red_1)
 TextView('','ex_back',back=Back.ex_red_1)
 
@@ -171,5 +175,5 @@ TextView('','ex_back',back=Back.ex_red_1)
 
 # Thanks
 
-* [colorama](https://github.com/tartley/colorama) : Simple cross-platform colored terminal text in Python
-* [colored](https://gitlab.com/dslackw/colored) : Very simple Python library for color and formatting in terminal
+ * [colorama](https://github.com/tartley/colorama) : Simple cross-platform colored terminal text in Python
+ * [colored](https://gitlab.com/dslackw/colored) : Very simple Python library for color and formatting in terminal
