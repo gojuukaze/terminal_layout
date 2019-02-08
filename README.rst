@@ -1,21 +1,4 @@
 terminal_layout
-================
-
-The project help you to quickly build layouts in terminal
-(这个一个命令行ui布局工具)
-
-.. image:: https://github.com/gojuukaze/terminal_layout/blob/master/pic/demo.gif
-
-.. image:: https://asciinema.org/a/226120.svg
-
-install
-=========
-
-```bash
-pip install terminal_layout
-```
-
-terminal_layout
 ===============
 
 | The project help you to quickly build layouts in terminal
@@ -28,8 +11,9 @@ terminal_layout
 link
 ====
 
--  `all demo`_
--  `doc`_
+-  `All Demo`_
+-  `Doc`_
+-  https://asciinema.org/a/226120
 
 install
 =======
@@ -187,26 +171,20 @@ params
 
 |image12|
 
-LICENSE
-=======
+.. _All Demo: https://github.com/gojuukaze/terminal_layout/tree/master/demo
+.. _Doc: https://github.com/gojuukaze/terminal_layout
 
-[GPLv3](https://github.com/gojuukaze/terminal_layout/b
-
-.. _all demo: https://github.com/gojuukaze/terminal_layout/tree/master/demo
-.. _doc: https://github.com/gojuukaze/terminal_layout
-
-.. |image0| image:: pic/demo.gif
+.. |image0| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/demo.gif
 .. |asciicast| image:: https://asciinema.org/a/226120.svg
    :target: https://asciinema.org/a/226120
-.. |image2| image:: pic/hello.png
-.. |image3| image:: pic/table.png
-.. |image4| image:: pic/py2.png
-.. |image5| image:: pic/color.jpeg
-.. |image6| image:: pic/style.jpeg
-.. |image7| image:: pic/width.jpeg
-.. |image8| image:: pic/weight.jpeg
-.. |image9| image:: pic/gravity.jpeg
-.. |image10| image:: pic/visibility.jpeg
-.. |image11| image:: pic/
-.. |image12| image:: pic/ex_color.jpeg
-
+.. |image2| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/hello.png
+.. |image3| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/table.png
+.. |image4| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/py2.png
+.. |image5| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/color.jpeg
+.. |image6| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/style.jpeg
+.. |image7| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/width.jpeg
+.. |image8| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/weight.jpeg
+.. |image9| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/gravity.jpeg
+.. |image10| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/visibility.jpeg
+.. |image11| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/ex_style.jpeg
+.. |image12| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/ex_color.jpeg

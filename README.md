@@ -9,8 +9,10 @@ The project help you to quickly build layouts in terminal
 [![asciicast](https://asciinema.org/a/226120.svg)](https://asciinema.org/a/226120)
 
 # link
-* [all demo](https://github.com/gojuukaze/terminal_layout/tree/master/demo)
-* [doc](https://github.com/gojuukaze/terminal_layout)
+
+- [All Demo](https://github.com/gojuukaze/terminal_layout/tree/master/demo)
+- [Doc](https://github.com/gojuukaze/terminal_layout)
+- [https://asciinema.org/a/226120](https://asciinema.org/a/226120)
 
 # install 
 ```bash
@@ -19,7 +21,7 @@ pip install terminal_layout
 
 # Usage
 
-* easy demo:
+- easy demo:
 
 ```python
 import time
@@ -41,7 +43,7 @@ ctl.re_draw()
 
 
 
-* use table layout:
+- use table layout:
 
 ```python
 from terminal_layout import *
@@ -104,6 +106,7 @@ TextView('','fore',fore=Fore.red)
 TextView('','back',back=Back.red)
 ```
 ![](pic/color.jpeg)
+<img style="width:50%" src="pic/color.jpeg"/>
 
 * style
 ```python
@@ -147,7 +150,7 @@ TextView('','',visibility=Visibility.visible)
 from terminal_layout import *
 TextView('','ex_style',style=Style.ex_blink)
 ```
-![](pic/)
+![](pic/ex_style.jpeg)
 
 * ex_fore & ex_back
 
