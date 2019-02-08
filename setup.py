@@ -14,7 +14,7 @@ setup(
 
     url="https://github.com/gojuukaze/terminal_layout",
     author="gojuukaze",
-    author_email="i@ikaze.uu.me",
+    author_email="ikaze_email@163.com",
 
     packages=find_packages(exclude=['demo', 'tests']),
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',

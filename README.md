@@ -50,7 +50,7 @@ ctl.re_draw()
 ```python
 from terminal_layout import *
 
-ctl = LayoutCtl(TableLayout,
+ctl = LayoutCtl.quick(TableLayout,
                 [
                     [TextView('title', 'Student', fore=Fore.black, back=Back.yellow, width=17,
                               gravity=Gravity.center)],
