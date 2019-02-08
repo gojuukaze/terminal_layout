@@ -105,41 +105,40 @@ ctl.draw()
 TextView('','fore',fore=Fore.red)
 TextView('','back',back=Back.red)
 ```
-![](pic/color.jpeg)
-<img style="width:50%" src="pic/color.jpeg"/>
+<img width="560" src="pic/color.jpeg"/>
 
 * style
 ```python
 TextView('','style',style=Style.dim)
 ```
-![](pic/style.jpeg)
+<img width="560" src="pic/style.jpeg"/>
 
 * width
 ```python
 TextView('','width',width=10)
 ```
-![](pic/width.jpeg)
+<img width="560" src="pic/width.jpeg"/>
 
 
 * weight
 ```python
 TextView('','weight',weight=1)
 ```
-![](pic/weight.jpeg)
+<img width="560" src="pic/weight.jpeg"/>
 
 
 * gravity
 ```python
 TextView('','gravity',gravity=Gravity.left)
 ```
-![](pic/gravity.jpeg)
+<img width="560" src="pic/gravity.jpeg"/>
 
 
 * visibility
 ```python
 TextView('','',visibility=Visibility.visible)
 ```
-![](pic/visibility.jpeg)
+<img width="560" src="pic/visibility.jpeg"/>
 
 
 * ex_style
@@ -150,7 +149,7 @@ TextView('','',visibility=Visibility.visible)
 from terminal_layout import *
 TextView('','ex_style',style=Style.ex_blink)
 ```
-![](pic/ex_style.jpeg)
+<img width="560" src="pic/ex_style.jpeg"/>
 
 * ex_fore & ex_back
 
@@ -161,9 +160,8 @@ from terminal_layout import *
 TextView('','ex_fore',fore=Fore.ex_red_1)
 TextView('','ex_back',back=Back.ex_red_1)
 
-
 ```
-![](pic/ex_color.jpeg)
+<img width="560" src="pic/ex_color.jpeg"/>
 
 
 
