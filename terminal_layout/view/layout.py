@@ -108,13 +108,14 @@ class TableRow(View):
         for v in self.data:
             if v.weight:
                 weight_view.append(v)
+                all_weight += v.weight
                 continue
             child_width = v.update_width(_width)
             _width -= child_width
             _width = max(0, _width)
 
         if weight_view:
-            per_weight = parent_width / float(all_weight)
+            per_weight = _width / float(all_weight)
             for v in weight_view:
                 v.real_width = int(v.weight * per_weight)
 
