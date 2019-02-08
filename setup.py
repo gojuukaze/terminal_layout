@@ -11,7 +11,6 @@ setup(
     version="1.0.0",
     description="The project help you to quickly build layouts in terminal (命令行ui布局工具)",
     long_description=open("README.rst").read(),
-    license="GUN V3.0",
 
     url="https://github.com/gojuukaze/terminal_layout",
     author="gojuukaze",

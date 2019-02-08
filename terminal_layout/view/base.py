@@ -26,11 +26,15 @@ class View(object):
         self.gravity = gravity
 
         self.real_width = None
+        self.real_height = None
 
     def draw(self):
         pass
 
     def re_draw(self):
+        pass
+
+    def clear(self):
         pass
 
     def update_width(self, parent_width):

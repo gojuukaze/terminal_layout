@@ -59,15 +59,20 @@ class TextView(View):
     def draw(self):
         sys.stdout.write(self.get_final_text())
 
+    def clear(self):
+        sys.stdout.write(Cursor.UP(self.real_height) + clear_line())
+
     def re_draw(self):
         self.draw()
 
     def get_final_text(self):
 
         if self.visibility == Visibility.visible:
+            self.real_height = 1
             show_text = self.string_text[:self.real_width]
         elif self.visibility == Visibility.invisible:
-            show_text = ' ' * self.real_width
+            self.real_height = 1
+            return ' ' * self.real_width
         elif self.visibility == Visibility.gone:
             return ''
 

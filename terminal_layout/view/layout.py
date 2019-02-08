@@ -76,8 +76,13 @@ class TableRow(View):
             for v in self.data:
                 v.draw()
             sys.stdout.write(str(self.back) + right + str(Style.reset_all))
+            self.real_height = 1
         elif self.visibility == Visibility.invisible:
             sys.stdout.write(' ' * self.real_width)
+            self.real_height = 1
+
+    def clear(self):
+        sys.stdout.write(Cursor.UP(self.real_height) + clear_line())
 
     def re_draw(self):
         self.draw()
@@ -197,17 +202,23 @@ class TableLayout(View):
         return self.real_width
 
     def draw(self):
-        self.draw_height = 0
+        self.real_height = 0
+        is_first = True
         for r in self.data:
             if r.visibility != Visibility.gone:
+                if not is_first:
+                    sys.stdout.write('\n')
+                else:
+                    is_first = False
                 r.draw()
-                sys.stdout.write('\n')
-                self.draw_height += 1
-        sys.stdout.flush()
+                self.real_height += 1
+
+    def clear(self):
+        sys.stdout.write(Cursor.UP(self.real_height) + clear_line())
 
     def re_draw(self):
 
-        sys.stdout.write(Cursor.UP(self.draw_height) + clear_line())
+        sys.stdout.write(Cursor.UP(self.real_height) + clear_line())
         self.draw()
 
 

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
+import sys
+
 from terminal_layout.ansi import term_init
 from terminal_layout.view import *
 from terminal_layout.view.base import View
@@ -20,15 +22,18 @@ class LayoutCtl(object):
         :return:
         :rtype :LayoutCtl
         """
-        if layout_class is not TableLayout:
-            raise TypeError("only support TableLayout")
+        if layout_class is TableLayout:
 
-        table_layout = TableLayout('', Width.fill)
-        for row_data in data:
-            table_row = TableRow('', Width.fill)
-            table_row.add_view_list(row_data)
-            table_layout.add_view(table_row)
-        return cls(table_layout)
+            table_layout = TableLayout('', Width.fill)
+            for row_data in data:
+                table_row = TableRow.quick_init('', row_data, width=Width.fill)
+                table_layout.add_view(table_row)
+            return cls(table_layout)
+        elif layout_class is TableRow:
+            row = TableRow.quick_init('', data, width=Width.fill)
+            return cls(row)
+        else:
+            raise TypeError("quick not support %s" % (str(layout_class, )))
 
     def get_layout(self):
         """
@@ -61,9 +66,13 @@ class LayoutCtl(object):
         self.update_width()
         self.layout.draw()
 
+        sys.stdout.write('\n')
+        sys.stdout.flush()
+
     def re_draw(self):
+        self.layout.clear()
         self.update_width()
-        self.layout.re_draw()
+        self.draw()
 
     def find_view_by_id(self, id):
         return self.layout.find_view_by_id(id)

@@ -19,3 +19,14 @@ ctl = LayoutCtl.quick(TableLayout,
                       )
 
 ctl.draw()
+
+print('\n')
+
+ctl = LayoutCtl.quick(TableRow,
+
+                      [TextView('', 'row1', width=5, back=Back.yellow),
+                       TextView('', 'data', width=12, back=Back.yellow)]
+
+                      )
+
+ctl.draw()
