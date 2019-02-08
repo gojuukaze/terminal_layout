@@ -6,6 +6,8 @@ The project help you to quickly build layouts in terminal
 
 .. image:: https://github.com/gojuukaze/terminal_layout/blob/master/demo.gif
 
+.. image:: https://asciinema.org/a/226120.svg
+
 install
 =========
 

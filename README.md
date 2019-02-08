@@ -5,6 +5,8 @@ The project help you to quickly build layouts in terminal
 
 ![](./demo.gif)
 
+[![asciicast](https://asciinema.org/a/226120.svg)](https://asciinema.org/a/226120)
+
 # install 
 ```bash
 pip install terminal_layout

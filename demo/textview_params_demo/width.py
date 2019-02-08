@@ -3,7 +3,7 @@ from terminal_layout import *
 
 ctl = LayoutCtl.quick(TableLayout,
                       [
-                          [TextView('', 'width = 10', width=10, back=Back.green)],
+                          [TextView('', 'width = 12', width=12, back=Back.green)],
                           [TextView('', 'width = warp', width=Width.wrap, back=Back.green)],
                           [TextView('', 'width = fill', width=Width.fill, back=Back.green)],
                       ])
