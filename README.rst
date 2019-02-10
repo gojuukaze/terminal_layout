@@ -12,7 +12,7 @@ link
 ====
 
 -  `All Demo`_
--  `Doc`_
+-  `Docs`_
 -  https://asciinema.org/a/226120
 
 install
@@ -20,7 +20,7 @@ install
 
 .. code:: bash
 
-   pip install terminal_layout
+   pip install terminal-layout
 
 Usage
 =====
@@ -94,8 +94,8 @@ Usage
 
 |image4|
 
-params
-------
+Properties
+----------
 
 属性说明
 
@@ -172,7 +172,7 @@ params
 |image12|
 
 .. _All Demo: https://github.com/gojuukaze/terminal_layout/tree/master/demo
-.. _Doc: https://github.com/gojuukaze/terminal_layout
+.. _Docs: https://terminal_layout.readthedocs.io
 
 .. |image0| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/demo.gif
 .. |asciicast| image:: https://asciinema.org/a/226120.svg

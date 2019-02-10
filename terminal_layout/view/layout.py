@@ -52,8 +52,8 @@ class TableRow(View):
         return row
 
     def add_view(self, v):
-        if not isinstance(v, TextView):
-            raise TypeError('must be TextView')
+        if isinstance(v, TextView):
+            raise TypeError('only support add TextView')
         self.data.append(v)
 
     def add_view_list(self, views):
@@ -83,9 +83,6 @@ class TableRow(View):
 
     def clear(self):
         sys.stdout.write(Cursor.UP(self.real_height) + clear_line())
-
-    def re_draw(self):
-        self.draw()
 
     def update_width(self, parent_width):
         """
@@ -170,8 +167,7 @@ class TableLayout(View):
         return table
 
     def add_view(self, v):
-        if not isinstance(v, TableRow):
-            raise TypeError('must be TableRow')
+
         self.data.append(v)
 
     def add_view_list(self, views):
@@ -214,12 +210,9 @@ class TableLayout(View):
                 self.real_height += 1
 
     def clear(self):
-        sys.stdout.write(Cursor.UP(self.real_height) + clear_line())
-
-    def re_draw(self):
-
-        sys.stdout.write(Cursor.UP(self.real_height) + clear_line())
-        self.draw()
+        while self.real_height:
+            sys.stdout.write(Cursor.UP(1) + clear_line())
+            self.real_height -= 1
 
 
 class LinearLayout(View):

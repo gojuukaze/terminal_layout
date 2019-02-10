@@ -10,7 +10,7 @@ from terminal_layout.view.base import View
 class LayoutCtl(object):
     debug = False
 
-    def __init__(self, layout):
+    def __init__(self, layout=None):
         self.layout = layout  # type:View
 
     @classmethod
@@ -34,6 +34,14 @@ class LayoutCtl(object):
             return cls(row)
         else:
             raise TypeError("quick not support %s" % (str(layout_class, )))
+
+    def set_layout(self, layout):
+        """
+
+        :return:
+        """
+
+        self.layout = layout
 
     def get_layout(self):
         """
@@ -69,10 +77,17 @@ class LayoutCtl(object):
         sys.stdout.write('\n')
         sys.stdout.flush()
 
-    def re_draw(self):
+    def clear(self):
         self.layout.clear()
+
+    def re_draw(self):
+        self.clear()
+
         self.update_width()
-        self.draw()
+        self.layout.draw()
+
+        sys.stdout.write('\n')
+        sys.stdout.flush()
 
     def find_view_by_id(self, id):
         return self.layout.find_view_by_id(id)

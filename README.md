@@ -12,13 +12,13 @@ The project help you to quickly build layouts in terminal
 
 * [All Demo](https://github.com/gojuukaze/terminal_layout/tree/master/demo)
 
-* [Doc](https://github.com/gojuukaze/terminal_layout)
+* [Docs](https://terminal_layout.readthedocs.io)
 
 * [https://asciinema.org/a/226120](https://asciinema.org/a/226120)
 
 # install 
 ```bash
-pip install terminal_layout
+pip install terminal-layout
 ```
 
 # Usage
@@ -98,7 +98,7 @@ ctl.draw()
 ![](pic/py2.png)
 
 
-## params
+## Properties
 
 属性说明
 

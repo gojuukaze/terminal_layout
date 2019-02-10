@@ -31,9 +31,6 @@ class View(object):
     def draw(self):
         pass
 
-    def re_draw(self):
-        pass
-
     def clear(self):
         pass
 

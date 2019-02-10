@@ -59,9 +59,6 @@ class TextView(View):
     def draw(self):
         sys.stdout.write(self.get_final_text())
 
-    def clear(self):
-        sys.stdout.write(Cursor.UP(self.real_height) + clear_line())
-
     def re_draw(self):
         self.draw()
 
