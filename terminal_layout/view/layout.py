@@ -52,7 +52,7 @@ class TableRow(View):
         return row
 
     def add_view(self, v):
-        if isinstance(v, TextView):
+        if not isinstance(v, TextView):
             raise TypeError('only support add TextView')
         self.data.append(v)
 

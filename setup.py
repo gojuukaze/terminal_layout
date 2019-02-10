@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="terminal_layout",
-    version="1.0.3",
+    version="1.0.4",
     description="The project help you to quickly build layouts in terminal (命令行ui布局工具)",
     long_description=open("README.rst").read(),
 
