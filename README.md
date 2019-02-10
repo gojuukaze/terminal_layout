@@ -10,11 +10,10 @@ The project help you to quickly build layouts in terminal
 
 # link
 
-* [All Demo](https://github.com/gojuukaze/terminal_layout/tree/master/demo)
-
-* [Docs](https://terminal-layout.readthedocs.io)
-
-* [https://asciinema.org/a/226120](https://asciinema.org/a/226120)
+*[All Demo](https://github.com/gojuukaze/terminal_layout/tree/master/demo)
+*[GIthub](https://github.com/gojuukaze/terminal_layout)
+*[Docs](https://terminal-layout.readthedocs.io)
+*[https://asciinema.org/a/226120](https://asciinema.org/a/226120)
 
 # install 
 ```bash
@@ -45,7 +44,7 @@ ctl.re_draw()
 
 
 
- * use table layout:
+ *use table layout:
 
 ```python
 from terminal_layout import *
@@ -73,7 +72,7 @@ ctl.draw()
 
 ![](pic/table.png)
 
- * use python2 unicode
+ *use python2 unicode
 
 ```python
 # -*- coding: utf-8 -*-
@@ -102,7 +101,7 @@ ctl.draw()
 
 属性说明
 
- * fore & back
+ *fore & back
  
 ```python
 TextView('','fore',fore=Fore.red)
@@ -110,14 +109,14 @@ TextView('','back',back=Back.red)
 ```
 <img width="560" src="pic/color.jpeg"/>
 
- * style
+ *style
 
 ```python
 TextView('','style',style=Style.dim)
 ```
 <img width="560" src="pic/style.jpeg"/>
 
- * width
+ *width
  
 ```python
 TextView('','width',width=10)
@@ -125,7 +124,7 @@ TextView('','width',width=10)
 <img width="560" src="pic/width.jpeg"/>
 
 
- * weight
+ *weight
  
 ```python
 TextView('','weight',weight=1)
@@ -133,7 +132,7 @@ TextView('','weight',weight=1)
 <img width="560" src="pic/weight.jpeg"/>
 
 
- * gravity
+ *gravity
  
 ```python
 TextView('','gravity',gravity=Gravity.left)
@@ -141,7 +140,7 @@ TextView('','gravity',gravity=Gravity.left)
 <img width="560" src="pic/gravity.jpeg"/>
 
 
- * visibility
+ *visibility
  
 ```python
 TextView('','',visibility=Visibility.visible)
@@ -149,7 +148,7 @@ TextView('','',visibility=Visibility.visible)
 <img width="560" src="pic/visibility.jpeg"/>
 
 
- * ex_style (not support windows)
+ *ex_style (not support windows)
 
 
 ```python
@@ -157,7 +156,7 @@ TextView('','ex_style',style=Style.ex_blink)
 ```
 <img width="560" src="pic/ex_style.jpeg"/>
 
- * ex_fore & ex_back (not support windows)
+ *ex_fore & ex_back (not support windows)
 
 
 ```python
