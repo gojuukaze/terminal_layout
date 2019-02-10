@@ -181,10 +181,18 @@ Properties
 .. |image3| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/table.png
 .. |image4| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/py2.png
 .. |image5| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/color.jpeg
+   :scale: 50%
 .. |image6| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/style.jpeg
+   :scale: 50%
 .. |image7| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/width.jpeg
+   :scale: 50%
 .. |image8| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/weight.jpeg
+   :scale: 50%
 .. |image9| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/gravity.jpeg
+   :scale: 50%
 .. |image10| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/visibility.jpeg
+   :scale: 50%
 .. |image11| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/ex_style.jpeg
+   :scale: 50%
 .. |image12| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/ex_color.jpeg
+   :scale: 50%
