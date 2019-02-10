@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-
+import platform
 from terminal_layout.ansi import term_init
 from terminal_layout.view import *
 from terminal_layout.view.base import View
@@ -62,8 +62,13 @@ class LayoutCtl(object):
             self.width = size.columns
         except:
             # py2
-            from terminal_layout.helper import get_terminal_size
-            self.height, self.width = get_terminal_size()
+            from backports.shutil_get_terminal_size import get_terminal_size
+            size = os.get_terminal_size()
+            self.height = size.lines
+            self.width = size.columns
+
+        if platform.system() == 'Windows':
+            self.width -= 1
 
     def update_width(self):
         self.get_terminal_size()

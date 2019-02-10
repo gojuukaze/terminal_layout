@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="terminal_layout",
-    version="1.0.4",
+    version="1.0.5",
     description="The project help you to quickly build layouts in terminal (命令行ui布局工具)",
     long_description=open("README.rst").read(),
 
@@ -21,7 +21,8 @@ setup(
     include_package_data=True,
     platforms="OSX, Linux",
     install_requires=['colorama==0.4.1',
-                      'colored==1.3.93'],
+                      'colored==1.3.93',
+                      'backports.shutil_get_terminal_size'],
     tests_require=['colorama==0.4.1',
                    'colored==1.3.93'],
 
