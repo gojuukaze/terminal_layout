@@ -10,11 +10,10 @@ The project help you to quickly build layouts in terminal
 
 # link
 
-* [All Demo](https://github.com/gojuukaze/terminal_layout/tree/master/demo)
-
-* [Docs](https://terminal-layout.readthedocs.io)
-
-* [https://asciinema.org/a/226120](https://asciinema.org/a/226120)
+* [All Demo](https://github.com/gojuukaze/terminal_layout/tree/master/demo) 
+* [GIthub](https://github.com/gojuukaze/terminal_layout) 
+* [Docs](https://terminal-layout.readthedocs.io) 
+* [https://asciinema.org/a/226120](https://asciinema.org/a/226120) 
 
 # install 
 ```bash
