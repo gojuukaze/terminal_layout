@@ -12,7 +12,7 @@ The project help you to quickly build layouts in terminal
 
 * [All Demo](https://github.com/gojuukaze/terminal_layout/tree/master/demo)
 
-* [Docs](https://terminal_layout.readthedocs.io)
+* [Docs](https://terminal-layout.readthedocs.io)
 
 * [https://asciinema.org/a/226120](https://asciinema.org/a/226120)
 

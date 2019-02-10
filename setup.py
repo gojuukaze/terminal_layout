@@ -40,4 +40,9 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'Topic :: Terminals',
     ],
+
+    project_urls={
+        'Documentation': 'https://terminal-layout.readthedocs.io',
+        'Source': 'https://github.com/gojuukaze/terminal_layout',
+    },
 )

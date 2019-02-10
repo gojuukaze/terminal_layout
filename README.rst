@@ -172,7 +172,7 @@ Properties
 |image12|
 
 .. _All Demo: https://github.com/gojuukaze/terminal_layout/tree/master/demo
-.. _Docs: https://terminal_layout.readthedocs.io
+.. _Docs: https://terminal-layout.readthedocs.io
 
 .. |image0| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/demo.gif
 .. |asciicast| image:: https://asciinema.org/a/226120.svg

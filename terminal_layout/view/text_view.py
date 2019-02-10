@@ -33,6 +33,8 @@ class TextView(View):
         self.style = style or ''
         self.weight = weight
 
+        self.real_height = 1
+
     def update_width(self, parent_width):
         if parent_width <= 0:
             self.real_width = 0
@@ -59,8 +61,8 @@ class TextView(View):
     def draw(self):
         sys.stdout.write(self.get_final_text())
 
-    def re_draw(self):
-        self.draw()
+    def clear(self):
+        sys.stdout.write(Cursor.UP(self.real_height) + clear_line())
 
     def get_final_text(self):
 
