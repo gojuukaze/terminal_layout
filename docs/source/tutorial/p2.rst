@@ -1,0 +1,123 @@
+2.使用LayoutCtl绘制
+======================
+
+通过 ``LayoutCtl`` 你可以把之前创建的 View显示出来
+
+
+
+demo
+-----
+
+.. code-block:: python
+
+    from terminal_layout import *
+
+    ctl = LayoutCtl()
+
+    table_layout = TableLayout('table_layout', width=15)
+
+    row1 = TableRow.quick_init('', [TextView('', 'Hello World', fore=Fore.red)])
+
+    table_layout.add_view(row1)
+
+    ctl.set_layout(table_layout)
+
+    ctl.draw()
+
+    # 单独使用TableRow
+    row2 = TableRow.quick_init('', [TextView('', 'TableRow', fore=Fore.red)])
+    ctl2 = LayoutCtl()
+    ctl2.set_layout(row2)
+    ctl2.draw()
+
+
+使用 ``draw()`` 方法绘制Layout
+
+使用quick初始化
+---------------
+
+.. code-block:: python
+
+    from terminal_layout import *
+
+    ctl = LayoutCtl.quick(TableLayout,
+                          [
+                            [TextView('','row1')],
+                            [TextView('','row2')]
+                          ]
+                         )
+    ctl.draw()
+
+    # 单独使用 TableRow
+
+    ctl = LayoutCtl.quick(TableRow,
+                          [ TextView('','hello'), TextView('',' world')]
+
+                         )
+    ctl.draw()
+
+
+``quick()`` 方法第一个参数是Layout的类，支持 ``TableLayout`` , ``TableRow`` 。
+
+正如前一章节所说，你可以单独使用 ``TableRow`` 。
+
+另外你也可以不依赖 ``Layout`` 直接使用 ``TextView`` ,如：
+
+.. code-block:: python
+
+    ctl = LayoutCtl( TextView('', 'text') )
+    ctl.draw()
+
+修改值并重绘
+------------
+
+.. code-block:: python
+
+    from terminal_layout import *
+    import time
+
+    ctl = LayoutCtl.quick(TableLayout,
+                          [
+                              [TextView('t1', 'row1')],
+                              [TextView('t2', 'row2')]
+                          ]
+                          )
+    ctl.draw()
+
+    t2 = ctl.find_view_by_id('t2')
+
+    time.sleep(2)
+
+    t2.text = 'hhhhh'
+    t2.fore = Fore.red
+
+    ctl.re_draw()
+
+
+示例中使用了 ``find_view_by_id()`` 获取 text view 修改后使用 ``re_draw()`` 重绘。
+
+如果有相同id，将返回第一个找到的view。
+
+如果不用 ``find_view_by_id()`` ，你也可以使用下标直接获取view
+
+.. code-block:: python
+
+    from terminal_layout import *
+
+    ctl = LayoutCtl.quick(TableLayout,
+                          [
+                              [TextView('t1', 'row1')],
+                              [TextView('t2', 'row2')]
+                          ]
+                          )
+
+    table = ctl.get_layout()
+
+    row2 = table[1]
+
+    t2 = row2[0]
+    t2.text = '222'
+
+    ctl.draw()
+
+

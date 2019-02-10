@@ -1,0 +1,119 @@
+1.创建Layout与TextView
+=======================
+
+``Layout`` 与 ``TextView`` 其实都属于 ``View`` ，具体在 View 章节有说明。
+
+``Layout`` 是布局控制器，控制 ``TextView`` 显示的位置  。
+
+``TextView`` 用于显示文字。
+
+
+创建Layout
+----------
+
+目前支持的Layout有两种 ``TableLayout`` (表格布局)， ``TableRow`` (行布局) 。
+
+``TableRow`` 放到 ``TableLayout`` 中使用，也可以单独使用。但别把 ``TableLayout`` 放到 ``TableRow`` 中。
+
+关于Layout的属性介绍查看属性章节。
+
+demo
+++++
+
+.. code-block:: python
+
+    from terminal_layout import *
+
+    table = TableLayout('id1', width=Width.fill)
+
+    row1 = TableRow('row1')
+
+    row1.add_view( TextView('text1', 'hello') )
+
+    table.add_view(row1)
+
+    table.add_view_list([TableRow('row2'), TableRow('row3')])
+
+    # raise error
+    row1.add_view(table)
+
+``Layout`` 的第一个参数是 ``id`` ，它将在下一节使用，如果用不到可以为空。
+
+使用quick init
+++++++++++++++
+
+.. code-block:: python
+
+    from terminal_layout import *
+
+    title_view = TextView('title', 'Title', width=Width.wrap)
+
+    row1 = TableRow.quick_init('row1', [title_view], width=Width.fill, gravity=Gravity.center)
+
+    data1_view = TextView('data1', '1.', width=3)
+    data2_view = TextView('data2', 'abcdefghijk', width=5)
+
+    row2 = TableRow.quick_init('row2', [data1_view, data2_view])
+
+    table_layout = TableLayout.quick_init('', [row1, row2], width=10)
+
+向已创建的layout中插入view
++++++++++++++++++++++++++
+
+.. code-block:: python
+
+    from terminal_layout import *
+
+    table = TableLayout('id1', width=Width.fill)
+    # append
+    table.add_view(TableRow(''))
+    # insert 用法和list相同
+    table.insert(3,TableRow(''))
+
+    row = TableRow('')
+    row.add_view(TextView('',''))
+    # insert
+    row.insert(3,TextView('',''))
+
+.. note::
+
+    因为 ``TextView`` 也属于 ``View`` ，因此你可以把 ``TextView`` 加入 ``TableLayout`` 中而不报错。
+    如：
+
+    .. code-block:: python
+
+        table = TableLayout('id1')
+        table.add_view(TextView('', 'text'))
+
+    这样做相当于
+
+    .. code-block:: python
+
+        table = TableLayout('id1')
+        row = TableRow.quick_init('', [TextView('', 'text') ] )
+        table.add_view(row)
+
+    在某些情况下他们是一样的，而且第一种方式更便捷。但第一种方式将不能正确处理某些 ``TextView`` 自有的属性（非基础 ``View`` 的属性）。
+    除非你知道你在做什么，否则建议使用第二种方式。
+
+创建TextView
+------------
+
+``TextView`` 是唯一用于显示文字的 ``View`` ，支持修改颜色，样式，宽度等。
+
+
+demo
+++++++
+
+.. code-block:: python
+
+    text = TextView('id1', 'text', fore=Fore.red, back=Back.blue, style=Style.Dim,
+                    width=10, gravity=Gravity.left
+                 )
+
+``TextView`` 的第一个参数是 ``id`` ，它将在下一节使用，如果用不到你可以为空。
+
+关于 ``TextView`` 的属性查看属性章节。
+
+
+至此完成了创建Layout与TextView的所有内容，但你并没有真正看到它们显示的样子，第二节讲告诉你如何显示他们。

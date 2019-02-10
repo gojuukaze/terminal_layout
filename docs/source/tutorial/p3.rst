@@ -1,0 +1,20 @@
+3.在python2中使用unicode
+=======================
+
+如果你使用的是python2，并且使用unicode字符，需要设置编码为'utf-8'
+
+
+demo:
+
+.. code-block:: python
+
+    # -*- coding: utf-8 -*-
+    from terminal_layout import *
+    import sys
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
+
+    ctl = LayoutCtl(TextView('', u'中文'))
+
+    ctl.draw()
+
