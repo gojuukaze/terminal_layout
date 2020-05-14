@@ -81,6 +81,9 @@ class String(object):
         return ''.join(str(c) for c in self.char_list)
 
     def __getitem__(self, item):
+        """
+        :rtype: str
+        """""
         start = item.start or 0
         if start != 0:
             raise TypeError('slice start must be 0 or None')

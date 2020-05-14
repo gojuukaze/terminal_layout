@@ -2,16 +2,32 @@
 import os
 import sys
 import platform
+import threading
+import time
+
 from terminal_layout.ansi import term_init
+from terminal_layout.logger import logger
 from terminal_layout.view import *
 from terminal_layout.view.base import View
 
 
 class LayoutCtl(object):
     debug = False
+    version = 0
+    _drawing = False
+    _stop_flag = False
 
     def __init__(self, layout=None):
         self.layout = layout  # type:View
+        self.refresh_lock = threading.Lock()
+        self.refresh_thread = threading.Thread(
+            target=LayoutCtl.refresh,
+            args=(self,),
+            daemon=True
+        )
+
+    def is_stop(self):
+        return self._stop_flag
 
     @classmethod
     def quick(cls, layout_class, data):
@@ -74,18 +90,23 @@ class LayoutCtl(object):
         self.get_terminal_size()
         self.layout.update_width(self.width)
 
-    def draw(self):
+    def draw(self, auto_re_draw=True):
         term_init()
+        self.version += 1
         self.update_width()
         self.layout.draw()
 
         sys.stdout.write('\n')
         sys.stdout.flush()
+        if auto_re_draw:
+            self.refresh_thread.start()
 
     def clear(self):
         self.layout.clear()
 
     def re_draw(self):
+        self.refresh_lock.acquire()
+        self._drawing = True
         self.clear()
 
         self.update_width()
@@ -93,6 +114,116 @@ class LayoutCtl(object):
 
         sys.stdout.write('\n')
         sys.stdout.flush()
+        self._drawing = False
+        self.refresh_lock.release()
+
+    @staticmethod
+    def refresh(ctl):
+        while True:
+            if ctl.is_stop():
+                return
+            time.sleep(0.1)
+            ctl.re_draw()
 
     def find_view_by_id(self, id):
-        return self.layout.find_view_by_id(id)
+        v = self.layout.find_view_by_id(id)
+        if not v:
+            return None
+        return ViewProxy(self, v)
+
+    def get_input_text(self):
+        self.refresh_lock.acquire()
+        self.refresh_lock.release()
+
+    def stop(self):
+        self._stop_flag = True
+        while self._drawing:
+            time.sleep(0.1)
+
+
+class NULL:
+    pass
+
+
+class ViewProxy(object):
+    def __init__(self, ctl, view):
+        self.ctl = ctl  # type: LayoutCtl
+        self.view = view
+
+    def set(self, k, v, raise_error):
+        try:
+            setattr(self.view, k, v)
+        except Exception as e:
+            if raise_error:
+                raise e
+
+    def set_width(self, width, raise_error=False):
+        self.set('width', width, raise_error)
+
+    def set_visibility(self, visibility, raise_error=False):
+        self.set('visibility', visibility, raise_error)
+
+    def set_gravity(self, gravity, raise_error=False):
+        self.set('gravity', gravity, raise_error)
+
+    def set_text(self, text, raise_error=False):
+        self.set('text', text, raise_error)
+
+    def set_back(self, back, raise_error=False):
+        self.set('back', back, raise_error)
+
+    def set_style(self, style, raise_error=False):
+        self.set('style', style, raise_error)
+
+    def set_fore(self, fore, raise_error=False):
+        self.set('fore', fore, raise_error)
+
+    def set_weight(self, weight, raise_error=False):
+        self.set('weight', weight, raise_error)
+
+    def delay_set_text(self, text, delay=0.3):
+        """
+        set text one by one
+        """
+        s = ''
+        for c in text:
+            s += c
+            self.set_text(s, raise_error=True)
+            time.sleep(delay)
+
+    def get(self, k, default):
+        """
+        When default == NULL , it is raised an error when the attribute doesn't exist
+        如果default为NULL，当不存在变量时会抛错
+        """
+        if default == NULL:
+            return getattr(self.view, k)
+        else:
+            return getattr(self.view, k, default)
+
+    def get_width(self, default=NULL):
+        return self.get('width', default)
+
+    def get_real_width(self, default=NULL):
+        return self.get('real_width', default)
+
+    def get_visibility(self, default=NULL):
+        return self.get('visibility', default)
+
+    def get_gravity(self, default=NULL):
+        return self.get('gravity', default)
+
+    def get_text(self, default=NULL):
+        return self.get('text', default)
+
+    def get_back(self, default=NULL):
+        return self.get('back', default)
+
+    def get_style(self, default=NULL):
+        self.get('style', default)
+
+    def get_fore(self, default=NULL):
+        self.get('fore', default)
+
+    def get_weight(self, default=NULL):
+        self.get('weight', default)

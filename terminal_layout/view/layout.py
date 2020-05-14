@@ -11,7 +11,7 @@ from terminal_layout.view.text_view import TextView
 
 
 class TableRow(View):
-    data = None  # type:list[TextView]
+    __slots__ = ('back', 'child_width')
 
     def __init__(self, id, width=Width.fill, height=1, back=None, visibility=Visibility.visible, gravity=Gravity.left):
         """
@@ -29,6 +29,7 @@ class TableRow(View):
 
         super(TableRow, self).__init__(id, width, height, visibility, gravity)
         self.back = back or ''
+        self.data = None  # type:list[TextView]
 
     @classmethod
     def quick_init(cls, id, data, width=Width.fill, height=1, back=None, visibility=Visibility.visible,
@@ -130,7 +131,6 @@ class TableRow(View):
 
 
 class TableLayout(View):
-    data = None  # type: list[TableRow]
 
     def __init__(self, id, width=Width.fill, height=1, visibility=Visibility.visible):
         """
@@ -143,10 +143,10 @@ class TableLayout(View):
         :type width:
         :type height:int
         :type visibility:str
-        :type gravity:str
         """
 
         super(TableLayout, self).__init__(id, width, height, visibility, Gravity.left)
+        self.data = None  # type: list[TableRow]
 
     @classmethod
     def quick_init(cls, id, data, width=Width.fill, height=1, visibility=Visibility.visible):
