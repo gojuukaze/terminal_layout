@@ -1,10 +1,10 @@
 """
 based on https://github.com/magmax/python-readchar
+
+support python 3+
 """
 import sys
 
-if sys.platform in ('win32', 'cygwin'):
-    from terminal_layout.readkey.windows import readkey
-else:
-    from terminal_layout.readkey.linux import readkey
-
+if sys.version_info >= (3, 0):
+    from terminal_layout.readkey.key import Key
+    from terminal_layout.readkey.listener import KeyListener

@@ -25,6 +25,7 @@ class LayoutCtl(object):
             args=(self,),
             daemon=True
         )
+        self.key_map = {}
 
     def is_stop(self):
         return self._stop_flag
