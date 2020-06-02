@@ -5,6 +5,12 @@ import platform
 import threading
 import time
 
+try:
+    # py3
+    from queue import Queue
+except:
+    from Queue import Queue
+
 from terminal_layout.ansi import term_init
 from terminal_layout.logger import logger
 from terminal_layout.view import *
@@ -20,12 +26,12 @@ class LayoutCtl(object):
     def __init__(self, layout=None):
         self.layout = layout  # type:View
         self.refresh_lock = threading.Lock()
+        self.queue = Queue(1)
         self.refresh_thread = threading.Thread(
             target=LayoutCtl.refresh,
             args=(self,),
             daemon=True
         )
-        self.key_map = {}
 
     def is_stop(self):
         return self._stop_flag
@@ -41,13 +47,15 @@ class LayoutCtl(object):
         """
         if layout_class is TableLayout:
 
-            table_layout = TableLayout('', Width.fill)
+            table_layout = TableLayout('root', Width.fill)
+            i = 0
             for row_data in data:
-                table_row = TableRow.quick_init('', row_data, width=Width.fill)
+                table_row = TableRow.quick_init('root_row_' + str(i), row_data, width=Width.fill)
                 table_layout.add_view(table_row)
+                i += 1
             return cls(table_layout)
         elif layout_class is TableRow:
-            row = TableRow.quick_init('', data, width=Width.fill)
+            row = TableRow.quick_init('root', data, width=Width.fill)
             return cls(row)
         else:
             raise TypeError("quick not support %s" % (str(layout_class, )))
@@ -86,6 +94,7 @@ class LayoutCtl(object):
 
         if platform.system() == 'Windows':
             self.width -= 1
+        return self.width, self.height
 
     def update_width(self):
         self.get_terminal_size()
@@ -107,7 +116,6 @@ class LayoutCtl(object):
 
     def re_draw(self):
         self.refresh_lock.acquire()
-        self._drawing = True
         self.clear()
 
         self.update_width()
@@ -115,38 +123,38 @@ class LayoutCtl(object):
 
         sys.stdout.write('\n')
         sys.stdout.flush()
-        self._drawing = False
         self.refresh_lock.release()
 
     @staticmethod
     def refresh(ctl):
         while True:
             if ctl.is_stop():
-                return
+                break
             time.sleep(0.1)
             ctl.re_draw()
+        ctl.queue.put(1)
 
     def find_view_by_id(self, id):
         v = self.layout.find_view_by_id(id)
         if not v:
             return None
-        return ViewProxy(self, v)
-
-    def get_input_text(self):
-        self.refresh_lock.acquire()
-        self.refresh_lock.release()
+        if isinstance(v, TextView):
+            return TextViewProxy(self, v)
+        else:
+            return LayoutProxy(self, v)
 
     def stop(self):
-        self._stop_flag = True
-        while self._drawing:
-            time.sleep(0.1)
+        if not self.is_stop():
+            self._stop_flag = True
+            self.queue.get()
+            self.re_draw()
 
 
 class NULL:
     pass
 
 
-class ViewProxy(object):
+class BaseViewProxy(object):
     def __init__(self, ctl, view):
         self.ctl = ctl  # type: LayoutCtl
         self.view = view
@@ -228,3 +236,57 @@ class ViewProxy(object):
 
     def get_weight(self, default=NULL):
         self.get('weight', default)
+
+
+class TextViewProxy(BaseViewProxy):
+
+    def set_text(self, text, raise_error=False):
+        self.set('text', text, raise_error)
+
+    def set_back(self, back, raise_error=False):
+        self.set('back', back, raise_error)
+
+    def set_style(self, style, raise_error=False):
+        self.set('style', style, raise_error)
+
+    def set_fore(self, fore, raise_error=False):
+        self.set('fore', fore, raise_error)
+
+    def set_weight(self, weight, raise_error=False):
+        self.set('weight', weight, raise_error)
+
+    def delay_set_text(self, text, delay=0.3):
+        """
+        set text one by one
+        """
+        s = ''
+        for c in text:
+            s += c
+            self.set_text(s, raise_error=True)
+            time.sleep(delay)
+
+    def get_text(self, default=NULL):
+        return self.get('text', default)
+
+    def get_back(self, default=NULL):
+        return self.get('back', default)
+
+    def get_style(self, default=NULL):
+        self.get('style', default)
+
+    def get_fore(self, default=NULL):
+        self.get('fore', default)
+
+    def get_weight(self, default=NULL):
+        self.get('weight', default)
+
+
+class LayoutProxy(BaseViewProxy):
+    def add_view(self, v):
+        self.view.add_view(v)
+
+    def add_views(self, *views):
+        self.view.add_views(*views)
+
+    def add_view_list(self, views):
+        self.view.add_view_list(views)

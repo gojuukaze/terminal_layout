@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import subprocess
-import os
 import sys
 
 from terminal_layout.ansi import Cursor, clear_line, Style
@@ -29,7 +27,7 @@ class TableRow(View):
 
         super(TableRow, self).__init__(id, width, height, visibility, gravity)
         self.back = back or ''
-        self.data = None  # type:list[TextView]
+        self.data = []  # type:list[TextView]
 
     @classmethod
     def quick_init(cls, id, data, width=Width.fill, height=1, back=None, visibility=Visibility.visible,
@@ -56,6 +54,9 @@ class TableRow(View):
         if not isinstance(v, TextView):
             raise TypeError('only support add TextView')
         self.data.append(v)
+
+    def add_views(self, *views):
+        self.data += views
 
     def add_view_list(self, views):
         self.data += views
@@ -118,9 +119,9 @@ class TableRow(View):
             _width = max(0, _width)
 
         if weight_view:
-            per_weight = _width / float(all_weight)
+            per_width = _width / float(all_weight)
             for v in weight_view:
-                v.real_width = int(v.weight * per_weight)
+                v.real_width = int(v.weight * per_width)
 
         self.child_width = sum([v.real_width for v in self.data])
 
@@ -146,7 +147,7 @@ class TableLayout(View):
         """
 
         super(TableLayout, self).__init__(id, width, height, visibility, Gravity.left)
-        self.data = None  # type: list[TableRow]
+        self.data = []  # type: list[TableRow]
 
     @classmethod
     def quick_init(cls, id, data, width=Width.fill, height=1, visibility=Visibility.visible):
@@ -169,6 +170,10 @@ class TableLayout(View):
     def add_view(self, v):
 
         self.data.append(v)
+
+    def add_views(self, *views):
+
+        self.data += views
 
     def add_view_list(self, views):
         self.data += views
