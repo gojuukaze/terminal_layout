@@ -11,7 +11,7 @@ from terminal_layout.logger import logger
 from terminal_layout.readkey.key import Key
 
 
-def readkey():
+def readkey2():
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
     try:
@@ -28,22 +28,22 @@ def readkey():
     return c
 
 
-def readkey_old():
+def readkey():
     fd = sys.stdin.fileno()
-    old_ttyinfo = termios.tcgetattr(fd)
+    old_settings = termios.tcgetattr(fd)
     # 配置终端
-    new_ttyinfo = old_ttyinfo[:]
+    new_settings = old_settings[:]
 
     # 使用非规范模式(索引3是c_lflag 也就是本地模式)
-    new_ttyinfo[3] &= ~termios.ICANON
+    new_settings[3] &= ~termios.ICANON
     # # 关闭回显(输入不会被显示)
-    new_ttyinfo[3] &= ~termios.ECHO
+    new_settings[3] &= ~termios.ECHO
     try:
-        termios.tcsetattr(fd, termios.TCSANOW, new_ttyinfo)
-        c = os.read(fd, 2)
+        termios.tcsetattr(fd, termios.TCSANOW, new_settings)
+        c = os.read(fd, 3)
         c = str(c, encoding='utf-8')
     finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old_ttyinfo)
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     if c == Key.CTRL_C:
         raise KeyboardInterrupt
     return c

@@ -74,7 +74,7 @@ class KeyListener(object):
 
     def listen(self, stop_key=None):
         """
-        
+
         :param stop_key: key or regular expression; default [Key.ESC]
         :type stop_key: list
         :return: 
