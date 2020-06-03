@@ -56,7 +56,7 @@ There are several parameter you can set:
 |---------------|----------------------|----------------------------------------------|
 | prefix        |                      | prefix string                                |
 | max           |                      | maximum value                                |
-| delimiter     | `[" |","| "]`        | delimiter list                               |
+| delimiter     | `[" \|","\| "]`        | delimiter list                               |
 | reached       | '█'                  |                                              |
 | unreached     | ''                   |                                              |
 | suffix\_style | SuffixStyle\.percent | SuffixStyle class variable                   |
