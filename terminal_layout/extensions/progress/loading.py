@@ -87,7 +87,7 @@ class Loading(Progress):
         if self.suffix_style == SuffixStyle.percent:
             suffix_width = 4
         else:
-            suffix_width = len(str(max)) * 2 + 1
+            suffix_width = len(str(self.max)) * 2 + 1
 
         self.ctl = LayoutCtl.quick(TableLayout,
                                    [[TextView('prefix', self.prefix, width=prefix_width),

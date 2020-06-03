@@ -1,6 +1,8 @@
 # progress
 loading and progress bar
 
+![](../../../pic/progress.gif)
+
 * [Progress](#Progress)
 * [Loading](#Loading)
 
