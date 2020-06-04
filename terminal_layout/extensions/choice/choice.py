@@ -70,6 +70,5 @@ class Choice(object):
         self.ctl.re_draw()
 
     def select(self, kl, event):
-        logger.info(event)
         self.result = (self.current, self.choices[self.current])
         kl.stop()

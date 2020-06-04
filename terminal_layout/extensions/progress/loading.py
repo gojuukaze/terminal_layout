@@ -66,11 +66,9 @@ class Loading(Progress):
     def run_with_lock(self, func, args=None):
         if args == None:
             args = []
-        logger.info('run %s,%s', func.__name__, str(args))
         self.lock.acquire()
         func(*args)
         self.lock.release()
-        logger.info('run %s end', func.__name__)
 
     def add_progress(self, num):
         self.run_with_lock(super().add_progress, [num])
