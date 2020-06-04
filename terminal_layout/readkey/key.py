@@ -10,7 +10,7 @@ class KeyInfo:
 
 
 class Key:
-    ENTER = KeyInfo('enter', '\x0d')
+    ENTER = KeyInfo('enter', '\n')
     TAB = KeyInfo('tab', '\x09')
     BACKSPACE = KeyInfo('backspace', '\x7f')
     ESC = KeyInfo('esc', '\x1b')

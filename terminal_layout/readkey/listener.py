@@ -2,6 +2,7 @@ import re
 import sys
 from datetime import datetime
 
+from terminal_layout.logger import logger
 from terminal_layout.readkey.key import Key, KeyInfo
 from terminal_layout.readkey.event import KeyPressEvent
 
@@ -29,11 +30,13 @@ code_to_name = get_code_to_name()
 def readkey():
     c = _readkey()
     n = datetime.now()
-    if c.isprintable():
-        return KeyPressEvent(KeyInfo(c, c), n)
-    else:
-        name = code_to_name.get(c, 'unknown')
+    name = code_to_name.get(c, None)
+    if name:
         return KeyPressEvent(KeyInfo(name, c), n)
+    if repr(c).startswith("'\\x"):
+        return KeyPressEvent(KeyInfo('unknown', c), n)
+    else:
+        return KeyPressEvent(KeyInfo(c, c), n)
 
 
 class KeyListener(object):
@@ -43,12 +46,13 @@ class KeyListener(object):
         self.re_func = {}
         self.stop_flag = False
 
-    def bind_key(self, *args, decorator=True):
+    def bind_key(self, *args, **kwargs):
         """
         args: key or regular expression;
         :param args:
-        :param decorator:
+        :param kwargs:
         """
+        decorator = kwargs.get('decorator', True)
         if decorator:
             keys = args
         else:

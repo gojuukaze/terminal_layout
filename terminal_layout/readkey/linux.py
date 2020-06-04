@@ -41,7 +41,15 @@ def readkey():
     try:
         termios.tcsetattr(fd, termios.TCSANOW, new_settings)
         c = os.read(fd, 3)
-        c = str(c, encoding='utf-8')
+        if isinstance(c, str):
+            # py2
+            c = c.decode('utf-8')
+        else:
+            # py3
+            try:
+                c = str(c, encoding='utf-8')
+            except:
+                c = ''
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     if c == Key.CTRL_C:
