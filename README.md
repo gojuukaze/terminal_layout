@@ -3,7 +3,7 @@
 The project help you to quickly build layouts in terminal  
 (这个一个命令行ui布局工具)
 
-<img src="pic/demo.gif"  alt="demo.gif" width="480"/>
+<img src="pic/demo.gif"  alt="demo.gif" width="400"/>
 
 
 [![asciicast](https://asciinema.org/a/226120.svg)](https://asciinema.org/a/226120)
