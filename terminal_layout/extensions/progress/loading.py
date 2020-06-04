@@ -47,6 +47,7 @@ class Loading(Progress):
             target=self.update_infix,
             args=(self,)
         )
+        self.update_infix_thread.daemon = True
         self.stop_flag = False
 
     @staticmethod

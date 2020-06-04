@@ -7,9 +7,10 @@ import time
 
 try:
     # py3
-    from queue import Queue
+    from os import get_terminal_size
 except:
-    from Queue import Queue
+    # py2
+    from backports.shutil_get_terminal_size import get_terminal_size
 
 from terminal_layout.ansi import term_init
 from terminal_layout.logger import logger
@@ -26,12 +27,11 @@ class LayoutCtl(object):
     def __init__(self, layout=None):
         self.layout = layout  # type:View
         self.refresh_lock = threading.Lock()
-        self.queue = Queue(1)
         self.refresh_thread = threading.Thread(
             target=LayoutCtl.refresh,
             args=(self,),
         )
-        self.refresh_thread.daemon=True
+        self.refresh_thread.daemon = True
 
     def is_stop(self):
         return self._stop_flag
@@ -72,25 +72,19 @@ class LayoutCtl(object):
         """
 
         :return:
-        :rtype:View
+        :rtype:LayoutProxy
         """
-        return self.layout
+        return LayoutProxy(self, self.layout)
 
     def get_terminal_size(self):
         if self.debug:
             self.height = 10
             self.width = 50
             return
-        try:
-            size = os.get_terminal_size()
-            self.height = size.lines
-            self.width = size.columns
-        except:
-            # py2
-            from backports.shutil_get_terminal_size import get_terminal_size
-            size = get_terminal_size()
-            self.height = size.lines
-            self.width = size.columns
+
+        size = get_terminal_size()
+        self.height = size.lines
+        self.width = size.columns
 
         if platform.system() == 'Windows':
             self.width -= 1
@@ -132,7 +126,6 @@ class LayoutCtl(object):
                 break
             time.sleep(0.1)
             ctl.re_draw()
-        ctl.queue.put(1)
 
     def find_view_by_id(self, id):
         v = self.layout.find_view_by_id(id)
@@ -146,7 +139,7 @@ class LayoutCtl(object):
     def stop(self):
         if not self.is_stop():
             self._stop_flag = True
-            self.queue.get()
+            self.refresh_thread.join()
             self.re_draw()
 
 
@@ -209,6 +202,9 @@ class BaseViewProxy(object):
             return getattr(self.view, k)
         else:
             return getattr(self.view, k, default)
+
+    def get_id(self, default=NULL):
+        return self.get('id', default)
 
     def get_width(self, default=NULL):
         return self.get('width', default)
@@ -290,3 +286,6 @@ class LayoutProxy(BaseViewProxy):
 
     def add_view_list(self, views):
         self.view.add_view_list(views)
+
+    def insert_view(self, i, view):
+        self.view.insert(i, view)
