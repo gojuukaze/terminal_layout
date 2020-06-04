@@ -30,8 +30,8 @@ class LayoutCtl(object):
         self.refresh_thread = threading.Thread(
             target=LayoutCtl.refresh,
             args=(self,),
-            daemon=True
         )
+        self.refresh_thread.daemon=True
 
     def is_stop(self):
         return self._stop_flag
@@ -88,7 +88,7 @@ class LayoutCtl(object):
         except:
             # py2
             from backports.shutil_get_terminal_size import get_terminal_size
-            size = os.get_terminal_size()
+            size = get_terminal_size()
             self.height = size.lines
             self.width = size.columns
 
