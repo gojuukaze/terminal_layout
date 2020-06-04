@@ -8,6 +8,10 @@ class KeyInfo:
             return self.code == other.code
         return self.code == other
 
+    def __str__(self):
+        return '<%s>' % self.name
+    def __repr__(self):
+        return self.__str__()
 
 class Key:
     ENTER = KeyInfo('enter', '\n')
@@ -37,5 +41,3 @@ class Key:
     F6 = KeyInfo('f6', '\x1b[17~')
     F7 = KeyInfo('f7', '\x1b[18~')
     F8 = KeyInfo('f8', '\x1b[19~')
-
-
