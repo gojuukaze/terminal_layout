@@ -130,6 +130,8 @@ ctl.draw()
 
 ## TextView Properties
 
+<details>
+<summary>TextView Properties</summary>
 属性说明
 
  * fore & back
@@ -138,6 +140,7 @@ ctl.draw()
 TextView('','fore',fore=Fore.red)
 TextView('','back',back=Back.red)
 ```
+
 <img width="560" src="pic/color.jpeg"/>
 
  * style
@@ -145,6 +148,7 @@ TextView('','back',back=Back.red)
 ```python
 TextView('','style',style=Style.dim)
 ```
+
 <img width="560" src="pic/style.jpeg"/>
 
  * width
@@ -152,6 +156,7 @@ TextView('','style',style=Style.dim)
 ```python
 TextView('','width',width=10)
 ```
+
 <img width="560" src="pic/width.jpeg"/>
 
 
@@ -168,6 +173,7 @@ TextView('','weight',weight=1)
 ```python
 TextView('','gravity',gravity=Gravity.left)
 ```
+
 <img width="560" src="pic/gravity.jpeg"/>
 
 
@@ -176,6 +182,7 @@ TextView('','gravity',gravity=Gravity.left)
 ```python
 TextView('','',visibility=Visibility.visible)
 ```
+
 <img width="560" src="pic/visibility.jpeg"/>
 
 
@@ -185,6 +192,7 @@ TextView('','',visibility=Visibility.visible)
 ```python
 TextView('','ex_style',style=Style.ex_blink)
 ```
+
 <img width="560" src="pic/ex_style.jpeg"/>
 
  * ex_fore & ex_back (not support windows)
@@ -195,7 +203,11 @@ TextView('','ex_fore',fore=Fore.ex_red_1)
 TextView('','ex_back',back=Back.ex_red_1)
 
 ```
+
 <img width="560" src="pic/ex_color.jpeg"/>
+
+
+</details>
 
 
 
