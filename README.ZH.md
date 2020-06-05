@@ -7,7 +7,7 @@ The project help you to quickly build layouts in terminal
 
 ----------------
 
-**Some extensions base on terminal_layout**
+**基于terminal_layout的扩展**
 
 * [progress](terminal_layout/extensions/progress/README.md)
 
@@ -17,17 +17,14 @@ The project help you to quickly build layouts in terminal
 
 ![choice.gif](pic/choice.gif)
 
-
-
 # link
 
 * [All Demo](https://github.com/gojuukaze/terminal_layout/tree/master/demo) 
 * [Github](https://github.com/gojuukaze/terminal_layout) 
-* [中文README](README.ZH.md) 
-* [Docs](https://terminal-layout.readthedocs.io) 
+* [文档](https://terminal-layout.readthedocs.io) 
 * [https://asciinema.org/a/226120](https://asciinema.org/a/226120) 
 
-# install 
+# 安装 
 ```bash
 pip install terminal-layout
 ```
@@ -55,15 +52,14 @@ layout.set_width(20)
 # default: auto_re_draw=True
 ctl.draw()
 
-# call delay_set_text() must be set auto_re_draw=True,
-# otherwise you must start a thread to call re_draw() by yourself
+# 如果使用delay_set_text(), 必须把auto_re_draw设为True，否则你需要自己在线程中执行re_draw()
 ctl.find_view_by_id('t2').delay_set_text('你好,世界!', delay=0.2)
 
 time.sleep(0.5)
 row3 = TableRow.quick_init('', [TextView('t3', 'こんにちは、世界!')])
 layout.add_view(row3)
 
-# If you call draw() with auto_re_draw=True, you must stop()
+# 如果执行draw()时auto_re_draw=True，你必须执行stop()
 ctl.stop()
 
 ```
@@ -97,7 +93,7 @@ row3 = TableRow.quick_init('', [TextView('t3', 'こんにちは、世界!')])
 layout.add_view(row3)
 ctl.re_draw()
 
-# don't need call stop()
+# 不需执行stop()
 # ctl.stop()
 ```
 
@@ -126,7 +122,7 @@ ctl.draw()
 ![](pic/py2.png)
 
 
-## TextView Properties
+## TextView属性
 
  * fore & back
  

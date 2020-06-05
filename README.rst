@@ -8,27 +8,27 @@ terminal_layout
 
    <img src="pic/demo.gif"  alt="demo.gif" width="400"/>
 
-**Extensions**
-
--  `progress`_
-
-|image0|
-
--  `choice`_
-
-|image1|
-
 --------------
 
-|asciicast|
+**Some extensions base on terminal_layout**
+
+-  `progress <terminal_layout/extensions/progress/README.md>`__
+
+|progress.gif|
+
+-  `choice <terminal_layout/extensions/choice/README.md>`__
+
+|choice.gif|
 
 link
 ====
 
--  `All Demo`_
--  `GIthub`_
--  `Docs`_
--  `https://asciinema.org/a/226120`_
+-  `All
+   Demo <https://github.com/gojuukaze/terminal_layout/tree/master/demo>`__
+-  `Github <https://github.com/gojuukaze/terminal_layout>`__
+-  `中文README <README.ZH.md>`__
+-  `Docs <https://terminal-layout.readthedocs.io>`__
+-  `https://asciinema.org/a/226120 <https://asciinema.org/a/226120>`__
 
 install
 =======
@@ -64,7 +64,6 @@ Usage
 
    # call delay_set_text() must be set auto_re_draw=True,
    # otherwise you must start a thread to call re_draw() by yourself
-   # 如果使用delay_set_text(), 必须把auto_re_draw设为True，否则你需要自己在线程中执行re_draw()
    ctl.find_view_by_id('t2').delay_set_text('你好,世界!', delay=0.2)
 
    time.sleep(0.5)
@@ -72,10 +71,9 @@ Usage
    layout.add_view(row3)
 
    # If you call draw() with auto_re_draw=True, you must stop()
-   # 如果执行draw()时auto_re_draw=True，你必须执行stop()
    ctl.stop()
 
-|image3|
+|image2|
 
 -  use ``re_draw()``
 
@@ -107,9 +105,7 @@ Usage
    ctl.re_draw()
 
    # don't need call stop()
-   # 不需执行stop()
    # ctl.stop()
-
 
 -  use python2 unicode
 
@@ -125,17 +121,114 @@ Usage
                          [
                              [TextView('', u'中文，你好', back=Back.cyan, width=Width.wrap)],
                              [TextView('', u'中文，你好', back=Back.cyan, width=6)],
-                             [TextView('', u'日本語，こんにちは', ba
+                             [TextView('', u'日本語，こんにちは', back=Back.cyan, width=Width.wrap)],
+                         ]
 
-.. _progress: terminal_layout/extensions/progress/README.md
-.. _choice: terminal_layout/extensions/choice/README.md
-.. _All Demo: https://github.com/gojuukaze/terminal_layout/tree/master/demo
-.. _GIthub: https://github.com/gojuukaze/terminal_layout
-.. _Docs: https://terminal-layout.readthedocs.io
-.. _`https://asciinema.org/a/226120`: https://asciinema.org/a/226120
+                         )
 
-.. |image0| image:: pic/progress.gif
-.. |image1| image:: pic/choice.gif
-.. |asciicast| image:: https://asciinema.org/a/226120.svg
-   :target: https://asciinema.org/a/226120
-.. |image3| image:: pic/hello.png
+   ctl.draw()
+
+|image3|
+
+TextView Properties
+-------------------
+
+-  fore & back
+
+.. code:: python
+
+   TextView('','fore',fore=Fore.red)
+   TextView('','back',back=Back.red)
+
+.. raw:: html
+
+   <img width="560" src="pic/color.jpeg"/>
+
+-  style
+
+.. code:: python
+
+   TextView('','style',style=Style.dim)
+
+.. raw:: html
+
+   <img width="560" src="pic/style.jpeg"/>
+
+-  width
+
+.. code:: python
+
+   TextView('','width',width=10)
+
+.. raw:: html
+
+   <img width="560" src="pic/width.jpeg"/>
+
+-  weight
+
+.. code:: python
+
+   TextView('','weight',weight=1)
+
+.. raw:: html
+
+   <img width="560" src="pic/weight.jpeg"/>
+
+-  gravity
+
+.. code:: python
+
+   TextView('','gravity',gravity=Gravity.left)
+
+.. raw:: html
+
+   <img width="560" src="pic/gravity.jpeg"/>
+
+-  visibility
+
+.. code:: python
+
+   TextView('','',visibility=Visibility.visible)
+
+.. raw:: html
+
+   <img width="560" src="pic/visibility.jpeg"/>
+
+-  ex_style (not support windows)
+
+.. code:: python
+
+   TextView('','ex_style',style=Style.ex_blink)
+
+.. raw:: html
+
+   <img width="560" src="pic/ex_style.jpeg"/>
+
+-  ex_fore & ex_back (not support windows)
+
+.. code:: python
+
+   TextView('','ex_fore',fore=Fore.ex_red_1)
+   TextView('','ex_back',back=Back.ex_red_1)
+
+.. raw:: html
+
+   <img width="560" src="pic/ex_color.jpeg"/>
+
+LICENSE
+=======
+
+`GPLv3 <https://github.com/gojuukaze/terminal_layout/blob/master/LICENSE>`__
+
+Thanks
+======
+
+-  `colorama <https://github.com/tartley/colorama>`__ : Simple
+   cross-platform colored terminal text in Python
+-  `colored <https://gitlab.com/dslackw/colored>`__ : Very simple Python
+   library for color and formatting in terminal
+
+.. |progress.gif| image:: pic/progress.gif
+.. |choice.gif| image:: pic/choice.gif
+.. |image2| image:: pic/hello.png
+.. |image3| image:: pic/py2.png
