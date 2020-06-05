@@ -14,19 +14,33 @@ Welcome to terminal_layout's documentation!
 .. image:: https://asciinema.org/a/226120.svg
    :target: https://asciinema.org/a/226120
 
+你可以从 :doc:`getStarted` 开始学习如何使用terminal_layout
+
+
+Link
+===============
+
+-  `All
+   Demo <https://github.com/gojuukaze/terminal_layout/tree/master/demo>`__
+-  `Github <https://github.com/gojuukaze/terminal_layout>`__
+-  `中文README <README.ZH.md>`__
+-  `Docs <https://terminal-layout.readthedocs.io>`__
+-  `https://asciinema.org/a/226120 <https://asciinema.org/a/226120>`__
+
+------------
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   introduction
+   getStarted
    installation
-   tutorial/index
-   LayoutCtl
-   View
+   draw
+   keyListener
    Properties
+   View
+   extensions/index
+   changelog
    FAQ
-
-
-
 
 Indices and tables
 ==================

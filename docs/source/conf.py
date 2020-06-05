@@ -24,9 +24,9 @@ copyright = '2019, gojuukaze'
 author = 'gojuukaze'
 
 # The short X.Y version
-version = ''
+version = '2.0.0'
 # The full version, including alpha/beta/rc tags
-release = ''
+release = '2.0.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -38,8 +38,7 @@ release = ''
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-]
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.graphviz']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -66,7 +65,7 @@ language = 'zh_CN'
 exclude_patterns = []
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = None
+pygments_style = 'sphinx'
 
 
 # -- Options for HTML output -------------------------------------------------
