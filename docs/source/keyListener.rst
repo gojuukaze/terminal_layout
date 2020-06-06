@@ -52,10 +52,14 @@ bind_key
 name     keys
 ======== ==============================================================
 Arrows   UP, DOWN, LEFT, RIGHT
-Control+ CTRL_A, CTRL_B, CTRL_C, CTRL_D, CTRL_E, CTRL_F, CTRL_X, CTRL_Z
+Control+ CTRL_A, CTRL_B, CTRL_D, CTRL_E, CTRL_F, CTRL_X, CTRL_Z
 F        F1, F2, F3, F4, F5, F6, F7, F8
 Other    ENTER, TAB, BACKSPACE, ESC
 ======== ==============================================================
+
+.. note::
+   
+   不支持绑定 CTRL_C
 
 停止监听
 --------------
