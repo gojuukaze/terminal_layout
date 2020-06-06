@@ -1,3 +1,5 @@
+import sys
+
 from terminal_layout import *
 from terminal_layout.helper.class_helper import instance_variables
 from terminal_layout.logger import logger
@@ -38,6 +40,8 @@ class Progress(object):
             self.delimiter = [' |', '| ']
         assert self.max > 0
         self.current_progress = 0
+        if sys.platform in ('win32', 'cygwin'):
+            self.reached = '='
 
     def get_suffix(self):
         fraction = '%d/%d' % (self.current_progress, self.max)
@@ -52,7 +56,6 @@ class Progress(object):
             num = 0
         self.current_progress = num
         self.update()
-        self.ctl.re_draw()
 
     def add_progress(self, num):
         if num < 0:

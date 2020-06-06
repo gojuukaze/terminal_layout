@@ -56,8 +56,8 @@ There are several parameter you can set:
 |---------------|----------------------|----------------------------------------------|
 | prefix        |                      | prefix string                                |
 | max           |                      | maximum value                                |
-| delimiter     | `[" \|","\| "]`        | delimiter list                               |
-| reached       | '█'                  |                                              |
+| delimiter     | `[" \|","\| "]`      | delimiter list                               |
+| reached       | '█'(on linux); '='(on windows)   |                                  |
 | unreached     | ''                   |                                              |
 | suffix\_style | SuffixStyle\.percent | SuffixStyle class variable                   |
 | width         | ProgressWidth\.half  | a int number or ProgressWidth class variable |
@@ -73,6 +73,9 @@ recommend for the collocation of reached and unreached
 |   =     |     .     |
 |   ▓     |     ░     |
 
+> some special characters (█, ░) won't display correctly on Windows.  
+> 一些特殊字符（如：█, ░）在 Windows可能无法正确显示。
+> 具体表现为在多行显示progress
 
 ## Loading
 
