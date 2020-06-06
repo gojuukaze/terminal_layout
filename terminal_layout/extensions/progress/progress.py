@@ -102,6 +102,7 @@ class Progress(object):
     def stop(self):
         if self.ctl:
             self.ctl.stop()
+        self.ctl = None
 
     def is_finished(self):
         return self.current_progress >= self.max

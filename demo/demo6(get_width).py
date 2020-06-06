@@ -27,7 +27,7 @@ show_width(w1, w2, w3)
 print('==================')
 print(str(Fore.green) + "get width after draw()" + str(Style.reset_all))
 
-ctl.draw()
+ctl.draw(auto_re_draw=False)
 
 show_width(w1, w2, w3)
 print('==================')

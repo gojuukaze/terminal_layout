@@ -11,5 +11,5 @@ ctl = LayoutCtl.quick(TableLayout,
                           [TextView('', 'style = normal', style=Style.normal)]
                       ])
 
-ctl.draw()
+ctl.draw(auto_re_draw=False)
 

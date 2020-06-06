@@ -17,9 +17,17 @@ The project help you to quickly build layouts in terminal
 
 ![choice.gif](pic/choice.gif)
 
+
+-------------------
+
+** video demo **
+
+<a href="https://asciinema.org/a/226120">
+<img src="https://asciinema.org/a/226120.svg"  alt="asciicast" width="550"/>
+</a>
+
 # link
 
-* [All Demo](https://github.com/gojuukaze/terminal_layout/tree/master/demo) 
 * [Github](https://github.com/gojuukaze/terminal_layout) 
 * [文档](https://terminal-layout.readthedocs.io) 
 * [https://asciinema.org/a/226120](https://asciinema.org/a/226120) 
@@ -28,6 +36,10 @@ The project help you to quickly build layouts in terminal
 ```bash
 pip install terminal-layout
 ```
+
+# 依赖
+* Python 2.7, 3.5+ (maybe 3.4)
+* Linux, OS X, and Windows systems.
 
 # Usage
 
@@ -40,8 +52,8 @@ from terminal_layout import *
 ctl = LayoutCtl.quick(TableLayout,
                       # table id: root
                       [
-                          [TextView('t1', 'Hello World!', width=Width.fill, back=Back.blue)],  # <- row id: root_row_1,
-                          [TextView('t2', '', fore=Fore.magenta)],  # <- row id: root_row_2,
+                          [TextView('t1', 'Hello World!', width=Width.fill, back=Back.blue)],  # <- row id: root_row_00,
+                          [TextView('t2', '', fore=Fore.magenta)],  # <- row id: root_row_1,
                       ],
                       )
 
@@ -72,10 +84,9 @@ import time
 from terminal_layout import *
 
 ctl = LayoutCtl.quick(TableLayout,
-                      # table id: root
                       [
-                          [TextView('t1', 'Hello World!', width=Width.fill, back=Back.blue)],  # <- row id: root_row_1,
-                          [TextView('t2', '', fore=Fore.magenta)],  # <- row id: root_row_2,
+                          [TextView('t1', 'Hello World!', width=Width.fill, back=Back.blue)],
+                          [TextView('t2', '', fore=Fore.magenta)],
                       ],
                       )
 
@@ -122,7 +133,7 @@ ctl.draw()
 ![](pic/py2.png)
 
 
-## TextView属性
+## View的属性
 
  * fore & back
  

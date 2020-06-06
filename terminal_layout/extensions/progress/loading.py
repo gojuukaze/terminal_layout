@@ -104,6 +104,7 @@ class Loading(Progress):
         self.stop_flag = True
         if self.ctl:
             self.ctl.stop()
+            self.ctl = None
 
     def is_finished(self):
         return self.current_progress >= self.max

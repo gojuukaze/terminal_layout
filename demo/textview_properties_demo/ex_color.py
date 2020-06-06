@@ -521,4 +521,4 @@ ctl = LayoutCtl.quick(TableLayout,
                            TextView('', 'back = ex_grey_93', back=Back.ex_grey_93)]
                        ])
 
-ctl.draw()
+ctl.draw(auto_re_draw=False)

@@ -3,7 +3,7 @@
 The project help you to quickly build layouts in terminal  
 (这个一个命令行ui布局工具)
 
-<img src="pic/demo.gif"  alt="demo.gif" width="400"/>
+<img src="pic/demo.gif"  alt="demo.gif" width="450"/>
 
 ----------------
 
@@ -17,11 +17,17 @@ The project help you to quickly build layouts in terminal
 
 ![choice.gif](pic/choice.gif)
 
+-------------------
+
+** video demo **
+
+<a href="https://asciinema.org/a/226120">
+<img src="https://asciinema.org/a/226120.svg"  alt="asciicast" width="550"/>
+</a>
 
 
 # link
 
-* [All Demo](https://github.com/gojuukaze/terminal_layout/tree/master/demo) 
 * [Github](https://github.com/gojuukaze/terminal_layout) 
 * [中文README](README.ZH.md) 
 * [Docs](https://terminal-layout.readthedocs.io) 
@@ -31,6 +37,10 @@ The project help you to quickly build layouts in terminal
 ```bash
 pip install terminal-layout
 ```
+
+# Dependencies
+* Python 2.7, 3.5+ (maybe 3.4)
+* Linux, OS X, and Windows systems.
 
 # Usage
 
@@ -43,8 +53,8 @@ from terminal_layout import *
 ctl = LayoutCtl.quick(TableLayout,
                       # table id: root
                       [
-                          [TextView('t1', 'Hello World!', width=Width.fill, back=Back.blue)],  # <- row id: root_row_1,
-                          [TextView('t2', '', fore=Fore.magenta)],  # <- row id: root_row_2,
+                          [TextView('t1', 'Hello World!', width=Width.fill, back=Back.blue)],  # <- row id: root_row_0,
+                          [TextView('t2', '', fore=Fore.magenta)],  # <- row id: root_row_1,
                       ],
                       )
 
@@ -126,7 +136,7 @@ ctl.draw()
 ![](pic/py2.png)
 
 
-## TextView Properties
+## Properties
 
  * fore & back
  

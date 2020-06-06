@@ -6,7 +6,7 @@ terminal_layout
 
 .. raw:: html
 
-   <img src="pic/demo.gif"  alt="demo.gif" width="400"/>
+   <img src="pic/demo.gif"  alt="demo.gif" width="450"/>
 
 --------------
 
@@ -19,6 +19,16 @@ terminal_layout
 -  `choice <terminal_layout/extensions/choice/README.md>`__
 
 |choice.gif|
+
+--------------
+
+\*\* video demo \*\*
+
+.. raw:: html
+
+   <a href="https://asciinema.org/a/226120">
+   <img src="https://asciinema.org/a/226120.svg"  alt="asciicast" width="550"/>
+   </a>
 
 link
 ====
@@ -37,6 +47,12 @@ install
 
    pip install terminal-layout
 
+Dependencies
+============
+
+-  Python 2.7, 3.5+ (maybe 3.4)
+-  Linux, OS X, and Windows systems.
+
 Usage
 =====
 
@@ -50,8 +66,8 @@ Usage
    ctl = LayoutCtl.quick(TableLayout,
                          # table id: root
                          [
-                             [TextView('t1', 'Hello World!', width=Width.fill, back=Back.blue)],  # <- row id: root_row_1,
-                             [TextView('t2', '', fore=Fore.magenta)],  # <- row id: root_row_2,
+                             [TextView('t1', 'Hello World!', width=Width.fill, back=Back.blue)],  # <- row id: root_row_0,
+                             [TextView('t2', '', fore=Fore.magenta)],  # <- row id: root_row_1,
                          ],
                          )
 
@@ -130,8 +146,8 @@ Usage
 
 |image3|
 
-TextView Properties
--------------------
+Properties
+----------
 
 -  fore & back
 

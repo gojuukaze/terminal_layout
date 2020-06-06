@@ -11,4 +11,4 @@ ctl = LayoutCtl.quick(TableLayout,
 
 ctl.get_layout().set_width(50)
 
-ctl.draw()
+ctl.draw(auto_re_draw=False)
