@@ -4,9 +4,8 @@ terminal_layout
 | The project help you to quickly build layouts in terminal
 | (这个一个命令行ui布局工具)
 
-.. raw:: html
-
-   <img src="pic/demo.gif"  alt="demo.gif" width="450"/>
+.. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/demo.gif
+   :width: 450
 
 --------------
 
@@ -24,11 +23,10 @@ terminal_layout
 
 \*\* video demo \*\*
 
-.. raw:: html
+.. image:: https://asciinema.org/a/226120.svg
+   :width: 550
+   :target: https://asciinema.org/a/226120
 
-   <a href="https://asciinema.org/a/226120">
-   <img src="https://asciinema.org/a/226120.svg"  alt="asciicast" width="550"/>
-   </a>
 
 link
 ====
@@ -156,9 +154,8 @@ Properties
    TextView('','fore',fore=Fore.red)
    TextView('','back',back=Back.red)
 
-.. raw:: html
-
-   <img width="560" src="pic/color.jpeg"/>
+.. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/color.jpeg
+   :width: 560
 
 -  style
 
@@ -166,9 +163,8 @@ Properties
 
    TextView('','style',style=Style.dim)
 
-.. raw:: html
-
-   <img width="560" src="pic/style.jpeg"/>
+.. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/style.jpeg
+   :width: 560
 
 -  width
 
@@ -176,9 +172,8 @@ Properties
 
    TextView('','width',width=10)
 
-.. raw:: html
-
-   <img width="560" src="pic/width.jpeg"/>
+.. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/width.jpeg
+   :width: 560
 
 -  weight
 
@@ -186,9 +181,8 @@ Properties
 
    TextView('','weight',weight=1)
 
-.. raw:: html
-
-   <img width="560" src="pic/weight.jpeg"/>
+.. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/weight.jpeg
+   :width: 560
 
 -  gravity
 
@@ -196,9 +190,9 @@ Properties
 
    TextView('','gravity',gravity=Gravity.left)
 
-.. raw:: html
+.. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/gravity.jpeg
+   :width: 560
 
-   <img width="560" src="pic/gravity.jpeg"/>
 
 -  visibility
 
@@ -206,9 +200,8 @@ Properties
 
    TextView('','',visibility=Visibility.visible)
 
-.. raw:: html
-
-   <img width="560" src="pic/visibility.jpeg"/>
+.. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/visibility.jpeg
+   :width: 560
 
 -  ex_style (not support windows)
 
@@ -216,9 +209,8 @@ Properties
 
    TextView('','ex_style',style=Style.ex_blink)
 
-.. raw:: html
-
-   <img width="560" src="pic/ex_style.jpeg"/>
+.. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/ex_style.jpeg
+   :width: 560
 
 -  ex_fore & ex_back (not support windows)
 
@@ -227,9 +219,8 @@ Properties
    TextView('','ex_fore',fore=Fore.ex_red_1)
    TextView('','ex_back',back=Back.ex_red_1)
 
-.. raw:: html
-
-   <img width="560" src="pic/ex_color.jpeg"/>
+.. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/ex_color.jpeg
+   :width: 560
 
 LICENSE
 =======
@@ -244,7 +235,7 @@ Thanks
 -  `colored <https://gitlab.com/dslackw/colored>`__ : Very simple Python
    library for color and formatting in terminal
 
-.. |progress.gif| image:: pic/progress.gif
-.. |choice.gif| image:: pic/choice.gif
-.. |image2| image:: pic/hello.png
-.. |image3| image:: pic/py2.png
+.. |progress.gif| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/progress.gif
+.. |choice.gif| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/choice.gif
+.. |image2| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/hello.png
+.. |image3| image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/py2.png
