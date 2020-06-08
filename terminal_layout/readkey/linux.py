@@ -26,7 +26,6 @@ def readkey():
                 c = str(c, encoding='utf-8')
             except:
                 c = ''
-        print(c, repr(c))
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     if c == Key.CTRL_C:
