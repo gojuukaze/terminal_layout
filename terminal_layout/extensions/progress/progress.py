@@ -20,7 +20,7 @@ class Progress(object):
     ctl = None
 
     @instance_variables
-    def __init__(self, prefix, max, reached='█', unreached='', delimiter=None, suffix_style=SuffixStyle.percent,
+    def __init__(self, prefix, max, reached=None, unreached='', delimiter=None, suffix_style=SuffixStyle.percent,
                  width=ProgressWidth.half):
         """
 
@@ -40,8 +40,11 @@ class Progress(object):
             self.delimiter = [' |', '| ']
         assert self.max > 0
         self.current_progress = 0
-        if sys.platform in ('win32', 'cygwin'):
-            self.reached = '='
+        if self.reached is None:
+            if sys.platform in ('win32', 'cygwin'):
+                self.reached = '='
+            else:
+                self.reached = '█'
 
     def get_suffix(self):
         fraction = '%d/%d' % (self.current_progress, self.max)

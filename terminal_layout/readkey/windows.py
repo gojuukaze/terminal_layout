@@ -36,4 +36,4 @@ def readkey():
                 x = a + (b * 256)
                 return xlate_dict.get(x, None)
             else:
-                return ch.decode()
+                return xlate_dict.get(a, ch.decode())
