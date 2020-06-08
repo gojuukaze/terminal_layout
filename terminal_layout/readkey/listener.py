@@ -33,7 +33,7 @@ def readkey():
     name = code_to_name.get(c, None)
     if name:
         return KeyPressEvent(KeyInfo(name, c), n)
-    if repr(c).startswith("'\\x"):
+    if repr(c).startswith("'\\x") or repr(c).startswith("u'\\x"):
         return KeyPressEvent(KeyInfo('unknown', c), n)
     else:
         return KeyPressEvent(KeyInfo(c, c), n)

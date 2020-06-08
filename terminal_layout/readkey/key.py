@@ -14,7 +14,7 @@ class KeyInfo:
         return self.__str__()
 
 class Key:
-    ENTER = KeyInfo('enter', '\n')
+    ENTER = KeyInfo('enter', '\r')
     TAB = KeyInfo('tab', '\x09')
     BACKSPACE = KeyInfo('backspace', '\x7f')
     ESC = KeyInfo('esc', '\x1b')
@@ -37,7 +37,7 @@ class Key:
     F2 = KeyInfo('f2', '\x1bOQ')
     F3 = KeyInfo('f3', '\x1bOR')
     F4 = KeyInfo('f4', '\x1bOS')
-    F5 = KeyInfo('f5', '\x1b[15~')
-    F6 = KeyInfo('f6', '\x1b[17~')
-    F7 = KeyInfo('f7', '\x1b[18~')
-    F8 = KeyInfo('f8', '\x1b[19~')
+    F5 = KeyInfo('f5', '\x1b[15')
+    F6 = KeyInfo('f6', '\x1b[17')
+    F7 = KeyInfo('f7', '\x1b[18')
+    F8 = KeyInfo('f8', '\x1b[19')

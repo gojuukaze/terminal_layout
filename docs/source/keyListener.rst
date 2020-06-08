@@ -59,7 +59,7 @@ Other    ENTER, TAB, BACKSPACE, ESC
 
 .. note::
    
-   不支持绑定 CTRL_C
+   不支持绑定 CTRL_C ，Windows下不支持CTRL_Z
 
 停止监听
 --------------

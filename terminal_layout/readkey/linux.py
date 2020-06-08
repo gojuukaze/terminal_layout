@@ -11,16 +11,22 @@ from terminal_layout.logger import logger
 from terminal_layout.readkey.key import Key
 
 
-def readkey2():
+def readkey():
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
     try:
         tty.setraw(fd)
-        c = os.read(fd, 3)
-        try:
-            c = str(c, encoding='utf-8')
-        except:
-            c = ''
+        c = os.read(fd, 4)
+        if isinstance(c, str):
+            # py2
+            c = c.decode('utf-8')
+        else:
+            # py3
+            try:
+                c = str(c, encoding='utf-8')
+            except:
+                c = ''
+        print(c, repr(c))
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     if c == Key.CTRL_C:
@@ -28,7 +34,7 @@ def readkey2():
     return c
 
 
-def readkey():
+def readkey2():
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
     # 配置终端
@@ -40,7 +46,7 @@ def readkey():
     new_settings[3] &= ~termios.ECHO
     try:
         termios.tcsetattr(fd, termios.TCSANOW, new_settings)
-        c = os.read(fd, 3)
+        c = os.read(fd, 4)
         if isinstance(c, str):
             # py2
             c = c.decode('utf-8')
