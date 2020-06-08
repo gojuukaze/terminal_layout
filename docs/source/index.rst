@@ -23,7 +23,6 @@ Link
 -  `All
    Demo <https://github.com/gojuukaze/terminal_layout/tree/master/demo>`__
 -  `Github <https://github.com/gojuukaze/terminal_layout>`__
--  `中文README <README.ZH.md>`__
 -  `Docs <https://terminal-layout.readthedocs.io>`__
 -  `https://asciinema.org/a/226120 <https://asciinema.org/a/226120>`__
 

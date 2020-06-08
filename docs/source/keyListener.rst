@@ -38,35 +38,70 @@
 bind_key
 --------------
 
-``bind_key`` 接收的参数为 ``Key`` 的成员变量，正则表达式，或者"any"（任意按键）。
+``bind_key`` 绑定的key有三种类型：
 
-其有两种用法，装饰器模式和非装饰器模式。
+- Key的成员变量
+- 正则表达式
+- "any"（任意按键）
 
-非装饰器模式下，倒数第二个参数为回调的函数，最后一个参数必须是``decorator=False``
+其有两种用法，装饰器模式和非装饰器模；
+
+非装饰器模式下，倒数第二个参数为回调的函数，最后一个参数必须是 ``decorator=False``
 
 
-允许的key
+允许的Key
 ---------------
 
 ======== ==============================================================
 name     keys
 ======== ==============================================================
-Arrows   UP, DOWN, LEFT, RIGHT
-Control+ CTRL_A, CTRL_B, CTRL_D, CTRL_E, CTRL_F, CTRL_X, CTRL_Z
-F        F1, F2, F3, F4, F5, F6, F7, F8
-Other    ENTER, TAB, BACKSPACE, ESC
+Arrows   UP， DOWN， LEFT， RIGHT
+Control+ CTRL_A， CTRL_B， CTRL_D， CTRL_E， CTRL_F， CTRL_X， CTRL_Z
+F        F1， F2， F3， F4， F5， F6， F7， F8
+Other    ENTER， TAB， BACKSPACE， ESC
 ======== ==============================================================
 
 .. note::
    
-   不支持绑定 CTRL_C ，Windows下不支持CTRL_Z
+   不支持绑定 CTRL_C ，Windows下不支持CTRL_Z。
+
+   如果需要绑定 ESC ，记得修改stop_key。
 
 停止监听
 --------------
 
 有两种方法可以停止监听
 
-1. 回调函数中调用``stop()``
+1. 回调函数中调用 ``stop()``
 
-2. 开启监听时设置``stop_key`` ，如果不设置默认为[Key.ESC]
+2. 开启监听时设置 ``stop_key`` ，如果不设置默认为 [Key.ESC]
+
+绑定不在列表中的key
+----------------------
+
+bind_key的参数是非常宽松的，因此你可以绑定不在支持列表中的key
+
+.. code-block:: python
+
+    from terminal_layout import *
+    from terminal_layout.readkey.key import KeyInfo
+    
+    kl = KeyListener()
+    
+    ctrl_g = KeyInfo('ctrl_g', '\x07')
+    
+    @kl.bind_key(ctrl_g)
+    def _(kl, e):
+        print('按下 ctrl_g', e)
+    
+    
+    # or
+    ctrl_h_code = '\x08'
+    
+    @kl.bind_key(ctrl_h_code)
+    def _(kl, e):
+        print('按下 ctrl_h', e)
+    
+    
+    kl.listen()
 
