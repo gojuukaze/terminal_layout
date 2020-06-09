@@ -3,15 +3,33 @@
 The project help you to quickly build layouts in terminal  
 (这个一个命令行ui布局工具)
 
+<img src="pic/demo.gif"  alt="demo.gif" width="450"/>
 
-![](pic/demo.gif)
+----------------
 
-[![asciicast](https://asciinema.org/a/226120.svg)](https://asciinema.org/a/226120)
+**Some extensions base on terminal_layout**
+
+* [progress](terminal_layout/extensions/progress/README.md)
+
+![progress.gif](pic/progress.gif)
+
+* [choice](terminal_layout/extensions/choice/README.md)
+
+![choice.gif](pic/choice.gif)
+
+-------------------
+
+** video demo **
+
+<a href="https://asciinema.org/a/226120">
+<img src="https://asciinema.org/a/226120.svg"  alt="asciicast" width="550"/>
+</a>
+
 
 # link
 
-* [All Demo](https://github.com/gojuukaze/terminal_layout/tree/master/demo) 
-* [GIthub](https://github.com/gojuukaze/terminal_layout) 
+* [Github](https://github.com/gojuukaze/terminal_layout) 
+* [中文README](README.ZH.md) 
 * [Docs](https://terminal-layout.readthedocs.io) 
 * [https://asciinema.org/a/226120](https://asciinema.org/a/226120) 
 
@@ -19,6 +37,10 @@ The project help you to quickly build layouts in terminal
 ```bash
 pip install terminal-layout
 ```
+
+# Dependencies
+* Python 2.7, 3.5+ (maybe 3.4)
+* Linux, OS X, and Windows systems.
 
 # Usage
 
@@ -28,49 +50,66 @@ pip install terminal-layout
 import time
 from terminal_layout import *
 
-ctl = LayoutCtl(TextView('id1', 'hello world!', width=20, fore=Fore.red, back=Back.green))
+ctl = LayoutCtl.quick(TableLayout,
+                      # table id: root
+                      [
+                          [TextView('t1', 'Hello World!', width=Width.fill, back=Back.blue)],  # <- row id: root_row_0,
+                          [TextView('t2', '', fore=Fore.magenta)],  # <- row id: root_row_1,
+                      ],
+                      )
 
+# or layout=ctl.get_layout()
+layout = ctl.find_view_by_id('root')
+layout.set_width(20)
+
+# default: auto_re_draw=True
 ctl.draw()
 
-time.sleep(2)
+# call delay_set_text() must be set auto_re_draw=True,
+# otherwise you must start a thread to call re_draw() by yourself
+ctl.find_view_by_id('t2').delay_set_text('你好,世界!', delay=0.2)
 
-view = ctl.find_view_by_id('id1')
-view.text = 'hi world'
-ctl.re_draw()
+time.sleep(0.5)
+row3 = TableRow.quick_init('', [TextView('t3', 'こんにちは、世界!')])
+layout.add_view(row3)
 
+# If you call draw() with auto_re_draw=True, you must stop()
+ctl.stop()
 
 ```
 ![](pic/hello.png)
 
-
-
- * use table layout:
+* use `re_draw()`
 
 ```python
+import time
 from terminal_layout import *
 
 ctl = LayoutCtl.quick(TableLayout,
-                [
-                    [TextView('title', 'Student', fore=Fore.black, back=Back.yellow, width=17,
-                              gravity=Gravity.center)],
+                      # table id: root
+                      [
+                          [TextView('t1', 'Hello World!', width=Width.fill, back=Back.blue)],  # <- row id: root_row_1,
+                          [TextView('t2', '', fore=Fore.magenta)],  # <- row id: root_row_2,
+                      ],
+                      )
 
-                    [TextView('', 'No.', width=5, back=Back.yellow),
-                     TextView('', 'Name', width=12, back=Back.yellow)],
 
-                    [TextView('st1_no', '1', width=5, back=Back.yellow),
-                     TextView('st1_name', 'Bob', width=12, back=Back.yellow)],
+layout = ctl.find_view_by_id('root')
+layout.set_width(20)
 
-                    [TextView('stw_no', '2', width=5, back=Back.yellow),
-                     TextView('st1_name', 'Tom', width=12, back=Back.yellow)]
-                ]
-                
-                )
-                
-ctl.draw()
+ctl.draw(auto_re_draw=False)
 
+ctl.find_view_by_id('t2').set_text('你好,世界!')
+ctl.re_draw()
+
+time.sleep(0.5)
+row3 = TableRow.quick_init('', [TextView('t3', 'こんにちは、世界!')])
+layout.add_view(row3)
+ctl.re_draw()
+
+# don't need call stop()
+# ctl.stop()
 ```
-
-![](pic/table.png)
 
  * use python2 unicode
 
@@ -99,14 +138,13 @@ ctl.draw()
 
 ## Properties
 
-属性说明
-
  * fore & back
  
 ```python
 TextView('','fore',fore=Fore.red)
 TextView('','back',back=Back.red)
 ```
+
 <img width="560" src="pic/color.jpeg"/>
 
  * style
@@ -114,6 +152,7 @@ TextView('','back',back=Back.red)
 ```python
 TextView('','style',style=Style.dim)
 ```
+
 <img width="560" src="pic/style.jpeg"/>
 
  * width
@@ -121,30 +160,31 @@ TextView('','style',style=Style.dim)
 ```python
 TextView('','width',width=10)
 ```
-<img width="560" src="pic/width.jpeg"/>
 
+<img width="560" src="pic/width.jpeg"/>
 
  * weight
  
 ```python
 TextView('','weight',weight=1)
 ```
-<img width="560" src="pic/weight.jpeg"/>
 
+<img width="560" src="pic/weight.jpeg"/>
 
  * gravity
  
 ```python
 TextView('','gravity',gravity=Gravity.left)
 ```
-<img width="560" src="pic/gravity.jpeg"/>
 
+<img width="560" src="pic/gravity.jpeg"/>
 
  * visibility
  
 ```python
 TextView('','',visibility=Visibility.visible)
 ```
+
 <img width="560" src="pic/visibility.jpeg"/>
 
 
@@ -154,6 +194,7 @@ TextView('','',visibility=Visibility.visible)
 ```python
 TextView('','ex_style',style=Style.ex_blink)
 ```
+
 <img width="560" src="pic/ex_style.jpeg"/>
 
  * ex_fore & ex_back (not support windows)
@@ -164,9 +205,8 @@ TextView('','ex_fore',fore=Fore.ex_red_1)
 TextView('','ex_back',back=Back.ex_red_1)
 
 ```
+
 <img width="560" src="pic/ex_color.jpeg"/>
-
-
 
 # LICENSE
 

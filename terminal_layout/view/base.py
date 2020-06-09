@@ -3,6 +3,8 @@ from terminal_layout.view.params import Visibility, Gravity
 
 
 class View(object):
+    __slots__ = ('id', 'width', 'height', 'visibility', 'gravity',
+                 'real_width', 'real_height', 'data')
 
     def __init__(self, id, width, height=1, visibility=Visibility.visible, gravity=Gravity.left):
         """
@@ -12,7 +14,7 @@ class View(object):
         :param height: no used
 
         :type id:str
-        :type width:int
+        :type width:
         :type height:int
         :type visibility:str
         :type gravity:str

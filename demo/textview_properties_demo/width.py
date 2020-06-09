@@ -8,6 +8,6 @@ ctl = LayoutCtl.quick(TableLayout,
                           [TextView('', 'width = fill', width=Width.fill, back=Back.green)],
                       ])
 
-ctl.get_layout().width = 50
+ctl.get_layout().set_width(50)
 
-ctl.draw()
+ctl.draw(auto_re_draw=False)

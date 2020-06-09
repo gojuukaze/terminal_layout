@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# -*- coding:utf-8 -*-
-
 __author__ = 'gojuukaze'
 
 from setuptools import setup, find_packages
 
 setup(
     name="terminal_layout",
-    version="1.0.5",
+    version="2.0.0",
     description="The project help you to quickly build layouts in terminal (命令行ui布局工具)",
     long_description=open("README.rst").read(),
 
@@ -38,6 +36,7 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Development Status :: 5 - Production/Stable',
         'Topic :: Terminals',
     ],

@@ -17,4 +17,4 @@ ctl = LayoutCtl.quick(TableLayout,
 
                       ])
 
-ctl.draw()
+ctl.draw(auto_re_draw=False)

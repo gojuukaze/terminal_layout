@@ -36,6 +36,6 @@ ctl = LayoutCtl.quick(TableLayout,
                            TextView('', 'back = lightwhite', back=Back.lightwhite)]
                       ])
 
-ctl.draw()
+ctl.draw(auto_re_draw=False)
 
 

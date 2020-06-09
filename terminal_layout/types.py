@@ -1,18 +1,26 @@
 # -*- coding: utf-8 -*-
-from terminal_layout.helper import is_ascii
+
+char_to_length = {
+    '\t': 4,
+}
+char_to_str = {
+    '\t': ' ' * 4,
+    '\n': ' ',
+}
+
+
+def add_char_length_map(d):
+    """
+    ex:
+    add_char_length_map({'a':1})
+    :param d: 
+    :type d: dict
+    """
+    char_to_length.update(d)
 
 
 class Char(object):
     length = None
-
-    char_to_length = {
-        '\t': 4,
-    }
-
-    char_to_str = {
-        '\t': ' ' * 4,
-        '\n': ' ',
-    }
 
     def __init__(self, c):
         if len(c) != 1:
@@ -23,19 +31,19 @@ class Char(object):
         if self.length is not None:
             return self.length
 
-        temp = self.char_to_length.get(self.c, None)
+        temp = char_to_length.get(self.c, None)
         if temp:
             self.length = temp
             return self.length
 
-        if is_ascii(self.c):
+        if ord(self.c) < 11904:
             self.length = 1
         else:
             self.length = 2
         return self.length
 
     def __str__(self):
-        return self.char_to_str.get(self.c, self.c)
+        return char_to_str.get(self.c, self.c)
 
 
 class String(object):
@@ -81,6 +89,9 @@ class String(object):
         return ''.join(str(c) for c in self.char_list)
 
     def __getitem__(self, item):
+        """
+        :rtype: str
+        """""
         start = item.start or 0
         if start != 0:
             raise TypeError('slice start must be 0 or None')

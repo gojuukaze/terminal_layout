@@ -2,7 +2,7 @@ FAQ
 =====
 
 如何获取 ``View`` 的宽度
-----------------------
+--------------------------------
 
 View的宽度有两种，``width``, ``real_width``
 
@@ -16,9 +16,5 @@ View的宽度有两种，``width``, ``real_width``
 具体参照 https://github.com/gojuukaze/terminal_layout/blob/master/demo/demo6(get_width).py
 
 
-相同view id如何返回
-------------------
-
-``find_view_by_id()`` 获取view时如果有相同id会返回第一个找的的view
 
 

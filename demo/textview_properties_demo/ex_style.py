@@ -12,4 +12,4 @@ ctl = LayoutCtl.quick(TableLayout,
                        [TextView('', 'style = ex_reverse', style=Style.ex_reverse)],
                        ])
 
-ctl.draw()
+ctl.draw(auto_re_draw=False)
