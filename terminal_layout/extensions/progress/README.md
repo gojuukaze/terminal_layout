@@ -1,7 +1,7 @@
 # progress
 loading and progress bar
 
-![](../../../pic/progress.gif)
+![progress.gif](../../../pic/progress.gif)
 
 * [Progress](#Progress)
 * [Loading](#Loading)
