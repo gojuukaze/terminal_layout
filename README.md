@@ -3,8 +3,8 @@
 The project help you to quickly build layouts in terminal  
 (这个一个命令行ui布局工具)
 
-<img src="pic/demo.gif"  alt="demo.gif" width="450"
-onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/demo.gif" />
+<img src="pic/demo.gif"  alt="demo.gif" width="450" 
+onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/demo.gif"' />
 
 ----------------
 
@@ -12,11 +12,16 @@ onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/d
 
 * [progress](terminal_layout/extensions/progress/README.md)
 
-![progress.gif](pic/progress.gif)
+<img src="pic/progress.gif"  alt="progress.gif" 
+onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/progress.gif"' />
 
 * [choice](terminal_layout/extensions/choice/README.md)
 
 ![choice.gif](pic/choice.gif)
+
+<img src="pic/choice.gif"  alt="choice.gif" 
+onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/choice.gif"' />
+
 
 -------------------
 
@@ -78,7 +83,9 @@ layout.add_view(row3)
 ctl.stop()
 
 ```
-![](pic/hello.png)
+
+<img src="pic/hello.png"  alt="hello.png" 
+onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/hello.png"' />
 
 * disable auto_re_draw
 
@@ -134,7 +141,8 @@ ctl.draw()
 
 ```
 
-![](pic/py2.png)
+<img src="pic/py2.png"  alt="py2.png" 
+onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/py2.png"' />
 
 
 ## Properties
@@ -146,7 +154,8 @@ TextView('','fore',fore=Fore.red)
 TextView('','back',back=Back.red)
 ```
 
-<img width="560" src="pic/color.jpeg"/>
+<img src="pic/color.jpeg"  alt="color.jpeg" width="560"
+onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/color.jpeg"' />
 
  * style
 
@@ -154,7 +163,8 @@ TextView('','back',back=Back.red)
 TextView('','style',style=Style.dim)
 ```
 
-<img width="560" src="pic/style.jpeg"/>
+<img src="pic/style.jpeg"  alt="style.jpeg" width="560"
+onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/style.jpeg"' />
 
  * width
  
@@ -162,7 +172,9 @@ TextView('','style',style=Style.dim)
 TextView('','width',width=10)
 ```
 
-<img width="560" src="pic/width.jpeg"/>
+<img src="pic/width.jpeg"  alt="width.jpeg" width="560"
+onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/width.jpeg"' />
+
 
  * weight
  
@@ -170,7 +182,8 @@ TextView('','width',width=10)
 TextView('','weight',weight=1)
 ```
 
-<img width="560" src="pic/weight.jpeg"/>
+<img src="pic/weight.jpeg"  alt="weight.jpeg" width="560"
+onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/weight.jpeg"' />
 
  * gravity
  
@@ -178,7 +191,8 @@ TextView('','weight',weight=1)
 TextView('','gravity',gravity=Gravity.left)
 ```
 
-<img width="560" src="pic/gravity.jpeg"/>
+<img src="pic/gravity.jpeg"  alt="gravity.jpeg" width="560"
+onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/gravity.jpeg"' />
 
  * visibility
  
@@ -186,7 +200,8 @@ TextView('','gravity',gravity=Gravity.left)
 TextView('','',visibility=Visibility.visible)
 ```
 
-<img width="560" src="pic/visibility.jpeg"/>
+<img src="pic/visibility.jpeg"  alt="visibility.jpeg" width="560"
+onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/visibility.jpeg"' />
 
 
  * ex_style (not support windows)
@@ -196,7 +211,8 @@ TextView('','',visibility=Visibility.visible)
 TextView('','ex_style',style=Style.ex_blink)
 ```
 
-<img width="560" src="pic/ex_style.jpeg"/>
+<img src="pic/ex_style.jpeg"  alt="ex_style.jpeg" width="560"
+onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/ex_style.jpeg"' />
 
  * ex_fore & ex_back (not support windows)
 
@@ -207,7 +223,8 @@ TextView('','ex_back',back=Back.ex_red_1)
 
 ```
 
-<img width="560" src="pic/ex_color.jpeg"/>
+<img src="pic/ex_color.jpeg"  alt="ex_color.jpeg" width="560"
+onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/ex_color.jpeg"' />
 
 # LICENSE
 
