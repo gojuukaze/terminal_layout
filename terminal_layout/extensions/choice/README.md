@@ -2,7 +2,7 @@
 Shows a list of choices, and allows the selection of one of them.
 
 
-![](../../../pic/choice.gif)
+![choice.gif](../../../pic/choice.gif)
 
 
 ### usage
