@@ -3,7 +3,7 @@
 The project help you to quickly build layouts in terminal  
 (这个一个命令行ui布局工具)
 
-<img src="pic/demo.gif"  alt="demo.gif" width="400"/>
+<img src="pic/demo.gif"  alt="demo.gif" width="450"/>
 
 ----------------
 
@@ -77,7 +77,7 @@ ctl.stop()
 ```
 ![](pic/hello.png)
 
-* use `re_draw()`
+* 禁用 auto_re_draw
 
 ```python
 import time

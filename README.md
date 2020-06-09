@@ -79,7 +79,7 @@ ctl.stop()
 ```
 ![](pic/hello.png)
 
-* use `re_draw()`
+* disable auto_re_draw
 
 ```python
 import time

@@ -34,7 +34,6 @@ link
 -  `All
    Demo <https://github.com/gojuukaze/terminal_layout/tree/master/demo>`__
 -  `Github <https://github.com/gojuukaze/terminal_layout>`__
--  `中文README <README.ZH.md>`__
 -  `Docs <https://terminal-layout.readthedocs.io>`__
 -  `https://asciinema.org/a/226120 <https://asciinema.org/a/226120>`__
 
@@ -89,7 +88,7 @@ Usage
 
 |image2|
 
--  use ``re_draw()``
+-  disable auto_re_draw
 
 .. code:: python
 
@@ -154,6 +153,7 @@ Properties
    TextView('','fore',fore=Fore.red)
    TextView('','back',back=Back.red)
 
+
 .. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/color.jpeg
    :width: 560
 
@@ -162,6 +162,7 @@ Properties
 .. code:: python
 
    TextView('','style',style=Style.dim)
+
 
 .. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/style.jpeg
    :width: 560
@@ -172,6 +173,7 @@ Properties
 
    TextView('','width',width=10)
 
+
 .. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/width.jpeg
    :width: 560
 
@@ -181,6 +183,7 @@ Properties
 
    TextView('','weight',weight=1)
 
+
 .. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/weight.jpeg
    :width: 560
 
@@ -189,6 +192,7 @@ Properties
 .. code:: python
 
    TextView('','gravity',gravity=Gravity.left)
+
 
 .. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/gravity.jpeg
    :width: 560
@@ -200,6 +204,7 @@ Properties
 
    TextView('','',visibility=Visibility.visible)
 
+
 .. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/visibility.jpeg
    :width: 560
 
@@ -208,6 +213,7 @@ Properties
 .. code:: python
 
    TextView('','ex_style',style=Style.ex_blink)
+
 
 .. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/ex_style.jpeg
    :width: 560
@@ -218,6 +224,7 @@ Properties
 
    TextView('','ex_fore',fore=Fore.ex_red_1)
    TextView('','ex_back',back=Back.ex_red_1)
+
 
 .. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/ex_color.jpeg
    :width: 560
