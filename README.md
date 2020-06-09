@@ -3,8 +3,7 @@
 The project help you to quickly build layouts in terminal  
 (这个一个命令行ui布局工具)
 
-<img src="pic/demo.gif"  alt="demo.gif" width="450" 
-onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/demo.gif"' />
+<img src="pic/demo.gif"  alt="demo.gif" width="400"/>
 
 ----------------
 
@@ -12,16 +11,11 @@ onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/d
 
 * [progress](terminal_layout/extensions/progress/README.md)
 
-<img src="pic/progress.gif"  alt="progress.gif" 
-onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/progress.gif"' />
+![progress.gif](pic/progress.gif)
 
 * [choice](terminal_layout/extensions/choice/README.md)
 
 ![choice.gif](pic/choice.gif)
-
-<img src="pic/choice.gif"  alt="choice.gif" 
-onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/choice.gif"' />
-
 
 -------------------
 
@@ -83,9 +77,7 @@ layout.add_view(row3)
 ctl.stop()
 
 ```
-
-<img src="pic/hello.png"  alt="hello.png" 
-onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/hello.png"' />
+![](pic/hello.png)
 
 * disable auto_re_draw
 
@@ -141,8 +133,7 @@ ctl.draw()
 
 ```
 
-<img src="pic/py2.png"  alt="py2.png" 
-onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/py2.png"' />
+![](pic/py2.png)
 
 
 ## Properties
@@ -154,8 +145,7 @@ TextView('','fore',fore=Fore.red)
 TextView('','back',back=Back.red)
 ```
 
-<img src="pic/color.jpeg"  alt="color.jpeg" width="560"
-onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/color.jpeg"' />
+<img width="560" src="pic/color.jpeg"/>
 
  * style
 
@@ -163,8 +153,7 @@ onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/c
 TextView('','style',style=Style.dim)
 ```
 
-<img src="pic/style.jpeg"  alt="style.jpeg" width="560"
-onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/style.jpeg"' />
+<img width="560" src="pic/style.jpeg"/>
 
  * width
  
@@ -172,9 +161,7 @@ onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/s
 TextView('','width',width=10)
 ```
 
-<img src="pic/width.jpeg"  alt="width.jpeg" width="560"
-onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/width.jpeg"' />
-
+<img width="560" src="pic/width.jpeg"/>
 
  * weight
  
@@ -182,8 +169,7 @@ onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/w
 TextView('','weight',weight=1)
 ```
 
-<img src="pic/weight.jpeg"  alt="weight.jpeg" width="560"
-onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/weight.jpeg"' />
+<img width="560" src="pic/weight.jpeg"/>
 
  * gravity
  
@@ -191,8 +177,7 @@ onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/w
 TextView('','gravity',gravity=Gravity.left)
 ```
 
-<img src="pic/gravity.jpeg"  alt="gravity.jpeg" width="560"
-onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/gravity.jpeg"' />
+<img width="560" src="pic/gravity.jpeg"/>
 
  * visibility
  
@@ -200,8 +185,7 @@ onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/g
 TextView('','',visibility=Visibility.visible)
 ```
 
-<img src="pic/visibility.jpeg"  alt="visibility.jpeg" width="560"
-onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/visibility.jpeg"' />
+<img width="560" src="pic/visibility.jpeg"/>
 
 
  * ex_style (not support windows)
@@ -211,8 +195,7 @@ onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/v
 TextView('','ex_style',style=Style.ex_blink)
 ```
 
-<img src="pic/ex_style.jpeg"  alt="ex_style.jpeg" width="560"
-onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/ex_style.jpeg"' />
+<img width="560" src="pic/ex_style.jpeg"/>
 
  * ex_fore & ex_back (not support windows)
 
@@ -223,8 +206,7 @@ TextView('','ex_back',back=Back.ex_red_1)
 
 ```
 
-<img src="pic/ex_color.jpeg"  alt="ex_color.jpeg" width="560"
-onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/ex_color.jpeg"' />
+<img width="560" src="pic/ex_color.jpeg"/>
 
 # LICENSE
 
