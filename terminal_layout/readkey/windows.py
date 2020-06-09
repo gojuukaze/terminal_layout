@@ -8,6 +8,7 @@ from terminal_layout.readkey.key import Key
 from terminal_layout.logger import logger
 
 xlate_dict = {
+    8: Key.BACKSPACE.code,
     13: Key.ENTER.code,
     27: Key.ESC.code,
     15104: Key.F1.code,
