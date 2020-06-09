@@ -3,7 +3,8 @@
 The project help you to quickly build layouts in terminal  
 (这个一个命令行ui布局工具)
 
-<img src="pic/demo.gif"  alt="demo.gif" width="450"/>
+<img src="pic/demo.gif"  alt="demo.gif" width="450"
+onerror='this.src="https://github.com/gojuukaze/terminal_layout/raw/master/pic/demo.gif" />
 
 ----------------
 
@@ -79,7 +80,7 @@ ctl.stop()
 ```
 ![](pic/hello.png)
 
-* use `re_draw()`
+* disable auto_re_draw
 
 ```python
 import time
