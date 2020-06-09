@@ -63,7 +63,7 @@ Other    ENTER， TAB， BACKSPACE， ESC
 
 .. note::
    
-   不支持绑定 CTRL_C ，Windows下不支持CTRL_Z。
+   不支持绑定 CTRL_C
 
    如果需要绑定 ESC ，记得修改stop_key。
 
