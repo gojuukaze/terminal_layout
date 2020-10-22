@@ -33,6 +33,15 @@ class LayoutCtl(object):
         )
         self.refresh_thread.daemon = True
 
+    def set_buffer_size(self, size):
+        """
+        当输出的文本太大会出现界面闪烁的情况，这时要调大sys.stdout的缓冲区
+        （见 https://github.com/gojuukaze/terminal_layout/issues/3 ）
+        建议在draw之前调用
+        """
+        self.buffering = size
+        sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', self.buffering, encoding='utf-8')
+
     def is_stop(self):
         return self._stop_flag
 
