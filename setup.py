@@ -8,7 +8,7 @@ setup(
     name="terminal_layout",
     version="2.0.1",
     description="The project help you to quickly build layouts in terminal (命令行ui布局工具)",
-    long_description=open("README.rst").read(),
+    long_description=open("README.rst", encoding='utf-8').read(),
 
     url="https://github.com/gojuukaze/terminal_layout",
     author="gojuukaze",
