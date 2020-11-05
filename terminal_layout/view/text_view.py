@@ -38,6 +38,13 @@ class TextView(View):
         self.real_height = 1
 
     def update_width(self, parent_width):
+        """
+        Updates the parent
+
+        Args:
+            self: (todo): write your description
+            parent_width: (todo): write your description
+        """
         if parent_width <= 0:
             self.real_width = 0
             return self.real_width
@@ -61,12 +68,30 @@ class TextView(View):
         return self.real_width
 
     def draw(self):
+        """
+        Draw the text to the terminal
+
+        Args:
+            self: (todo): write your description
+        """
         sys.stdout.write(self.get_final_text())
 
     def clear(self):
+        """
+        Clear the cursor
+
+        Args:
+            self: (todo): write your description
+        """
         sys.stdout.write(Cursor.UP(self.real_height) + clear_line())
 
     def get_final_text(self):
+        """
+        Return the string
+
+        Args:
+            self: (todo): write your description
+        """
 
         if self.visibility == Visibility.visible:
             self.real_height = 1
@@ -91,9 +116,23 @@ class TextView(View):
         return str(self.fore) + str(self.back) + str(self.style) + show_text + str(Style.reset_all)
 
     def __str__(self):
+        """
+        Return the string representation of the string.
+
+        Args:
+            self: (todo): write your description
+        """
         return str(self.fore) + str(self.back) + str(self.style) + self.text + str(Style.reset_all)
 
     def __setattr__(self, key, value):
+        """
+        Sets the value
+
+        Args:
+            self: (todo): write your description
+            key: (str): write your description
+            value: (todo): write your description
+        """
         super(TextView, self).__setattr__(key, value)
         if key == 'text':
             self.text_string = String(value)
@@ -127,6 +166,13 @@ class InputView(TextView):
         self.default = default or ''
 
     def set_focus(self, is_focus):
+        """
+        Sets the focus.
+
+        Args:
+            self: (todo): write your description
+            is_focus: (bool): write your description
+        """
         self.is_focus = is_focus
         if is_focus:
             self.t = threading.Thread()
@@ -139,9 +185,23 @@ class InputView(TextView):
         return self.text or self.default
 
     def __str__(self):
+        """
+        Return the string of the current string.
+
+        Args:
+            self: (todo): write your description
+        """
         return str(self.fore) + str(self.back) + str(self.style) + self.prompt + self.text + str(Style.reset_all)
 
     def __setattr__(self, key, value):
+        """
+        Stores the string.
+
+        Args:
+            self: (todo): write your description
+            key: (str): write your description
+            value: (todo): write your description
+        """
         super(TextView, self).__setattr__(key, value)
 
         if key == 'text':

@@ -31,12 +31,31 @@ class View(object):
         self.real_height = None
 
     def draw(self):
+        """
+        Draws the figure.
+
+        Args:
+            self: (todo): write your description
+        """
         pass
 
     def clear(self):
+        """
+        Clears the cache.
+
+        Args:
+            self: (todo): write your description
+        """
         pass
 
     def update_width(self, parent_width):
+        """
+        Update the width of the parent.
+
+        Args:
+            self: (todo): write your description
+            parent_width: (todo): write your description
+        """
         pass
 
     def find_view_by_id(self, id):
@@ -84,4 +103,12 @@ class View(object):
         return self.data[item]
 
     def insert(self, index, view):
+        """
+        Insert a new index to the index.
+
+        Args:
+            self: (todo): write your description
+            index: (int): write your description
+            view: (int): write your description
+        """
         self.data.insert(index, view)

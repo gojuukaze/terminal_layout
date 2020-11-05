@@ -6,10 +6,22 @@ if sys.version_info >= (3, 0):
 
 
     def instance_variables(f):
+        """
+        Decorator to define a function as a class.
+
+        Args:
+            f: (todo): write your description
+        """
         sig = inspect.signature(f)
 
         @wraps(f)
         def wrapper(self, *args, **kwargs):
+            """
+            Wrapper around the given a function with the wrapped in - place.
+
+            Args:
+                self: (todo): write your description
+            """
             values = sig.bind(self, *args, **kwargs)
             for k, p in sig.parameters.items():
                 if k != 'self':
@@ -26,7 +38,18 @@ if sys.version_info >= (3, 0):
         return wrapper
 else:
     def instance_variables(func):
+        """
+        Decorator for a function call. func.
+
+        Args:
+            func: (todo): write your description
+        """
         def return_func(*args, **kwargs):
+            """
+            Return a dictionary of the function func.
+
+            Args:
+            """
             self_var = args[0]
 
             arg_spec = inspect.getargspec(func)
@@ -49,7 +72,18 @@ else:
 
 
 def instance_variables(func):
+    """
+    Decorator for a function call. func.
+
+    Args:
+        func: (todo): write your description
+    """
     def return_func(*args, **kwargs):
+        """
+        Return a dictionary of the function func.
+
+        Args:
+        """
         self_var = args[0]
 
         arg_spec = inspect.getargspec(func)

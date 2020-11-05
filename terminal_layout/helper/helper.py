@@ -4,6 +4,11 @@ import subprocess
 
 
 def get_terminal_size():
+    """
+    Returns the size of the terminal
+
+    Args:
+    """
     r = subprocess.check_output("stty size", shell=True)
     try:
         size = str(r, encoding="utf8").strip().split(' ')
@@ -14,4 +19,10 @@ def get_terminal_size():
 
 
 def is_ascii(c):
+    """
+    Return true if c is an ascii ascii string.
+
+    Args:
+        c: (array): write your description
+    """
     return 255 >= ord(c) >= 0

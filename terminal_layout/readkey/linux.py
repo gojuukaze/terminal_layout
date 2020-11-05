@@ -12,6 +12,11 @@ from terminal_layout.readkey.key import Key
 
 
 def readkey():
+    """
+    Read a single line from the terminal.
+
+    Args:
+    """
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
     try:
@@ -34,6 +39,11 @@ def readkey():
 
 
 def readkey2():
+    """
+    Read a terminal from the terminal.
+
+    Args:
+    """
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
     # 配置终端

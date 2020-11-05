@@ -4,6 +4,14 @@ import time
 
 
 def show_width(w1, w2, w3):
+    """
+    Prints the width of the screen.
+
+    Args:
+        w1: (array): write your description
+        w2: (array): write your description
+        w3: (array): write your description
+    """
     for w in [w1, w2, w3]:
         print('%s: width=%s ,real_width=%s' % (w.get_id(), str(w.get_width()), str(w.get_real_width())))
 

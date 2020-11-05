@@ -10,6 +10,11 @@ if six.PY2:
 
 
 def test_view_string():
+    """
+    Test if a string exists
+
+    Args:
+    """
     s = String('aaa')
     assert len(s) == 3
     assert s[:2] == 'aa'

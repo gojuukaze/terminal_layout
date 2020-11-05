@@ -1,16 +1,43 @@
 class KeyInfo:
     def __init__(self, name, code):
+        """
+        Initialize a code object.
+
+        Args:
+            self: (todo): write your description
+            name: (str): write your description
+            code: (int): write your description
+        """
         self.name = name
         self.code = code
 
     def __eq__(self, other):
+        """
+        Determine if other is equal false otherwise false.
+
+        Args:
+            self: (todo): write your description
+            other: (todo): write your description
+        """
         if isinstance(other, KeyInfo):
             return self.code == other.code
         return self.code == other
 
     def __str__(self):
+        """
+        Return the name
+
+        Args:
+            self: (todo): write your description
+        """
         return '<%s>' % self.name
     def __repr__(self):
+        """
+        Return the __repr__.
+
+        Args:
+            self: (todo): write your description
+        """
         return self.__str__()
 
 class Key:

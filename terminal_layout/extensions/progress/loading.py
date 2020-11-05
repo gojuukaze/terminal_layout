@@ -52,7 +52,18 @@ class Loading(Progress):
 
     @staticmethod
     def update_infix(loading):
+        """
+        Update infix. infix.
+
+        Args:
+            loading: (str): write your description
+        """
         def run():
+            """
+            Run infix.
+
+            Args:
+            """
             progress_view = loading.ctl.find_view_by_id('progress')
             loading.infix_index += 1
             loading.infix_index %= len(loading.infix)
@@ -65,6 +76,13 @@ class Loading(Progress):
             time.sleep(loading.refresh_time)
 
     def run_with_lock(self, func, args=None):
+        """
+        Runs a lock.
+
+        Args:
+            self: (todo): write your description
+            func: (callable): write your description
+        """
         if args == None:
             args = []
         self.lock.acquire()
@@ -72,16 +90,42 @@ class Loading(Progress):
         self.lock.release()
 
     def add_progress(self, num):
+        """
+        Add a progress bar.
+
+        Args:
+            self: (todo): write your description
+            num: (int): write your description
+        """
         self.run_with_lock(super().add_progress, [num])
 
     def set_progress(self, num):
+        """
+        Set the progress bar.
+
+        Args:
+            self: (todo): write your description
+            num: (int): write your description
+        """
         self.run_with_lock(super().set_progress, [num])
 
     def update(self):
+        """
+        Update the view
+
+        Args:
+            self: (todo): write your description
+        """
 
         self.ctl.find_view_by_id('suffix').set_text(self.get_suffix())
 
     def start(self):
+        """
+        Start the terminal.
+
+        Args:
+            self: (todo): write your description
+        """
         prefix_width = len(self.prefix)
         if self.suffix_style == SuffixStyle.percent:
             suffix_width = 4
@@ -101,17 +145,44 @@ class Loading(Progress):
         self.ctl.draw()
 
     def stop(self):
+        """
+        Stop the interface threads.
+
+        Args:
+            self: (todo): write your description
+        """
         self.stop_flag = True
         if self.ctl:
             self.ctl.stop()
             self.ctl = None
 
     def is_finished(self):
+        """
+        Return true if the progress bar is finished.
+
+        Args:
+            self: (todo): write your description
+        """
         return self.current_progress >= self.max
 
     def __enter__(self):
+        """
+        Enter the start and stop the call.
+
+        Args:
+            self: (todo): write your description
+        """
         self.start()
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
+        """
+        Exit the given exception.
+
+        Args:
+            self: (todo): write your description
+            exc_type: (todo): write your description
+            exc_val: (todo): write your description
+            exc_tb: (todo): write your description
+        """
         self.stop()

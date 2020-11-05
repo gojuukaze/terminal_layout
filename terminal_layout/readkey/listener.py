@@ -28,6 +28,11 @@ code_to_name = get_code_to_name()
 
 
 def readkey():
+    """
+    Read a key from the registry key.
+
+    Args:
+    """
     c = _readkey()
     n = datetime.now()
     name = code_to_name.get(c, None)
@@ -42,6 +47,12 @@ def readkey():
 class KeyListener(object):
 
     def __init__(self):
+        """
+        Initialize the cache.
+
+        Args:
+            self: (todo): write your description
+        """
         self.key_func = {}
         self.re_func = {}
         self.stop_flag = False
@@ -59,6 +70,12 @@ class KeyListener(object):
             keys = args[:-1]
 
         def inner(func):
+            """
+            Decorator for the given function.
+
+            Args:
+                func: (todo): write your description
+            """
             for k in keys:
                 if isinstance(k, KeyInfo):
                     self.key_func[k.code] = func
@@ -74,6 +91,12 @@ class KeyListener(object):
             inner(args[-1])
 
     def stop(self):
+        """
+        Stop the stream.
+
+        Args:
+            self: (todo): write your description
+        """
         self.stop_flag = True
 
     def listen(self, stop_key=None):
