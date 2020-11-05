@@ -22,6 +22,12 @@ class Font(object):
         self.code = code
 
     def __str__(self):
+        """
+        Return a string representation of this function.
+
+        Args:
+            self: (todo): write your description
+        """
         if not self.name:
             return ''
         if self.name.startswith('ex_'):
@@ -31,5 +37,12 @@ class Font(object):
             return code_to_chars(self.code)
 
     def __add__(self, other):
+        """
+        Add the contents of self and other.
+
+        Args:
+            self: (todo): write your description
+            other: (todo): write your description
+        """
         print('add')
         return str(self) + str(other)

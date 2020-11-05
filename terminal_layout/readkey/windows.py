@@ -28,6 +28,11 @@ xlate_dict = {
 
 
 def readkey():
+    """
+    Read a private key.
+
+    Args:
+    """
     while True:
         if msvcrt.kbhit():
             ch = msvcrt.getch()

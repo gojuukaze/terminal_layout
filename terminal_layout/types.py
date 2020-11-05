@@ -23,11 +23,24 @@ class Char(object):
     length = None
 
     def __init__(self, c):
+        """
+        Initialize the next character.
+
+        Args:
+            self: (todo): write your description
+            c: (int): write your description
+        """
         if len(c) != 1:
             raise TypeError('expected a character, but string of length %d found' % len(c))
         self.c = c
 
     def __len__(self):
+        """
+        Returns the length of the packet.
+
+        Args:
+            self: (todo): write your description
+        """
         if self.length is not None:
             return self.length
 
@@ -43,6 +56,12 @@ class Char(object):
         return self.length
 
     def __str__(self):
+        """
+        Return the character as a string.
+
+        Args:
+            self: (todo): write your description
+        """
         return char_to_str.get(self.c, self.c)
 
 
@@ -75,6 +94,12 @@ class String(object):
             self.char_list.append(Char(c))
 
     def __len__(self):
+        """
+        Returns the length of the string.
+
+        Args:
+            self: (todo): write your description
+        """
         if self.length is not None:
             return self.length
 
@@ -86,9 +111,22 @@ class String(object):
         return self.length
 
     def __str__(self):
+        """
+        Returns a string representation of the character.
+
+        Args:
+            self: (todo): write your description
+        """
         return ''.join(str(c) for c in self.char_list)
 
     def __getitem__(self, item):
+        """
+        Get item from string.
+
+        Args:
+            self: (todo): write your description
+            item: (str): write your description
+        """
         """
         :rtype: str
         """""

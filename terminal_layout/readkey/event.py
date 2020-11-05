@@ -11,4 +11,10 @@ class KeyPressEvent(object):
         self.time = t
 
     def __str__(self):
+        """
+        Returns a string representation of this key.
+
+        Args:
+            self: (todo): write your description
+        """
         return 'KeyPressEvent(key=<%s>, time=%s)' % (self.key.name, self.time)

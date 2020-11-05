@@ -47,12 +47,25 @@ class Progress(object):
                 self.reached = '█'
 
     def get_suffix(self):
+        """
+        Returns the progress bar.
+
+        Args:
+            self: (todo): write your description
+        """
         fraction = '%d/%d' % (self.current_progress, self.max)
         percent = '{:.0%}'.format(float(self.current_progress) / self.max)
 
         return self.suffix_style.format(fraction=fraction, percent=percent)
 
     def set_progress(self, num):
+        """
+        Set the progress bar.
+
+        Args:
+            self: (todo): write your description
+            num: (int): write your description
+        """
         if num > self.max:
             num = self.max
         elif num < 0:
@@ -61,6 +74,13 @@ class Progress(object):
         self.update()
 
     def add_progress(self, num):
+        """
+        Add a progress bar. progress. progress.
+
+        Args:
+            self: (todo): write your description
+            num: (int): write your description
+        """
         if num < 0:
             num = 0
         self.current_progress += num
@@ -69,6 +89,12 @@ class Progress(object):
         self.update()
 
     def update(self):
+        """
+        Updates the progress bar
+
+        Args:
+            self: (todo): write your description
+        """
         progress_view = self.ctl.find_view_by_id('progress')
         w = progress_view.get_real_width()
         reached_num = int(float(self.current_progress) / self.max * w)
@@ -78,6 +104,12 @@ class Progress(object):
         self.ctl.find_view_by_id('suffix').set_text(self.get_suffix())
 
     def start(self):
+        """
+        Starts the progress bar.
+
+        Args:
+            self: (todo): write your description
+        """
         prefix_width = len(self.prefix)
         delimiter_width = len(self.delimiter[0]) + len(self.delimiter[1])
         if self.suffix_style == SuffixStyle.percent:
@@ -106,16 +138,43 @@ class Progress(object):
         self.ctl.draw()
 
     def stop(self):
+        """
+        Stops the interface.
+
+        Args:
+            self: (todo): write your description
+        """
         if self.ctl:
             self.ctl.stop()
         self.ctl = None
 
     def is_finished(self):
+        """
+        Return true if the progress bar is finished.
+
+        Args:
+            self: (todo): write your description
+        """
         return self.current_progress >= self.max
 
     def __enter__(self):
+        """
+        Enter the start and stop the call.
+
+        Args:
+            self: (todo): write your description
+        """
         self.start()
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
+        """
+        Exit the given exception.
+
+        Args:
+            self: (todo): write your description
+            exc_type: (todo): write your description
+            exc_val: (todo): write your description
+            exc_tb: (todo): write your description
+        """
         self.stop()

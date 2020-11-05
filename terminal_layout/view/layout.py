@@ -51,17 +51,44 @@ class TableRow(View):
         return row
 
     def add_view(self, v):
+        """
+        Add a view to the view
+
+        Args:
+            self: (todo): write your description
+            v: (todo): write your description
+        """
         if not isinstance(v, TextView):
             raise TypeError('only support add TextView')
         self.data.append(v)
 
     def add_views(self, *views):
+        """
+        Add a list of views.
+
+        Args:
+            self: (todo): write your description
+            views: (todo): write your description
+        """
         self.data += views
 
     def add_view_list(self, views):
+        """
+        Add a list of views.
+
+        Args:
+            self: (todo): write your description
+            views: (todo): write your description
+        """
         self.data += views
 
     def draw(self):
+        """
+        Draws the chart
+
+        Args:
+            self: (todo): write your description
+        """
         if self.visibility == Visibility.visible:
             left = ''
             right = ''
@@ -84,6 +111,12 @@ class TableRow(View):
             self.real_height = 1
 
     def clear(self):
+        """
+        Clear the cursor
+
+        Args:
+            self: (todo): write your description
+        """
         sys.stdout.write(Cursor.UP(self.real_height) + clear_line())
 
     def update_width(self, parent_width):
@@ -168,14 +201,35 @@ class TableLayout(View):
         return table
 
     def add_view(self, v):
+        """
+        Add a new view
+
+        Args:
+            self: (todo): write your description
+            v: (todo): write your description
+        """
 
         self.data.append(v)
 
     def add_views(self, *views):
+        """
+        Add a list of views.
+
+        Args:
+            self: (todo): write your description
+            views: (todo): write your description
+        """
 
         self.data += views
 
     def add_view_list(self, views):
+        """
+        Add a list of views.
+
+        Args:
+            self: (todo): write your description
+            views: (todo): write your description
+        """
         self.data += views
 
     def update_width(self, parent_width):
@@ -203,6 +257,12 @@ class TableLayout(View):
         return self.real_width
 
     def draw(self):
+        """
+        Draws the image
+
+        Args:
+            self: (todo): write your description
+        """
         self.real_height = 0
         is_first = True
         for r in self.data:
@@ -215,6 +275,12 @@ class TableLayout(View):
                 self.real_height += 1
 
     def clear(self):
+        """
+        Clear the cursor.
+
+        Args:
+            self: (todo): write your description
+        """
         while self.real_height:
             sys.stdout.write(Cursor.UP(1) + clear_line())
             self.real_height -= 1
