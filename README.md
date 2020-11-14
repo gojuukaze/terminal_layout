@@ -30,8 +30,8 @@ The project help you to quickly build layouts in terminal
 
 * [Github](https://github.com/gojuukaze/terminal_layout) 
 * [中文README](README.ZH.md) 
-* [Docs](https://terminal-layout.readthedocs.io) 
-* [https://asciinema.org/a/226120](https://asciinema.org/a/226120) 
+* [Documentation 中文文档](https://terminal-layout.readthedocs.io) 
+
 
 # install 
 ```bash
