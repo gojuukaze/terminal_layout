@@ -4,7 +4,6 @@ import time
 from terminal_layout import *
 from terminal_layout.extensions.progress.progress import Progress, SuffixStyle
 from terminal_layout.helper.class_helper import instance_variables
-from terminal_layout.logger import logger
 
 
 class InfixChoices:

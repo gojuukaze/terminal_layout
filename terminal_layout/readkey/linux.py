@@ -7,7 +7,6 @@ import sys
 import tty
 import termios
 
-from terminal_layout.logger import logger
 from terminal_layout.readkey.key import Key
 
 

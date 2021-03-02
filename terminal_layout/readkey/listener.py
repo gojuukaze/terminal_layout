@@ -2,7 +2,6 @@ import re
 import sys
 from datetime import datetime
 
-from terminal_layout.logger import logger
 from terminal_layout.readkey.key import Key, KeyInfo
 from terminal_layout.readkey.event import KeyPressEvent
 

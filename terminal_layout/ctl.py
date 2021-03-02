@@ -13,7 +13,6 @@ except:
     from backports.shutil_get_terminal_size import get_terminal_size
 
 from terminal_layout.ansi import term_init
-from terminal_layout.logger import logger
 from terminal_layout.view import *
 from terminal_layout.view.base import View
 

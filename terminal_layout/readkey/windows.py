@@ -5,7 +5,6 @@
 import msvcrt
 
 from terminal_layout.readkey.key import Key
-from terminal_layout.logger import logger
 
 xlate_dict = {
     8: Key.BACKSPACE.code,
