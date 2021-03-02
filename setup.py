@@ -42,7 +42,7 @@ setup(
     ],
 
     project_urls={
-        'Documentation': 'https://terminal-layout.readthedocs.io',
+        'Documentation': 'https://doc.ikaze.cn/terminal_layout',
         'Source': 'https://github.com/gojuukaze/terminal_layout',
     },
 )
