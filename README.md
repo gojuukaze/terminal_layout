@@ -216,3 +216,11 @@ TextView('','ex_back',back=Back.ex_red_1)
 
  * [colorama](https://github.com/tartley/colorama) : Simple cross-platform colored terminal text in Python
  * [colored](https://gitlab.com/dslackw/colored) : Very simple Python library for color and formatting in terminal
+
+
+# 捐赠 / Sponsor
+
+开源不易，如果你觉得对你有帮助，求打赏个一块两块的
+
+![](https://lpm-resource-1302770967.cos.ap-beijing.myqcloud.com/s_cover/i_shang.jpg)
+
