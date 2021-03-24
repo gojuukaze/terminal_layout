@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="terminal_layout",
-    version="2.0.5",
+    version="2.0.6",
     description="The project help you to quickly build layouts in terminal (命令行ui布局工具)",
     long_description=open("README.rst", encoding='utf-8').read(),
 
