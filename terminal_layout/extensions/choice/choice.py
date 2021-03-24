@@ -21,13 +21,13 @@ class Choice(object):
     @instance_variables
     def __init__(self, title, choices, icon='> ', icon_style=StringStyle(fore=Fore.green), choices_style=StringStyle(),
                  selected_style=StringStyle(), loop=True, default_index=0):
-        self.current = default_index
+        self.current = self.get_default_index(default_index)
         self.result = None
 
-    def get_default_index(self):
-        if self.default_index < 0 or self.default_index > len(self.choices):
-            self.default_index = 0
-        return self.default_index + 1
+    def get_default_index(self, default_index):
+        if default_index < 0 or default_index > len(self.choices):
+            return 0
+        return default_index
 
     def get_choice(self):
         views = [[TextView('', self.title)]]
@@ -35,9 +35,9 @@ class Choice(object):
             views.append(
                 [TextView('icon%d' % i, self.icon, visibility=Visibility.invisible, **self.icon_style.to_dict()),
                  TextView('value%d' % i, c, **self.choices_style.to_dict())])
-        default_index = self.get_default_index()
-        views[default_index][0].visibility = Visibility.visible
-        views[default_index][1] = TextView('value0', self.choices[self.default_index], **self.selected_style.to_dict())
+        views[self.current + 1][0].visibility = Visibility.visible
+        views[self.current + 1][1] = TextView('value%d' % self.current, self.choices[self.current],
+                                              **self.selected_style.to_dict())
         self.ctl = LayoutCtl.quick(TableLayout,
                                    views)
         self.ctl.draw(auto_re_draw=False)
