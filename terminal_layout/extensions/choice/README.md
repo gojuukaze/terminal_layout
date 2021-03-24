@@ -33,3 +33,4 @@ There are several parameter you can set:
 | choices\_style  | StringStyle\(\)                 | choices style     |
 | selected\_style | StringStyle\(\)                 | selected style    |
 | loop            | True                            | loop              |
+| default_index   | 0                               | default icon index  |
