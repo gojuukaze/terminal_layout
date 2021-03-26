@@ -15,7 +15,7 @@ def readkey():
     old_settings = termios.tcgetattr(fd)
     try:
         tty.setraw(fd)
-        c = os.read(fd, 4)
+        c = os.read(fd, 10)
         if isinstance(c, str):
             # py2
             c = c.decode('utf-8')
