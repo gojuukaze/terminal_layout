@@ -105,7 +105,7 @@ class InputView(TextView):
     """
     is_focus = False
 
-    def __init__(self, id, prompt=None, default=None, fore=None, back=None, style=None, width=Width.wrap,
+    def __init__(self, id, default=None, fore=None, back=None, style=None, width=Width.wrap,
                  height=1, weight=None, visibility=Visibility.visible, gravity=Gravity.left):
         """
 

@@ -162,8 +162,8 @@ class String(object):
         """
         return self.char_list[start:stop]
 
-    def pop(self):
-        self.char_list.pop()
+    def pop(self, i=-1):
+        self.char_list.pop(i)
         self.origin_text = str(self)
         self.length = None
 
@@ -287,4 +287,3 @@ class InputString(object):
         self.char_list.pop()
         self.origin_text = str(self)
         self.length = None
-
