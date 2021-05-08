@@ -10,12 +10,12 @@ import termios
 from terminal_layout.readkey.key import Key
 
 
-def readkey():
+def readkey(buffer=10):
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
     try:
         tty.setraw(fd)
-        c = os.read(fd, 10)
+        c = os.read(fd, buffer)
         if isinstance(c, str):
             # py2
             c = c.decode('utf-8')

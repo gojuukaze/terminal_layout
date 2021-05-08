@@ -22,10 +22,15 @@ class LayoutCtl(object):
     version = 0
     _drawing = False
     _stop_flag = False
+    auto_re_draw = True
 
     def __init__(self, layout=None):
         self.layout = layout  # type:View
         self.refresh_lock = threading.Lock()
+        self.init_refresh_thread()
+
+    def init_refresh_thread(self):
+        self.refresh_thread_stop = False
         self.refresh_thread = threading.Thread(
             target=LayoutCtl.refresh,
             args=(self,),
@@ -103,6 +108,7 @@ class LayoutCtl(object):
 
     def draw(self, auto_re_draw=True):
         term_init()
+        self.auto_re_draw = auto_re_draw
         self.version += 1
         self.update_width()
         self.layout.draw()
@@ -129,7 +135,7 @@ class LayoutCtl(object):
     @staticmethod
     def refresh(ctl):
         while True:
-            if ctl.is_stop():
+            if ctl.is_stop() or ctl.refresh_thread_stop:
                 break
             time.sleep(0.1)
             ctl.re_draw()

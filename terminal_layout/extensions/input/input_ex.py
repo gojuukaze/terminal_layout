@@ -31,11 +31,15 @@ class InputEx(object):
     input_char_list_end = 0
     cursor_index = 0
 
-    def __init__(self, _ctl):
+    def __init__(self, _ctl, input_buffer=30):
         """
+
+        :param input_buffer: 读取字符的缓存；输入法一次输入多个字符时，若buffer过小会导致只读取到一部分
+
         :type _ctl:LayoutCtl
         """
         self.ctl = _ctl
+        self.input_buffer = input_buffer
 
     def get_view_x_y(self, id):
         """
@@ -102,6 +106,11 @@ class InputEx(object):
         if self.x < 0 or self.y < 0:
             return False, ''
 
+        # 停止绘制线程
+        if self.ctl.auto_re_draw:
+            self.ctl.refresh_thread_stop = True
+            self.ctl.refresh_thread.join()
+
         self.max_width = self.get_view_max_width()
 
         if self.max_width <= 0:
@@ -121,6 +130,10 @@ class InputEx(object):
 
         kl.listen()
         self.move_cursor_to_btm()
+
+        if self.ctl.auto_re_draw:
+            self.ctl.init_refresh_thread()
+            self.ctl.refresh_thread.start()
 
         return str(self.input_s)
 

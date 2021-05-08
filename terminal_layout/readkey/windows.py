@@ -26,7 +26,7 @@ xlate_dict = {
 }
 
 
-def readkey():
+def readkey(buffer=0):
     while True:
         if msvcrt.kbhit():
             ch = msvcrt.getch()
