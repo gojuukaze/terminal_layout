@@ -5,14 +5,15 @@ import threading
 from terminal_layout.ansi import *
 from terminal_layout.types import String
 from terminal_layout.view.base import View
-from terminal_layout.view.params import Visibility, Width, Gravity
+from terminal_layout.view.params import Visibility, Width, Gravity, Overflow
 
 
 class TextView(View):
-    __slots__ = ('back', 'style', 'fore', 'text', 'text_string', 'weight')
+    __slots__ = ('back', 'style', 'fore', 'text', 'text_string', 'weight', 'overflow')
 
     def __init__(self, id, text, fore=None, back=None, style=None, width=Width.wrap,
-                 height=1, weight=None, visibility=Visibility.visible, gravity=Gravity.left):
+                 height=1, weight=None, visibility=Visibility.visible, gravity=Gravity.left,
+                 overflow=Overflow.hidden_right):
         """
 
         :param id:
@@ -20,10 +21,12 @@ class TextView(View):
         :param height: no used
 
         :type id:str
-        :type width:
+        :type width: Union[int, str]
         :type height:int
         :type visibility:str
         :type gravity:str
+        :type overflow:str
+
         """
 
         super(TextView, self).__init__(id, width, height, visibility, gravity)
@@ -34,6 +37,7 @@ class TextView(View):
         self.back = back or ''
         self.style = style or ''
         self.weight = weight
+        self.overflow = overflow
 
         self.real_height = 1
 
@@ -70,7 +74,8 @@ class TextView(View):
 
         if self.visibility == Visibility.visible:
             self.real_height = 1
-            show_text = self.text_string[:self.real_width]
+            show_text = self.text_string[:self.real_width] if self.overflow == Overflow.hidden_right \
+                else self.text_string[-self.real_width:]
         elif self.visibility == Visibility.invisible:
             self.real_height = 1
             return ' ' * self.real_width
@@ -98,51 +103,3 @@ class TextView(View):
         if key == 'text':
             self.text_string = String(value)
 
-
-class InputView(TextView):
-    """
-    还需完善，暂时别用
-    """
-    is_focus = False
-
-    def __init__(self, id, default=None, fore=None, back=None, style=None, width=Width.wrap,
-                 height=1, weight=None, visibility=Visibility.visible, gravity=Gravity.left):
-        """
-
-        :param id:
-        :param width:
-        :param height: no used
-
-        :type id:str
-        :type width:
-        :type height:int
-        :type visibility:str
-        :type gravity:str
-        """
-
-        super(InputView, self).__init__(id, '', fore=fore, back=back, style=style, width=width,
-                                        height=height, weight=weight, visibility=visibility, gravity=gravity)
-
-        self.prompt = prompt or ''
-        self.default = default or ''
-
-    def set_focus(self, is_focus):
-        self.is_focus = is_focus
-        if is_focus:
-            self.t = threading.Thread()
-
-    def get_input_text(self):
-        """
-        :return:
-        :rtype: str
-        """
-        return self.text or self.default
-
-    def __str__(self):
-        return str(self.fore) + str(self.back) + str(self.style) + self.prompt + self.text + str(Style.reset_all)
-
-    def __setattr__(self, key, value):
-        super(TextView, self).__setattr__(key, value)
-
-        if key == 'text':
-            self.text_string = String(self.prompt + self.text)

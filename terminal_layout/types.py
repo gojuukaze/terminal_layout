@@ -121,23 +121,10 @@ class String(object):
         """
         :rtype: str
         """""
-        start = item.start or 0
-        if start != 0:
-            raise TypeError('String slice start must be 0 or None')
-        stop = item.stop
-        if stop is None or stop < 0:
-            raise TypeError('String slice stop must be positive integer')
-
-        s = ''
-        for c in self.char_list:
-            length = len(c)
-            if stop >= length:
-                s += str(c)
-            else:
-                break
-            stop -= length
-
-        return s
+        try:
+            return ''.join([str(c) for c in self.char_list[item]])
+        except TypeError:
+            return str(self.char_list[item])
 
     def insert_into_char_list(self, i, s):
 

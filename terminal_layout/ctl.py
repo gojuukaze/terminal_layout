@@ -88,7 +88,6 @@ class LayoutCtl(object):
         if self.debug:
             self.height = 10
             self.width = 50
-            return
 
         size = get_terminal_size()
         self.height = size.lines
@@ -136,6 +135,9 @@ class LayoutCtl(object):
             ctl.re_draw()
 
     def find_view_by_id(self, id):
+        """
+        :rtype: Union[None, TextViewProxy, LayoutProxy]
+        """
         v = self.layout.find_view_by_id(id)
         if not v:
             return None
@@ -241,6 +243,12 @@ class BaseViewProxy(object):
     def get_weight(self, default=NULL):
         self.get('weight', default)
 
+    def get_parent(self, default=NULL):
+        """
+        :rtype: View
+        """
+        self.get('parent', default)
+
 
 class TextViewProxy(BaseViewProxy):
 
@@ -258,6 +266,9 @@ class TextViewProxy(BaseViewProxy):
 
     def set_weight(self, weight, raise_error=False):
         self.set('weight', weight, raise_error)
+
+    def set_overflow(self, overflow, raise_error=False):
+        self.set('overflow', overflow, raise_error)
 
     def delay_set_text(self, text, delay=0.3):
         """
@@ -283,6 +294,9 @@ class TextViewProxy(BaseViewProxy):
 
     def get_weight(self, default=NULL):
         self.get('weight', default)
+
+    def get_overflow(self, default=NULL):
+        self.get('overflow', default)
 
 
 class LayoutProxy(BaseViewProxy):

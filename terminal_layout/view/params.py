@@ -18,6 +18,11 @@ class Gravity(object):
     right = 'right'
 
 
+class Overflow(object):
+    hidden_left = 'hidden_left'
+    hidden_right = 'hidden_right'
+
+
 ################ linearlayout ###############3
 
 class Orientation(object):
