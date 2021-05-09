@@ -30,6 +30,7 @@ class InputEx(object):
     input_char_list_start = 0
     input_char_list_end = 0
     cursor_index = 0
+    max_length = None
 
     def __init__(self, _ctl, input_buffer=30):
         """
@@ -40,6 +41,17 @@ class InputEx(object):
         """
         self.ctl = _ctl
         self.input_buffer = input_buffer
+
+    def get_view_y(self,id,row):
+        y=0
+        for v in row.data:
+            if v.id == id:
+                if v.visibility != Visibility.visible:
+                    return True, -1
+                return True, y
+            y += v.real_width or 0
+        return False,-1
+
 
     def get_view_x_y(self, id):
         """
@@ -54,18 +66,20 @@ class InputEx(object):
         """
         x = 0
         y = 0
+        layout=self.ctl.layout
+        if isinstance(layout,TextView):
+            return -1,-1 if layout.id!=id else x,y
+        if isinstance(layout,TableRow):
+            ok,y=self.get_view_y(id,layout)
+            return x,y
         for row in self.ctl.layout.data:
             if row.visibility == Visibility.gone:
                 continue
             if row.visibility == Visibility.visible:
-                for v in row.data:
-                    if v.id == id:
-                        if v.visibility != Visibility.visible:
-                            return -1, -1
-                        return x, y
-                    y += v.real_width or 0
+                ok,y=self.get_view_y(id,row)
+                if ok:
+                    return x,y
             x += 1
-            y = 0
         return -1, -1
 
     def get_parent_max_width(self, view):
@@ -96,15 +110,19 @@ class InputEx(object):
             return width
         return parent_max_width
 
-    def get_input(self, id):
+    def get_input(self, id, max_length=None):
+        """
+        :param max_length: 输入字符数；注意区分max_width，max_width表示显示宽度，和输入无关
+        """
         self.view = self.ctl.find_view_by_id(id)
+        self.max_length = max_length
 
         if not self.view or not isinstance(self.view, TextViewProxy):
-            return False, ''
+            return False, '-1'
 
         self.x, self.y = self.get_view_x_y(id)
         if self.x < 0 or self.y < 0:
-            return False, ''
+            return False, '-2'
 
         # 停止绘制线程
         if self.ctl.auto_re_draw:
@@ -114,11 +132,14 @@ class InputEx(object):
         self.max_width = self.get_view_max_width()
 
         if self.max_width <= 0:
-            return False, ''
+            return False, '-3'
 
         self.layout_height = self.ctl.layout.real_height
 
         self.input_s = String(self.view.get_text())
+        if self.max_length and len(self.input_s.char_list) > self.max_length:
+            self.input_s.char_list_slice(stop=self.max_length)
+
         self.input_char_list_index = len(self.input_s.char_list)
         self.input_char_list_start = 0
         self.input_char_list_end = len(self.input_s.char_list)
@@ -241,6 +262,12 @@ class InputEx(object):
         else:
 
             c_str = String(c)
+            if self.max_length:
+                left_length = self.max_length - len(self.input_s.char_list)
+                if left_length == 0:
+                    return
+                if len(c_str.char_list) > left_length:
+                    c_str.char_list_slice(stop=left_length)
 
             self.input_s.insert_into_char_list(self.input_char_list_index, c_str)
             self.input_char_list_index += len(c_str.char_list)
