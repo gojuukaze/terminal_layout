@@ -31,7 +31,7 @@ The project help you to quickly build layouts in terminal
 # link
 
 * [Github](https://github.com/gojuukaze/terminal_layout) 
-* [文档](https://terminal-layout.readthedocs.io) 
+* [文档](https://doc.ikaze.cn/terminal_layout/) 
 * [https://asciinema.org/a/226120](https://asciinema.org/a/226120) 
 
 # 安装 
