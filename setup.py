@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="terminal_layout",
-    version="2.0.6",
+    version="2.1.2",
     description="The project help you to quickly build layouts in terminal (命令行ui布局工具)",
     long_description=open("README.rst", encoding='utf-8').read(),
 
@@ -37,6 +37,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Development Status :: 5 - Production/Stable',
         'Topic :: Terminals',
     ],

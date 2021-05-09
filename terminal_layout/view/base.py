@@ -4,7 +4,7 @@ from terminal_layout.view.params import Visibility, Gravity
 
 class View(object):
     __slots__ = ('id', 'width', 'height', 'visibility', 'gravity',
-                 'real_width', 'real_height', 'data')
+                 'real_width', 'real_height', 'data', 'parent')
 
     def __init__(self, id, width, height=1, visibility=Visibility.visible, gravity=Gravity.left):
         """
@@ -29,6 +29,7 @@ class View(object):
 
         self.real_width = None
         self.real_height = None
+        self.parent = None
 
     def draw(self):
         pass

@@ -53,12 +53,17 @@ class TableRow(View):
     def add_view(self, v):
         if not isinstance(v, TextView):
             raise TypeError('only support add TextView')
+        v.parent = self
         self.data.append(v)
 
     def add_views(self, *views):
+        for v in views:
+            v.parent = self
         self.data += views
 
     def add_view_list(self, views):
+        for v in views:
+            v.parent = self
         self.data += views
 
     def draw(self):
@@ -168,14 +173,17 @@ class TableLayout(View):
         return table
 
     def add_view(self, v):
-
+        v.parent = self
         self.data.append(v)
 
     def add_views(self, *views):
-
+        for v in views:
+            v.parent = self
         self.data += views
 
     def add_view_list(self, views):
+        for v in views:
+            v.parent = self
         self.data += views
 
     def update_width(self, parent_width):

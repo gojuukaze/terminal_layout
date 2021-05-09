@@ -22,10 +22,15 @@ class LayoutCtl(object):
     version = 0
     _drawing = False
     _stop_flag = False
+    auto_re_draw = True
 
     def __init__(self, layout=None):
         self.layout = layout  # type:View
         self.refresh_lock = threading.Lock()
+        self.init_refresh_thread()
+
+    def init_refresh_thread(self):
+        self.refresh_thread_stop = False
         self.refresh_thread = threading.Thread(
             target=LayoutCtl.refresh,
             args=(self,),
@@ -88,7 +93,6 @@ class LayoutCtl(object):
         if self.debug:
             self.height = 10
             self.width = 50
-            return
 
         size = get_terminal_size()
         self.height = size.lines
@@ -104,6 +108,7 @@ class LayoutCtl(object):
 
     def draw(self, auto_re_draw=True):
         term_init()
+        self.auto_re_draw = auto_re_draw
         self.version += 1
         self.update_width()
         self.layout.draw()
@@ -130,12 +135,15 @@ class LayoutCtl(object):
     @staticmethod
     def refresh(ctl):
         while True:
-            if ctl.is_stop():
+            if ctl.is_stop() or ctl.refresh_thread_stop:
                 break
             time.sleep(0.1)
             ctl.re_draw()
 
     def find_view_by_id(self, id):
+        """
+        :rtype: Union[None, TextViewProxy, LayoutProxy]
+        """
         v = self.layout.find_view_by_id(id)
         if not v:
             return None
@@ -241,6 +249,12 @@ class BaseViewProxy(object):
     def get_weight(self, default=NULL):
         self.get('weight', default)
 
+    def get_parent(self, default=NULL):
+        """
+        :rtype: View
+        """
+        self.get('parent', default)
+
 
 class TextViewProxy(BaseViewProxy):
 
@@ -258,6 +272,9 @@ class TextViewProxy(BaseViewProxy):
 
     def set_weight(self, weight, raise_error=False):
         self.set('weight', weight, raise_error)
+
+    def set_overflow(self, overflow, raise_error=False):
+        self.set('overflow', overflow, raise_error)
 
     def delay_set_text(self, text, delay=0.3):
         """
@@ -283,6 +300,9 @@ class TextViewProxy(BaseViewProxy):
 
     def get_weight(self, default=NULL):
         self.get('weight', default)
+
+    def get_overflow(self, default=NULL):
+        self.get('overflow', default)
 
 
 class LayoutProxy(BaseViewProxy):

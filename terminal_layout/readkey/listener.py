@@ -26,8 +26,8 @@ def get_code_to_name():
 code_to_name = get_code_to_name()
 
 
-def readkey():
-    c = _readkey()
+def readkey(buffer=10):
+    c = _readkey(buffer)
     n = datetime.now()
     name = code_to_name.get(c, None)
     if name:
@@ -40,10 +40,11 @@ def readkey():
 
 class KeyListener(object):
 
-    def __init__(self):
+    def __init__(self, input_buffer=10):
         self.key_func = {}
         self.re_func = {}
         self.stop_flag = False
+        self.input_buffer = input_buffer
 
     def bind_key(self, *args, **kwargs):
         """
@@ -89,7 +90,7 @@ class KeyListener(object):
         while True:
             if self.stop_flag:
                 break
-            c = readkey()
+            c = readkey(self.input_buffer)
             code = c.key.code
             for s in stop_key:
                 if isinstance(s, KeyInfo):
