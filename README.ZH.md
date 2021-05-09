@@ -5,6 +5,8 @@ The project help you to quickly build layouts in terminal
 
 ![demo_v2_1.gif](pic/demo_v2_1.gif)
 
+<img src="pic/demo.gif"  alt="demo.gif" width="450"/>
+
 ----------------
 
 **基于terminal_layout的扩展**

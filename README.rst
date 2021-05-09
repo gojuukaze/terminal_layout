@@ -5,6 +5,9 @@ terminal_layout
 | (这个一个命令行ui布局工具)
 
 .. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/demo_v2_1.gif
+
+
+.. image:: https://github.com/gojuukaze/terminal_layout/raw/master/pic/demo.gif
    :width: 450
 
 --------------
