@@ -143,6 +143,7 @@ class InputEx(object):
         self.input_char_list_index = len(self.input_s.char_list)
         self.input_char_list_start = 0
         self.input_char_list_end = len(self.input_s.char_list)
+        self.move_cursor_to_view()
         self.update_index_and_show_s()
 
         kl = KeyListener()
@@ -156,7 +157,7 @@ class InputEx(object):
             self.ctl.init_refresh_thread()
             self.ctl.refresh_thread.start()
 
-        return str(self.input_s)
+        return True,str(self.input_s)
 
     def move_cursor_to_view(self):
         s = ''
