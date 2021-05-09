@@ -9,7 +9,7 @@ Welcome to terminal_layout's documentation!
 | The project help you to quickly build layouts in terminal
 | (这个一个命令行ui布局工具)
 
-.. image:: _static/demo.gif
+.. image:: _static/demo_v2_2.gif
 
 .. image:: https://asciinema.org/a/226120.svg
    :target: https://asciinema.org/a/226120

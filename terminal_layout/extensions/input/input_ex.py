@@ -5,7 +5,6 @@ inputView两种实现方法：
 
 InputEx使用第一种
 """
-import logging
 import sys
 
 from terminal_layout.log import logger
@@ -187,7 +186,6 @@ class InputEx(object):
 
             new_i = 0
             for i, c in list_iter:
-                logger.info(f'list_iter | i={i}, c={c}, len(c)={len(c)}, left_width={left_width} ')
 
                 if left_width - len(c) < 0:
                     break
@@ -196,12 +194,8 @@ class InputEx(object):
 
             if right:
                 self.input_char_list_start = new_i
-                # self.input_char_list_end = new_i + self.max_width
             else:
                 self.input_char_list_end = new_i + 1
-                # self.input_char_list_start = new_i + 1 - self.max_width
-        logger.info(
-            f'input_char_list_start={self.input_char_list_start}, input_char_list_end={self.input_char_list_end} ')
 
         self.cursor_index = 0
         show_s = ''
@@ -209,9 +203,6 @@ class InputEx(object):
             show_s += str(self.input_s.char_list[i])
             if i < self.input_char_list_index:
                 self.cursor_index += len(self.input_s.char_list[i])
-
-        logger.info(
-            f'input_char_list_index={self.input_char_list_index}, cursor_index={self.cursor_index}, show_s={show_s}')
 
         self.move_cursor_to_btm()
         self.view.set_text(show_s)
@@ -273,6 +264,5 @@ class InputEx(object):
             self.input_s.insert_into_char_list(self.input_char_list_index, c_str)
             self.input_char_list_index += len(c_str.char_list)
             self.input_char_list_end += len(c_str.char_list)
-            logger.info(f'insert {c_str}, {self.input_char_list_index}, {self.input_char_list_end}')
 
         self.update_index_and_show_s(right=right)
