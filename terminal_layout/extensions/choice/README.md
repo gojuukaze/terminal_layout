@@ -24,13 +24,14 @@ if choice:
 
 There are several parameter you can set:
 
-| name            | default                         | desc              |
-|-----------------|---------------------------------|-------------------|
-| title           |                                 | title             |
-| choices         |                                 | a list of choices |
-| icon            | '> '                            | delimiter list    |
-| icon\_style     | StringStyle\(fore=Fore\.green\) | icon style        |
-| choices\_style  | StringStyle\(\)                 | choices style     |
-| selected\_style | StringStyle\(\)                 | selected style    |
-| loop            | True                            | loop              |
-| default_index   | 0                               | default icon index  |
+| name            | default                         | desc               |
+|-----------------|---------------------------------|--------------------|
+| title           |                                 | title              |
+| choices         |                                 | a list of choices  |
+| icon            | '> '                            | delimiter list     |
+| icon\_style     | StringStyle\(fore=Fore\.green\) | icon style         |
+| choices\_style  | StringStyle\(\)                 | choices style      |
+| selected\_style | StringStyle\(\)                 | selected style     |
+| loop            | True                            | loop               |
+| default_index   | 0                               | default icon index |
+| stop_key        | ['q']                           | stop key           |
