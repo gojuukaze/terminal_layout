@@ -1,6 +1,12 @@
 changelog
 =============
 
+2.1.3
+---------
+* 解决 ``readkey()`` 函数在 Win PowerShell 下无法识别方向键 bug ( `#22 <https://github.com/gojuukaze/terminal_layout/issues/22>`__ )
+* choice扩展适配高度不够情况，当高度不够时隐藏部分选项 ( `#21 <https://github.com/gojuukaze/terminal_layout/issues/21>`__ )
+* choice扩展支持设置stop_key，默认为 ``['q']``
+
 2.1.2
 ---------
 * 增加input扩展，可以获取文字输入了（不支持windows）
