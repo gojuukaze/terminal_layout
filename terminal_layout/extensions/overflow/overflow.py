@@ -10,17 +10,22 @@
 from terminal_layout.helper.class_helper import instance_variables
 from terminal_layout.view.params import Visibility
 from terminal_layout.view.base import View
-from terminal_layout.readkey import Key
+from terminal_layout.readkey import Key, KeyListener
 from terminal_layout.log import logger
-try:
-    from os import get_terminal_size
-except:
-    from backports.shutil_get_terminal_size import get_terminal_size
+from terminal_layout.helper.helper import get_terminal_size
+
 
 
 class OverflowType:
     hidden = 'hidden'
     scroll = 'scroll'
+
+
+class ScrollEvent:
+    up = 'up'
+    down = 'down'
+    stop = 'stop'
+
 
 class Hidden(object):
     def hidden(self):
@@ -37,12 +42,61 @@ class Hidden(object):
                 r.visibility = Visibility.gone
 
 
-class OverflowVertical(View, Hidden):
+class Scroll(object):
+
+    def init_scroll(self):
+        self.kl = KeyListener()
+        if self.stop_key:
+            self.kl.bind_key(self.stop_key, self._stop, decorator=False)
+        if self.up_key:
+            self.kl.bind_key(self.up_key, self._up, decorator=False)
+        if self.down_key:
+            self.kl.bind_key(self.down_key, self._down, decorator=False)
+
+    def _callback(self, event):
+        if not self.callbakc:
+            return
+        self.callback(event)
+
+    def _up(self, kl, event):
+        self.up()
+
+    def up(self):
+        tmp=self.current_index-1
+        if tmp<self.scroll_start:
+            tmp=self.scroll_start if not self.loop else len(self.table.data)-1
+        self.current_index=tmp
+        self._callback(ScrollEvent.up)
+
+    def _down(self, kl, event):
+        self.down()
+
+    def down(self):
+        self._callback(ScrollEvent.down)
+
+    def _stop(self, kl, event):
+        self.stop()
+
+    def stop(self):
+        self.kl.stop()
+        self._callback(ScrollEvent.stop)
+    
+    def scroll(self):
+        _,h=get_terminal_size()
+        # 注意，这里相当于 h=h-1-scroll_start，别理解错了
+        # 最后一行需要显示光标，因此-1
+        h-=1+self.scroll_start
+
+        show_start = self.current_index
+        show_end = len(self.table.data)
+        
+
+
+
+class OverflowVertical(View, Hidden, Scroll):
     """
     垂直方向的Overflow
     """
-    is_first_draw = True
-    h_cache = None
     old_row_visibility = None
 
     @instance_variables
@@ -50,18 +104,24 @@ class OverflowVertical(View, Hidden):
                  # 下面参数type为scroll时才有效
                  stop_key=Key.ESC, up_key=Key.UP, down_key=Key.DOWN,
                  scroll_start=0, current_index=0, loop=False,
-                 btm_text='-- more --'):
+                 btm_text='-- more --', callback=None):
         """
         :param table: TableLayout
         :param overflow: hidden or scroll
-        :param stop_key: 停止按键监听的key
-        :param up_key: 
-        :param down_key: 
-        :param scroll_start: 从哪行开始支持滚动。比如有标题的情况下标题是不需滚动的。
-        :param current_index: 第一次绘制时最开头的行数
+
+        :param stop_key: 停止scroll的key
+        :param up_key: hidden or scroll
+        :param down_key: TableLayout
+        :param scroll_start: 从哪行开始滚动，
+        :param table: TableLayout
+        :param overflow: hidden or scroll
+        :param table: TableLayout
+        :param overflow: hidden or scroll
+        其他参数说明见Scroll类
 
         """
-        pass
+        if overflow == OverflowType.scroll:
+            self.init_scroll()
 
     def before_draw(self):
         if self.overflow == OverflowType.hidden:
@@ -70,14 +130,9 @@ class OverflowVertical(View, Hidden):
             self.scroll()
 
     def draw(self):
-        logger.debug(f'before_draw 1 old={self.old_row_visibility}')
         self.before_draw()
-        logger.debug(f'before_draw 2 old={self.old_row_visibility}')
-
         self.table.draw()
         self.after_draw()
-        logger.debug(f'after_draw old={self.old_row_visibility}')
-
 
     def after_draw(self):
         for i, r in enumerate(self.table.data):
@@ -106,5 +161,3 @@ class OverflowVertical(View, Hidden):
 
     def insert(self, index, view):
         return self.table.insert(index, view)
-
-
