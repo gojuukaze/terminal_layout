@@ -5,13 +5,8 @@ import platform
 import threading
 import time
 
-try:
-    # py3
-    from os import get_terminal_size
-except:
-    # py2
-    from backports.shutil_get_terminal_size import get_terminal_size
 
+from terminal_layout.helper.helper import get_terminal_size
 from terminal_layout.ansi import term_init
 from terminal_layout.view import *
 from terminal_layout.view.base import View
