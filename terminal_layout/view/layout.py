@@ -50,7 +50,7 @@ class TableRow(View, Layout):
         """
 
         :param id:
-        :param data:
+        :param data: view or [view]
         :param width:
         :param height:
         :param back:
@@ -62,7 +62,10 @@ class TableRow(View, Layout):
         """
 
         row = cls(id, width, height, back, visibility, gravity)
-        row.data = data
+        if isinstance(data,list):
+            row.add_view_list(data)
+        if isinstance(data,View):
+            row.add_view(data)
         return row
 
     def add_view(self, v):
@@ -164,7 +167,7 @@ class TableLayout(View, Layout):
         """
 
         :param id:
-        :param data:
+        :param data: view or [view]
         :param width:
         :param height:
         :param visibility:
@@ -174,7 +177,10 @@ class TableLayout(View, Layout):
         """
 
         table = cls(id, width, height, visibility, overflow_vertical)
-        table.data = data
+        if isinstance(data,list):
+            table.add_view_list(data)
+        if isinstance(data,View):
+            table.add_view(data)
         return table
 
 

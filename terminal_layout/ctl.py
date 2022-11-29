@@ -39,7 +39,8 @@ class LayoutCtl(object):
         建议在draw之前调用
         """
         self.buffering = size
-        sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', self.buffering, encoding='utf-8')
+        sys.stdout = os.fdopen(sys.stdout.fileno(), 'w',
+                               self.buffering, encoding='utf-8')
 
     def is_stop(self):
         return self._stop_flag
@@ -49,15 +50,17 @@ class LayoutCtl(object):
         """
 
         :param layout_class:
-        :param data:
+        :param data: TableRow的data为 [textView, ...] ;
+                     TableLayout的data为 [ [textView], ]
         :return:
         :rtype :LayoutCtl
         """
         if layout_class is TableLayout:
 
             table_layout = TableLayout('root', Width.fill)
-            for i,row_data in enumerate(data):
-                table_row = TableRow.quick_init('root_row_' + str(i), row_data, width=Width.fill)
+            for i, row_data in enumerate(data):
+                table_row = TableRow.quick_init(
+                    'root_row_' + str(i), row_data, width=Width.fill)
                 table_layout.add_view(table_row)
             return cls(table_layout)
         elif layout_class is TableRow:
@@ -248,6 +251,12 @@ class BaseViewProxy(object):
         """
         self.get('parent', default)
 
+    def remove(self):
+        """
+        :rtype: bool
+        """
+        return self.view.remove()
+
 
 class TextViewProxy(BaseViewProxy):
 
@@ -309,7 +318,13 @@ class LayoutProxy(BaseViewProxy):
         self.view.add_view_list(views)
 
     def insert_view(self, i, view):
-        self.view.insert(i, view)
+        return self.view.insert(i, view)
+
+    def remove_view_by_id(self, id):
+        """
+        :rtype: bool
+        """
+        return self.view.remove_view_by_id(id)
 
     def set_overflow_vertical(self, overflow_vertical, raise_error=False):
         self.set('overflow_vertical', overflow_vertical, raise_error)

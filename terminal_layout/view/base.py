@@ -51,10 +51,40 @@ class View(object):
             return self
         temp = None
         for v in self.data:
+            # 这里不用判断v类型，textView的data是空list
             temp = v.find_view_by_id(id)
             if temp:
                 break
         return temp
+
+    def remove(self):
+        """
+        :rtype: bool
+        """
+        # 不能移除最外层view
+        if not self.parent:
+            return False
+        return self.parent.remove_view_by_id(self.id)
+
+    def remove_view_by_id(self, id):
+        """
+        :rtype: bool
+        """
+        if self.id == id:
+            return self.remove()
+        index = -1
+        for i, v in enumerate(self.data):
+            if v.id == id:
+                index = i
+                break
+            # 这里不用判断v类型，textView的data是空list
+            ok = v.remove_view_by_id(id)
+            if ok:
+                return ok
+        if index == -1:
+            return False
+        self.data = self.data[:index]+self.data[index+1:]
+        return True
 
     def get_width(self):
         """
