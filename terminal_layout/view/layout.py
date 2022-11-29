@@ -8,8 +8,22 @@ from terminal_layout.view.base import View
 from terminal_layout.view.params import Visibility, Gravity, Orientation, Width, OverflowVertical
 from terminal_layout.view.text_view import TextView
 
+class Layout(object):
+    def add_view(self, v):
+        v.parent = self
+        self.data.append(v)
 
-class TableRow(View):
+    def add_views(self, *views):
+        for v in views:
+            v.parent = self
+        self.data += views
+
+    def add_view_list(self, views):
+        for v in views:
+            v.parent = self
+        self.data += views
+
+class TableRow(View, Layout):
     __slots__ = ('back', 'child_width')
 
     def __init__(self, id, width=Width.fill, height=1, back=None, visibility=Visibility.visible, gravity=Gravity.left):
@@ -54,18 +68,7 @@ class TableRow(View):
     def add_view(self, v):
         if not isinstance(v, TextView):
             raise TypeError('only support add TextView')
-        v.parent = self
-        self.data.append(v)
-
-    def add_views(self, *views):
-        for v in views:
-            v.parent = self
-        self.data += views
-
-    def add_view_list(self, views):
-        for v in views:
-            v.parent = self
-        self.data += views
+        super(TableRow, self).add_view(v)
 
     def draw(self):
         if self.visibility == Visibility.visible:
@@ -137,7 +140,7 @@ class TableRow(View):
         return self.real_width
 
 
-class TableLayout(View):
+class TableLayout(View, Layout):
 
     def __init__(self, id, width=Width.fill, height=1, visibility=Visibility.visible, overflow_vertical=OverflowVertical.none):
         """
@@ -174,19 +177,6 @@ class TableLayout(View):
         table.data = data
         return table
 
-    def add_view(self, v):
-        v.parent = self
-        self.data.append(v)
-
-    def add_views(self, *views):
-        for v in views:
-            v.parent = self
-        self.data += views
-
-    def add_view_list(self, views):
-        for v in views:
-            v.parent = self
-        self.data += views
 
     def update_width(self, parent_width):
         """
