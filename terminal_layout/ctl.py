@@ -56,11 +56,9 @@ class LayoutCtl(object):
         if layout_class is TableLayout:
 
             table_layout = TableLayout('root', Width.fill)
-            i = 0
-            for row_data in data:
+            for i,row_data in enumerate(data):
                 table_row = TableRow.quick_init('root_row_' + str(i), row_data, width=Width.fill)
                 table_layout.add_view(table_row)
-                i += 1
             return cls(table_layout)
         elif layout_class is TableRow:
             row = TableRow.quick_init('root', data, width=Width.fill)
@@ -206,7 +204,7 @@ class BaseViewProxy(object):
 
     def get(self, k, default):
         """
-        When default == NULL , it is raised an error when the attribute doesn't exist
+        if default == NULL , it is raised an error when the attribute doesn't exist
         如果default为NULL，当不存在变量时会抛错
         """
         if default == NULL:
@@ -312,3 +310,9 @@ class LayoutProxy(BaseViewProxy):
 
     def insert_view(self, i, view):
         self.view.insert(i, view)
+
+    def set_overflow_vertical(self, overflow_vertical, raise_error=False):
+        self.set('overflow_vertical', overflow_vertical, raise_error)
+
+    def get_overflow_vertical(self, default=NULL):
+        return self.get('overflow_vertical', default)
