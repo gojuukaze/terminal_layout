@@ -218,8 +218,12 @@ class TableLayout(View, Layout):
             if h > 0:
                 if not r.visibility == Visibility.gone:
                     h -= 1
+                    r._set_is_show(True)
+                else:
+                    r._set_is_show(False)
             else:
                 r.visibility = Visibility.gone
+                r._set_is_show(False)
 
     old_row_visibility = None
 

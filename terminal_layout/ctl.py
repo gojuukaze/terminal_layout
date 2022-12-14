@@ -257,6 +257,9 @@ class BaseViewProxy(object):
         """
         return self.view.remove()
 
+    def is_show(self):
+        return self.view.is_show()
+
 
 class TextViewProxy(BaseViewProxy):
 

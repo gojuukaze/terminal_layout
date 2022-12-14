@@ -4,7 +4,7 @@ from terminal_layout.view.params import Visibility, Gravity
 
 class View(object):
     __slots__ = ('id', 'width', 'height', 'visibility', 'gravity',
-                 'real_width', 'real_height', 'data', 'parent')
+                 'real_width', 'real_height', 'data', 'parent', '_is_show')
 
     def __init__(self, id, width, height=1, visibility=Visibility.visible, gravity=Gravity.left):
         """
@@ -30,6 +30,14 @@ class View(object):
         self.real_width = None
         self.real_height = None
         self.parent = None
+
+        # 是否显示在屏幕上
+        # 注意：你不应当主动修改这个值这是没意义的；另外is_show不会因visibility改变而改变。
+        # 这个值用于： 当终端高度不够触发隐藏时，标识view是否显示在屏幕上。
+        # 它只有下面两种情况才会被修改:
+        # 1. tableLayout的overflow_vertical设为hidden_btm或hidden_top
+        # 2. 使用scroll
+        self._is_show = True
 
     def draw(self):
         pass
@@ -116,3 +124,9 @@ class View(object):
 
     def insert(self, index, view):
         self.data.insert(index, view)
+
+    def is_show(self):
+        return self.is_show()
+
+    def _set_is_show(self, is_show):
+        self._is_show = is_show
