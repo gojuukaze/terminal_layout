@@ -119,6 +119,7 @@ class LayoutCtl(object):
         self.auto_re_draw = auto_re_draw
         self.version += 1
         self.update_width()
+        self.layout.set_terminal_size(*self.get_terminal_size())
         self.layout.draw()
 
         sys.stdout.write('\n')
@@ -134,6 +135,8 @@ class LayoutCtl(object):
         self.clear()
 
         self.update_width()
+        self.layout.set_terminal_size(*self.get_terminal_size())
+
         self.layout.draw()
 
         sys.stdout.write('\n')

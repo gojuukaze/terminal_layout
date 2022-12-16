@@ -211,7 +211,9 @@ class TableLayout(View, Layout):
         return self.real_width
 
     def hidden(self):
-        _, h = get_terminal_size()
+        h = self.terminal_h
+        if not h:
+            _, h = get_terminal_size()
         # 最后一行需要显示光标，因此-1
         h -= 1
 

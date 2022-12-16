@@ -129,3 +129,10 @@ class View(object):
 
     def _set_is_show(self, is_show):
         self._is_show = is_show
+
+    terminal_w = 0
+    terminal_h = 0
+
+    def set_terminal_size(self, w, h):
+        self.terminal_w = w
+        self.terminal_h = h
