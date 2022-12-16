@@ -147,7 +147,7 @@ class TableRow(View, Layout):
 
 class TableLayout(View, Layout):
 
-    def __init__(self, id, width=Width.fill, height=1, visibility=Visibility.visible, overflow_vertical=OverflowVertical.none):
+    def __init__(self, id, width=Width.fill, height=1, visibility=Visibility.visible, overflow_vertical=OverflowVertical.hidden_top):
         """
 
         :param id:
