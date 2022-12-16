@@ -19,7 +19,13 @@ class LayoutCtl(object):
     _stop_flag = False
     auto_re_draw = True
 
-    def __init__(self, layout=None):
+    def check(self):
+        if not sys.stdout.isatty():
+            raise RuntimeError('terminal_ layout can only run under the terminal')
+
+    def __init__(self, layout=None,skip_check=False):
+        if not skip_check:
+            self.check()
         self.layout = layout  # type:View
         self.refresh_lock = threading.Lock()
         self.init_refresh_thread()
@@ -85,17 +91,23 @@ class LayoutCtl(object):
         """
         return LayoutProxy(self, self.layout)
 
+    def enable_debug(self, width=50, height=10):
+        self.debug = True
+        self.debug_width = width
+        self.debug_height = height
+
     def get_terminal_size(self):
         if self.debug:
-            self.height = 10
-            self.width = 50
+            self.height = self.debug_height
+            self.width = self.debug_width
+        else:
+            size = get_terminal_size()
+            self.height = size.lines
+            self.width = size.columns
 
-        size = get_terminal_size()
-        self.height = size.lines
-        self.width = size.columns
+            if platform.system() == 'Windows':
+                self.width -= 1
 
-        if platform.system() == 'Windows':
-            self.width -= 1
         return self.width, self.height
 
     def update_width(self):
