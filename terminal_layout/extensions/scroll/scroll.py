@@ -16,6 +16,10 @@ class ScrollEvent:
     stop = 'stop'
 
 
+scroll_btm_row = '_scroll_btm_row_'
+scroll_btm_text = '_scroll_btm_text_'
+
+
 class Scroll(object):
     """
     注意：只支持TableLayout ！！！
@@ -24,9 +28,9 @@ class Scroll(object):
 
     @instance_variables
     def __init__(self, ctl,
-                 stop_key=Key.ESC, up_key=Key.UP, down_key=Key.DOWN, 
+                 stop_key=Key.ESC, up_key=Key.UP, down_key=Key.DOWN,
                  scroll_box_start=0, default_scroll_start=0, loop=False,
-                 btm_text='-- more --', callback=None, re_draw_after_scroll=True):
+                 btm_text='', more=False, callback=None, re_draw_after_scroll=True):
         """
         :param ctl: ctl
         :param overflow: hidden or scroll
@@ -37,7 +41,8 @@ class Scroll(object):
         :param scroll_box_start: 从哪行开始可以滚动。若第一行要显示标题，则scroll_start=1
         :param default_scroll_start: 初始化时滚动区域第一行下标。
         :param loop: 循环
-        :param btm_text: 底部的文本，类似于man的效果。为空则不显示
+        :param btm_text: 底部的文本，为空则不显示
+        :param more: 类似于man的效果。Ture会自动添加 btm_text
         :param callback: 滚动后的回调
         :param re_draw_after_scroll: 滚动后执行重绘。为false时你需要自己调用re_draw
 
@@ -68,6 +73,8 @@ class Scroll(object):
         self.current_scroll_start = default_scroll_start
         if self.current_scroll_start < self.scroll_box_start:
             self.current_scroll_start = self.scroll_box_start
+        if more:
+            self.btm_text = '-- more --'
 
     def init_kl(self):
         """
@@ -91,8 +98,9 @@ class Scroll(object):
         table.set_overflow_vertical(OverflowVertical.none)
         # 添加btm
         if self.btm_text:
-            r = TableRow.quick_init('_scroll_btm_row_', TextView(
-                '_scroll_btm_', self.btm_text))
+            r = TableRow.quick_init(scroll_btm_row,
+                                    TextView(scroll_btm_text, self.btm_text)
+                                    )
             table.add_view(r)
 
         self.update(self.current_scroll_start, is_first=True)
@@ -209,5 +217,11 @@ class Scroll(object):
             else:
                 r.visibility = Visibility.gone
                 r._set_is_show(False)
+
         if self.btm_text:
-            table.old_row_visibility.append(table.data[-1].visibility)
+            btm =table.data[-1]
+            table.old_row_visibility.append(btm.visibility)
+            if self.more and scroll_end >= scroll_box_end:
+                btm.data[0].text='-- end --'
+            else:
+                btm.data[0].text='-- more --'
