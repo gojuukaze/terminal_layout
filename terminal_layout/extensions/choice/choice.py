@@ -1,5 +1,6 @@
 from terminal_layout import *
 from terminal_layout.helper.class_helper import instance_variables
+from terminal_layout.extensions.scroll import *
 
 
 class StringStyle(object):
@@ -57,9 +58,11 @@ class Choice(object):
         row_id_p = 'root_row_'
         for i in range(len(self.choices)):
             if i >= show_start and i < show_end:
-                self.ctl.find_view_by_id(row_id_p + str(i + 1)).set_visibility(Visibility.visible)
+                self.ctl.find_view_by_id(
+                    row_id_p + str(i + 1)).set_visibility(Visibility.visible)
             else:
-                self.ctl.find_view_by_id(row_id_p + str(i + 1)).set_visibility(Visibility.gone)
+                self.ctl.find_view_by_id(
+                    row_id_p + str(i + 1)).set_visibility(Visibility.gone)
 
     def get_choice(self):
         views = [[TextView('', self.title)]]
@@ -71,10 +74,14 @@ class Choice(object):
         views[self.current + 1][1] = TextView('value%d' % self.current, self.choices[self.current],
                                               **self.selected_style.to_dict())
         self.ctl = LayoutCtl.quick(TableLayout, views)
-        self.hidden_choices()
-        self.ctl.draw(auto_re_draw=False)
+        # self.hidden_choices()
+        # self.ctl.draw(auto_re_draw=False)
 
-        kl = KeyListener()
+        self.scroll = Scroll(self.ctl, scroll_box_start=1,
+                             up_key=None, down_key=None, stop_key=None,btm_text='')
+        
+        kl = self.scroll.init_kl()
+        self.scroll.draw()
         kl.bind_key(Key.UP, Key.DOWN, self.change_current, decorator=False)
         kl.bind_key(Key.ENTER, self.select, decorator=False)
 
@@ -88,23 +95,41 @@ class Choice(object):
 
     def change_current(self, kl, event):
         temp = self.current
+        loop_tigger=False
         if event.key == Key.UP:
             temp -= 1
         elif event.key == Key.DOWN:
             temp += 1
         if temp < 0:
-            temp = len(self.choices) - 1 if self.loop else 0
+            if self.loop:
+                loop_tigger=True
+                temp=len(self.choices) - 1
+            else:
+                temp=0
         if temp >= len(self.choices):
-            temp = 0 if self.loop else len(self.choices) - 1
-        self.ctl.find_view_by_id('icon%d' % self.current).set_visibility(Visibility.invisible)
-        self.update_style(self.ctl.find_view_by_id('value%d' % self.current), self.choices_style)
+            if self.loop:
+                loop_tigger=True
+                temp = 0
+            else:
+                temp = len(self.choices) - 1
+        self.ctl.find_view_by_id(
+            'icon%d' % self.current).set_visibility(Visibility.invisible)
+        self.update_style(self.ctl.find_view_by_id('value%d' %
+                          self.current), self.choices_style)
 
         self.current = temp
-        self.ctl.find_view_by_id('icon%d' % self.current).set_visibility(Visibility.visible)
-        self.update_style(self.ctl.find_view_by_id('value%d' % self.current), self.selected_style)
-        self.hidden_choices()
+        self.ctl.find_view_by_id(
+            'icon%d' % self.current).set_visibility(Visibility.visible)
+        self.update_style(self.ctl.find_view_by_id('value%d' %
+                          self.current), self.selected_style)
+        # self.hidden_choices()
+        self.scroll.loop=loop_tigger
+        if event.key == Key.UP:
+            self.scroll.up()
+        else:
+            self.scroll.down()
         self.ctl.re_draw()
 
     def select(self, kl, event):
         self.result = (self.current, self.choices[self.current])
-        kl.stop()
+        self.scroll.stop(kl)

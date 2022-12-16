@@ -24,7 +24,7 @@ class Scroll(object):
 
     @instance_variables
     def __init__(self, ctl,
-                 stop_key=Key.ESC, up_key=Key.UP, down_key=Key.DOWN,
+                 stop_key=Key.ESC, up_key=Key.UP, down_key=Key.DOWN, 
                  scroll_box_start=0, default_scroll_start=0, loop=False,
                  btm_text='-- more --', callback=None, re_draw_after_scroll=True):
         """
@@ -70,22 +70,26 @@ class Scroll(object):
             self.current_scroll_start = self.scroll_box_start
 
     def init_kl(self):
-        self.kl = KeyListener()
+        """
+        :rtype: KeyListener
+        """
+        self.key_listener = KeyListener()
         if self.stop_key:
-            self.kl.bind_key(self.stop_key, self._stop, decorator=False)
+            self.key_listener.bind_key(
+                self.stop_key, self._stop, decorator=False)
         if self.up_key:
-            self.kl.bind_key(self.up_key, self._up, decorator=False)
+            self.key_listener.bind_key(self.up_key, self._up, decorator=False)
         if self.down_key:
-            self.kl.bind_key(self.down_key, self._down, decorator=False)
+            self.key_listener.bind_key(
+                self.down_key, self._down, decorator=False)
+        return self.key_listener
 
     def draw(self):
-        # 1.初始化kl
-        self.init_kl()
-        # 2. 修改table的overflow
+        # 修改table的overflow
         table = self.ctl.get_layout()
         self.old_layout_overflow = table.get_overflow_vertical()
         table.set_overflow_vertical(OverflowVertical.none)
-        # 3. 添加btm
+        # 添加btm
         if self.btm_text:
             r = TableRow.quick_init('_scroll_btm_row_', TextView(
                 '_scroll_btm_', self.btm_text))
@@ -95,7 +99,10 @@ class Scroll(object):
 
         self.ctl.draw(auto_re_draw=False)
 
-        self.kl.listen()
+    def scroll(self):
+        self.init_kl()
+        self.draw()
+        self.key_listener.listen()
 
     def _callback(self, event):
         if not self.callback:
@@ -121,13 +128,13 @@ class Scroll(object):
         self.update(self.current_scroll_start+1)
 
     def _stop(self, kl, event):
-        self.stop()
+        self.stop(kl)
         if self.re_draw_after_scroll:
             self.ctl.draw()
         self._callback(ScrollEvent.stop)
 
-    def stop(self):
-        self.kl.stop()
+    def stop(self, kl):
+        kl.stop()
         table = self.ctl.get_layout()
         table.set_overflow_vertical(self.old_layout_overflow)
         if self.btm_text:
