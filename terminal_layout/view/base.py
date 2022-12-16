@@ -31,9 +31,8 @@ class View(object):
         self.real_height = None
         self.parent = None
 
-        # 是否显示在屏幕上
+        # 是否显示在屏幕上。这个值用于： 当终端高度不够触发隐藏时，标识view是否显示在屏幕上。
         # 注意：你不应当主动修改这个值这是没意义的；另外is_show不会因visibility改变而改变。
-        # 这个值用于： 当终端高度不够触发隐藏时，标识view是否显示在屏幕上。
         # 它只有下面两种情况才会被修改:
         # 1. tableLayout的overflow_vertical设为hidden_btm或hidden_top
         # 2. 使用scroll
@@ -126,7 +125,7 @@ class View(object):
         self.data.insert(index, view)
 
     def is_show(self):
-        return self.is_show()
+        return self._is_show and self.visibility != Visibility.gone
 
     def _set_is_show(self, is_show):
         self._is_show = is_show

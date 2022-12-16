@@ -12,7 +12,9 @@ def disable_logger():
 def enable_logger():
     handler = logging.FileHandler("terminal_layout.log")
     handler.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    # formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(levelname)s : %(message)s')
+
     handler.setFormatter(formatter)
     logger.addHandler(handler)
 

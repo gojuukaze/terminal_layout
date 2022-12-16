@@ -8,6 +8,7 @@ from terminal_layout.view.base import View
 from terminal_layout.view.params import Visibility, Gravity, Orientation, Width, OverflowVertical
 from terminal_layout.view.text_view import TextView
 
+
 class Layout(object):
     def add_view(self, v):
         v.parent = self
@@ -22,6 +23,7 @@ class Layout(object):
         for v in views:
             v.parent = self
         self.data += views
+
 
 class TableRow(View, Layout):
     __slots__ = ('back', 'child_width')
@@ -62,9 +64,9 @@ class TableRow(View, Layout):
         """
 
         row = cls(id, width, height, back, visibility, gravity)
-        if isinstance(data,list):
+        if isinstance(data, list):
             row.add_view_list(data)
-        if isinstance(data,View):
+        if isinstance(data, View):
             row.add_view(data)
         return row
 
@@ -158,7 +160,8 @@ class TableLayout(View, Layout):
         :type visibility:str
         """
 
-        super(TableLayout, self).__init__(id, width, height, visibility, Gravity.left)
+        super(TableLayout, self).__init__(
+            id, width, height, visibility, Gravity.left)
         self.data = []  # type: list[TableRow]
         self.overflow_vertical = overflow_vertical
 
@@ -177,12 +180,11 @@ class TableLayout(View, Layout):
         """
 
         table = cls(id, width, height, visibility, overflow_vertical)
-        if isinstance(data,list):
+        if isinstance(data, list):
             table.add_view_list(data)
-        if isinstance(data,View):
+        if isinstance(data, View):
             table.add_view(data)
         return table
-
 
     def update_width(self, parent_width):
         """
@@ -212,8 +214,8 @@ class TableLayout(View, Layout):
         _, h = get_terminal_size()
         # 最后一行需要显示光标，因此-1
         h -= 1
-        
-        for r in self.data if self.overflow_vertical==OverflowVertical.hidden_btm else reversed(self.data):
+
+        for r in self.data if self.overflow_vertical == OverflowVertical.hidden_btm else reversed(self.data):
             self.old_row_visibility.append(r.visibility)
             if h > 0:
                 if not r.visibility == Visibility.gone:
@@ -228,12 +230,9 @@ class TableLayout(View, Layout):
     old_row_visibility = None
 
     def befor_draw(self):
-        # old_row_visibility必须初始化，
-        # 因为scroll会用到after_draw恢复row的visibility，如果不初始化after_draw就报错了
-        self.old_row_visibility = []
         if self.overflow_vertical == OverflowVertical.none:
             return
-        
+        self.old_row_visibility = []
         self.hidden()
 
     def draw(self):
@@ -254,7 +253,11 @@ class TableLayout(View, Layout):
         self.after_draw()
 
     def after_draw(self):
-        for i, v in enumerate(self.old_row_visibility if self.overflow_vertical==OverflowVertical.hidden_btm else reversed(self.old_row_visibility)):
+        if not self.old_row_visibility:
+            return
+        # 注意，里面这个if只能是 overflow_vertical != hidden_top， 不能改成 overflow_vertical == hidden_top
+        # scroll会复用after_draw恢复row的visibility，此时应该是正序的
+        for i, v in enumerate(self.old_row_visibility if self.overflow_vertical != OverflowVertical.hidden_top else reversed(self.old_row_visibility)):
             self.data[i].visibility = v
 
     def clear(self):

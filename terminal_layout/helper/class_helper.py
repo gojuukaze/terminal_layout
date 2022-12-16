@@ -1,6 +1,16 @@
 import sys
 import inspect
 
+"""
+instance_variables
+
+-----------------------------         ------------------------------                        
+|def __init__(self, a, b):  |         | @instance_variables        |
+|    self.a=a               |   ==>   | def __init__(self, a, b):  |
+|    self.b=b               |         |     pass                   |
+-----------------------------         ------------------------------ 
+
+"""
 if sys.version_info >= (3, 0):
     from functools import wraps
 
@@ -22,7 +32,8 @@ if sys.version_info >= (3, 0):
                                 setattr(self, k, v)
                     else:
                         setattr(self, k, p.default)
-
+            
+            f(self, *args, **kwargs)
         return wrapper
 else:
     def instance_variables(func):
