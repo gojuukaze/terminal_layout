@@ -24,7 +24,10 @@ class Scroll(object):
     """
     注意：只支持TableLayout ！！！
     """
-    old_layout_overflow = None
+    __slots__ = (
+        'ctl', 'stop_key', 'up_key', 'down_key', 'scroll_box_start', 'default_scroll_start', 'loop', 'btm_text', 'more',
+        'callback', 're_draw_after_scroll', 're_draw_after_stop', 'old_layout_overflow', 'current_scroll_start',
+        'key_listener')
 
     @instance_variables
     def __init__(self, ctl,
@@ -72,25 +75,24 @@ class Scroll(object):
 
 
         """
+        self.old_layout_overflow = None
         self.current_scroll_start = default_scroll_start
         if self.current_scroll_start < self.scroll_box_start:
             self.current_scroll_start = self.scroll_box_start
         if more:
             self.btm_text = '-- more --'
 
-    def init_kl(self):
+    def init_kl(self, stop_func=None, up_func=None, down_func=None):
         """
         :rtype: KeyListener
         """
         self.key_listener = KeyListener()
         if self.stop_key:
-            self.key_listener.bind_key(
-                self.stop_key, self._stop, decorator=False)
+            self.key_listener.bind_key(self.stop_key, stop_func or self._stop, decorator=False)
         if self.up_key:
-            self.key_listener.bind_key(self.up_key, self._up, decorator=False)
+            self.key_listener.bind_key(self.up_key, up_func or self._up, decorator=False)
         if self.down_key:
-            self.key_listener.bind_key(
-                self.down_key, self._down, decorator=False)
+            self.key_listener.bind_key(self.down_key, down_func or self._down, decorator=False)
         return self.key_listener
 
     def draw(self):
@@ -105,12 +107,12 @@ class Scroll(object):
                                     )
             table.add_view(r)
 
-        self.update(self.current_scroll_start, is_first=True)
+        self.cal_and_update(self.current_scroll_start, is_first=True)
 
         self.ctl.draw(auto_re_draw=False)
 
-    def scroll(self):
-        self.init_kl()
+    def scroll(self, stop_func=None, up_func=None, down_func=None):
+        self.init_kl(stop_func, up_func, down_func)
         self.draw()
         self.key_listener.listen()
 
@@ -126,7 +128,7 @@ class Scroll(object):
         self._callback(ScrollEvent.up)
 
     def up(self):
-        self.update(self.current_scroll_start - 1)
+        self.cal_and_update(self.current_scroll_start - 1)
 
     def _down(self, kl, event):
         self.down()
@@ -135,7 +137,7 @@ class Scroll(object):
         self._callback(ScrollEvent.down)
 
     def down(self):
-        self.update(self.current_scroll_start + 1)
+        self.cal_and_update(self.current_scroll_start + 1)
 
     def _stop(self, kl, event):
         self.stop(kl)
@@ -151,7 +153,17 @@ class Scroll(object):
             table.remove_view_by_id('_scroll_btm_row_')
             table.view.old_row_visibility.pop(-1)
 
-    def update(self, new_current_scroll_start, is_first=False):
+    def cal_and_update(self, new_current_scroll_start, is_first=False):
+        """
+        cal_scroll 和 update_view最开始是在一起的，
+        之所以拆成两个函数是为了满足需要cal_scroll的计算结果的需求
+        """
+        r = self.cal_scroll(new_current_scroll_start, is_first)
+        # 等于0说明高度足够，不用修改view的visibility
+        if r[4] != 0:
+            self.update_view(*r)
+
+    def cal_scroll(self, new_current_scroll_start, is_first=False):
         _, h = self.ctl.get_terminal_size()
         # 最后一行需要显示光标，因此-1
         h -= 1 + self.scroll_box_start
@@ -170,7 +182,7 @@ class Scroll(object):
             if r.visibility == Visibility.gone:
                 scroll_box_h -= 1
         if h >= scroll_box_h:
-            return
+            return 0, 0, 0, 0, 0
 
         scroll_start = new_current_scroll_start
         if scroll_start < self.scroll_box_start:
@@ -204,15 +216,21 @@ class Scroll(object):
             scroll_start -= 1
             if table.data[scroll_start].visibility != Visibility.gone:
                 left_h -= 1
+
+        return self.scroll_box_start, scroll_box_end, scroll_start, scroll_end, h
+
+    def update_view(self, scroll_box_start, scroll_box_end, scroll_start, scroll_end, h):
         self.current_scroll_start = scroll_start
+
+        table = self.ctl.get_layout().view
 
         # 修改 visibility
         table.old_row_visibility = []
-        for r in table.data[:self.scroll_box_start]:
+        for r in table.data[:scroll_box_start]:
             table.old_row_visibility.append(r.visibility)
 
-        for i, r in enumerate(table.data[self.scroll_box_start:scroll_box_end]):
-            i += self.scroll_box_start
+        for i, r in enumerate(table.data[scroll_box_start:scroll_box_end]):
+            i += scroll_box_start
             table.old_row_visibility.append(r.visibility)
             if i >= scroll_start and i < scroll_end:
                 r._set_is_show(True)
@@ -227,5 +245,3 @@ class Scroll(object):
                 btm.data[0].text = '-- end --'
             else:
                 btm.data[0].text = '-- more --'
-
-        return (self.scroll_box_start, scroll_box_end), (scroll_start, scroll_end), h

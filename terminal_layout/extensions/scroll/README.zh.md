@@ -1,18 +1,18 @@
 # scroll
-让 `TableLayout` 支持滚动
 
-![choice.gif](../../../pic/choice.gif)
+让 `TableLayout` 支持滚动。
 
+注意：**必须配合`TableLayout`和`TableRow`使用!!**
+
+![scroll.gif](../../../pic/scroll.gif)
 
 ## usage
-
-* **必须配合`TableLayout`和`TableRow`使用!!**
 
 ```python
 from terminal_layout import *
 from terminal_layout.extensions.scroll import *
 
-rows=[ [TextView(str(i),str(i))] for i in range(50)]
+rows = [[TextView(str(i), str(i))] for i in range(50)]
 
 ctl = LayoutCtl.quick(TableLayout, rows)
 # ctl.enable_debug(height=13)
@@ -35,21 +35,108 @@ There are several parameter you can set:
 | btm_text             | ''          | 底部的文本，为空则不显示                          |
 | more                 | False       | 类似于man的效果。为Ture会自动添加 btm_text         |
 | callback             | None        | 滚动后的回调                                |
-| re_draw_after_scroll | True        | 滚动后执行重绘。为false时你需要自己调用re_draw         |
+| re_draw_after_scroll | True        | 滚动后是否执行重绘。为false时你需要自己调用re_draw       |
+| re_draw_after_stop   | False       | 停止滚动后是否重绘                             |
 
-### callback
+## 修改滚动事件行为
 
-callback在 draw 之后调用
+有多种方法可以修改滚动后的行为
+
+### 1. 通过callback
 
 ```python
 from terminal_layout.extensions.scroll import *
 
+ctl = ...
+scroll = ...
+
+
 def my_callback(event):
-    if event== ScrollEvent.up:
-        pass
+    if event == ScrollEvent.up:
+        ...
+        # or ctl.re_draw()
+        scroll.draw()
     # ...
+
 ```
 
-### scroll_box
+`up`, `down` 事件默认会在调用callback之前进行`re_draw`。如果你callback中对view进行了修改，则需要调用函数重绘。
 
-scroll_box 可以理解为可滚动的区域
+如果你callback中改变了table的行数，你应该使用 `scroll.draw()` 这个函数会重新计算scroll位置
+
+### 2. 重写滚动事件
+
+如果你想在计算scroll位置之前进行一些操作（比如：禁止向上循环，但允许向下循环），
+就需要重写滚动事件。
+
+有多种方法可以重写滚动事件
+
+* 通过 `stop_func`, `up_func`, `down_func`
+
+  ```python
+  from terminal_layout.extensions.scroll import *
+  
+  ctl = LayoutCtl(...)
+  scroll = Scroll(ctl, loop=True)
+  
+  def up(kl, event):
+    if scroll.current_scroll_start - 1 < scroll.scroll_box_start:
+        return 
+    scroll.up()
+    ctl.re_draw()
+  
+  scroll.scroll(up_func=up)
+  ```
+
+* 添加`key_listener`事件
+
+  ```python
+  from terminal_layout.extensions.scroll import *
+  from terminal_layout.readkey import Key
+  
+  ctl = LayoutCtl(...)
+  scroll = Scroll(ctl, up_key=None, loop=True)
+  
+  key_listener = scroll.init_kl()
+  
+  @key_listener.bind_key(Key.UP)
+  def up(kl, event):
+    if scroll.current_scroll_start - 1 < scroll.scroll_box_start:
+        return 
+    scroll.up()
+    ctl.re_draw()
+  
+  scroll.draw()
+  key_listener.listen()
+  ```
+  或者不通过`init_kl`自己初始化`KeyListener`
+
+  ```python
+  from terminal_layout.extensions.scroll import *
+  from terminal_layout.readkey import Key, KeyListener
+  
+  ctl = LayoutCtl(...)
+  scroll = Scroll(ctl, loop=True)
+  
+  key_listener = KeyListener()
+  
+  @key_listener.bind_key(Key.UP)
+  def up(kl, event):
+    ...
+
+  key_listener.bind_key(Key.DOWN, down_func , decorator=False)
+  key_listener.bind_key('q', stop_func , decorator=False)
+  
+  scroll.draw()
+  key_listener.listen()
+
+  ```
+  
+## cal_scroll 返回值说明
+
+* `scroll_box_start` : 可滚动区域开始位置。一般用于前几行显示标题的情况
+* `scroll_box_end` : 可滚动区域开始位置结束位置 
+* `scroll_start` : 滚动区域实际显示的开始位置
+* `scroll_end` : 滚动区域实际显示的结束位置
+
+![cal_scroll.png](../../../pic/cal_scroll.png)
