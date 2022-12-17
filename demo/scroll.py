@@ -1,8 +1,6 @@
+import platform
 from terminal_layout import *
 from terminal_layout.extensions.scroll import *
-import time
-import sys
-
 
 s = '''python2 - print "Hello, World!"
 python3 - print("Hello, World!")
@@ -16,12 +14,8 @@ shell - echo "Hello, World!"
 go - fmt.Println("Hello, World!")
 rust - println("Hello, World!")'''
 
-
-color = [Back.blue, Back.red, Back.magenta,
-         Back.cyan, Back.green, Back.yellow, ]
-
 title_style = {
-    'back': Back.magenta,
+    'back': Back.magenta if platform.system() == 'Windows' else Back.ex_plum_2,
     'width': Width.fill,
     'gravity': Gravity.center
 
@@ -32,19 +26,19 @@ rows = [[],
         ]
 
 scroll_style = {
-    'back': Back.blue,
+    'back': Back.blue if platform.system() == 'Windows' else Back.ex_sky_blue_2,
     'fore': Fore.black
 }
 for i, ss in enumerate(s.split('\n')):
     lan, code = ss.split(' - ')
     rows.append([
-        TextView('', ' '+str(i)+'.'+lan.title(), width=10, **scroll_style),
-        TextView('', '| '+code, width=Width.fill, **scroll_style)
+        TextView('', ' ' + str(i) + '.' + lan.title(), width=10, **scroll_style),
+        TextView('', '| ' + code, width=Width.fill, **scroll_style)
     ])
 
-
 ctl = LayoutCtl.quick(TableLayout, rows)
-ctl.enable_debug(height=13)
+ctl.set_buffer_size(200)
+ctl.enable_debug(height=12)
 
 scroll = Scroll(ctl, stop_key='q', loop=True, more=True, scroll_box_start=3)
 scroll.scroll()
