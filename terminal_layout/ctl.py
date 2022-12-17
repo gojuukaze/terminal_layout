@@ -21,7 +21,7 @@ class LayoutCtl(object):
 
     def check(self):
         if not sys.stdout.isatty():
-            raise RuntimeError('terminal_ layout can only run under the terminal')
+            raise RuntimeError('terminal_layout can only run on Terminal')
 
     def __init__(self, layout=None,skip_check=False):
         if not skip_check:
