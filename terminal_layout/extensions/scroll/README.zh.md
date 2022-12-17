@@ -30,7 +30,7 @@ There are several parameter you can set:
 | up_key               | Key.UP      |                                                                  |
 | down_key             | Key.DOWN    |                                                                  |
 | scroll_box_start     | 0           | 从哪行开始可以滚动。若第一行要显示标题，可设置scroll_box_start=1 （详细说明见最后的cal_scroll部分） |
-| default_scroll_start | 0           | 初始化时滚动区域第一行下标                                                    |
+| default_scroll_start | 0           | 初始化时, scroll_box中哪行显示在第一的位置                                      |
 | loop                 | False       |                                                                  |
 | btm_text             | ''          | 底部的文本，为空则不显示                                                     |
 | more                 | False       | 类似于man的效果。为Ture会自动添加 btm_text                                    |

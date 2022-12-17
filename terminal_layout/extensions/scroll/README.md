@@ -23,20 +23,20 @@ scroll.scroll()
 
 There are several parameter you can set:
 
-| **name**             | **default** | **desc**                                                                                                                                                   |
-|----------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ctl                  |             | LayoutCtl                                                                                                                                                  |
-| stop_key             | Key.ESC     | key to stop scrolling                                                                                                                                      |
-| up_key               | Key.UP      |                                                                                                                                                            |
-| down_key             | Key.DOWN    |                                                                                                                                                            |
-| scroll_box_start     | 0           | The line to start scrolling from. If the title is to be displayed on the first line, set scroll_box_start=1 (see the final cal_scroll section for details) |
-| default_scroll_start | 0           | The first line of subscripts displayed in the scroll area when it is drawn for the first time                                                              |
-| loop                 | False       |                                                                                                                                                            |
-| btm_text             | ''          | The text at the bottom, if it is empty, it will not be displayed                                                                                           |
-| more                 | False       | Similar to the behavior of man. Its value is True will automatically add btm_text                                                                          |
-| callback             | None        | Callback after scrolling                                                                                                                                   |
-| re_draw_after_scroll | True        | Whether to perform a redraw after scrolling. If set to false you need to call re_draw yourself                                                             |
-| re_draw_after_stop   | False       | Whether to redraw after stopping scrolling                                                                                                                 |
+| **name**             | **default** | **desc**                                                                                                                                                 |
+|----------------------|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ctl                  |             | LayoutCtl                                                                                                                                                |
+| stop_key             | Key.ESC     | key to stop scrolling                                                                                                                                    |
+| up_key               | Key.UP      |                                                                                                                                                          |
+| down_key             | Key.DOWN    |                                                                                                                                                          |
+| scroll_box_start     | 0           | The row to start scrolling from. If the title is to be displayed on the first row, set scroll_box_start=1 (see the final cal_scroll section for details) |
+| default_scroll_start | 0           | When initializing, which row in scroll_box is displayed at the first position.                                                                           |
+| loop                 | False       |                                                                                                                                                          |
+| btm_text             | ''          | The text at the bottom, if it is empty, it will not be displayed                                                                                         |
+| more                 | False       | Similar to the behavior of man. Its value is True will automatically add btm_text                                                                        |
+| callback             | None        | Callback after scrolling                                                                                                                                 |
+| re_draw_after_scroll | True        | Whether to perform a redraw after scrolling. If set to false you need to call re_draw yourself                                                           |
+| re_draw_after_stop   | False       | Whether to redraw after stopping scrolling                                                                                                               |
 
 
 > default_scroll_start Description  

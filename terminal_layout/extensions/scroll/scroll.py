@@ -43,7 +43,7 @@ class Scroll(object):
         :param up_key:
         :param down_key:
         :param scroll_box_start: 从哪行开始可以滚动。若第一行要显示标题，则scroll_start=1
-        :param default_scroll_start: 初始化时滚动区域第一行下标。
+        :param default_scroll_start: 初始化时, scroll_box中哪行显示在第一的位置。
         :param loop: 循环
         :param btm_text: 底部的文本，为空则不显示
         :param more: 类似于man的效果。Ture会自动添加 btm_text
