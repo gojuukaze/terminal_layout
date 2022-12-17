@@ -52,26 +52,19 @@ class Scroll(object):
         :param re_draw_after_stop:
 
 
-        current_scroll_start 当前显示的滚动区域的第一行, 详细说明如下
+        default_scroll_start 说明：
 
+        若terminal高度为4, table有6行（即高度为6），default_scroll_start=6。
+        绘制时，显示在terminal顶部的是row_2。
 
-          row_0
-         ------------------------
-        | row_1                  |  <= terminal, height=4
-        | row_2                  |
-        | row_3                  |
-        | row_4                  |
-         ------------------------
-
-        外框表示terminal，其高度为4。row 1-4 显示在terminal中。
-        此时current_scroll_start = 1
-        若 loop=False ，触发down时 current_scroll_start不变 （ 注意不会+1 !!）
-        若 loop=True ，触发down时 current_scroll_start=0
-
-        ---
-
-        假设terminal高度为4，table有5行，
-        初始化时 current_scroll_start=4，首次绘制时 current_scroll_start 会被设为1
+           row_0
+           row_1
+         |------------|
+         | row_2      |
+         | row_3      |  <=== terminal, h=4
+         | row_4      |
+         | row_5      |
+         |------------|
 
 
         """
@@ -79,6 +72,24 @@ class Scroll(object):
         self.current_scroll_start = default_scroll_start
         if self.current_scroll_start < self.scroll_box_start:
             self.current_scroll_start = self.scroll_box_start
+
+        """
+        current_scroll_start : 当前实际显示的滚动区域的第一行, 详细说明如下
+
+            
+          row_0
+        |------------------------|
+        | row_1                  |  <= terminal, height=4
+        | row_2                  |
+        | row_3                  |
+        | row_4                  |
+        |------------------------|
+
+        外框表示terminal，其高度为4。table高度为5 row 1-4 显示在terminal中。
+        此时current_scroll_start = 1
+        若 loop=False ，触发down时 current_scroll_start不变 （ 注意不会+1 !!）
+        若 loop=True ，触发down时 current_scroll_start=0
+        """
         if more:
             self.btm_text = '-- more --'
 

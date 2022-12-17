@@ -23,21 +23,37 @@ scroll.scroll()
 
 There are several parameter you can set:
 
-| **name**             | **default** | **desc**                              |
-|----------------------|-------------|---------------------------------------|
-| ctl                  |             | LayoutCtl                             |
-| stop_key             | Key.ESC     | 停止滚动的key                              |
-| up_key               | Key.UP      |                                       |
-| down_key             | Key.DOWN    |                                       |
-| scroll_box_start     | 0           | 从哪行开始可以滚动。若第一行要显示标题，可设置scroll_start=1 |
-| default_scroll_start | 0           | 初始化时滚动区域第一行下标                         |
-| loop                 | False       |                                       |
-| btm_text             | ''          | 底部的文本，为空则不显示                          |
-| more                 | False       | 类似于man的效果。为Ture会自动添加 btm_text         |
-| callback             | None        | 滚动后的回调                                |
-| re_draw_after_scroll | True        | 滚动后是否执行重绘。为false时你需要自己调用re_draw       |
-| re_draw_after_stop   | False       | 停止滚动后是否重绘                             |
+| **name**             | **default** | **desc**                                                         |
+|----------------------|-------------|------------------------------------------------------------------|
+| ctl                  |             | LayoutCtl                                                        |
+| stop_key             | Key.ESC     | 停止滚动的key                                                         |
+| up_key               | Key.UP      |                                                                  |
+| down_key             | Key.DOWN    |                                                                  |
+| scroll_box_start     | 0           | 从哪行开始可以滚动。若第一行要显示标题，可设置scroll_box_start=1 （详细说明见最后的cal_scroll部分） |
+| default_scroll_start | 0           | 初始化时滚动区域第一行下标                                                    |
+| loop                 | False       |                                                                  |
+| btm_text             | ''          | 底部的文本，为空则不显示                                                     |
+| more                 | False       | 类似于man的效果。为Ture会自动添加 btm_text                                    |
+| callback             | None        | 滚动后的回调                                                           |
+| re_draw_after_scroll | True        | 滚动后是否执行重绘。为false时你需要自己调用re_draw                                  |
+| re_draw_after_stop   | False       | 停止滚动后是否重绘                                                        |
 
+
+> default_scroll_start 说明  
+> 若terminal高度为4, table有6行（即高度为6），default_scroll_start=6。  
+> 绘制时，显示在terminal顶部的是row_2。
+> ```
+>   row_0
+>   row_1
+> |------------|
+> | row_2      |
+> | row_3      |  <=== terminal, h=4
+> | row_4      |
+> | row_5      |
+> |------------|
+> ```
+  
+  
 ## 修改滚动事件行为
 
 有多种方法可以修改滚动后的行为
@@ -134,8 +150,8 @@ def my_callback(event):
   
 ## cal_scroll 返回值说明
 
-* `scroll_box_start` : 可滚动区域开始位置。一般用于前几行显示标题的情况
-* `scroll_box_end` : 可滚动区域开始位置结束位置 
+* `scroll_box_start` : 可滚动区域开始位置。一般用于要一直显示标题的情况
+* `scroll_box_end` : 可滚动区域结束位置 
 * `scroll_start` : 滚动区域实际显示的开始位置
 * `scroll_end` : 滚动区域实际显示的结束位置
 
