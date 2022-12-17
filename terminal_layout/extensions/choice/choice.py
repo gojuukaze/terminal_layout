@@ -77,9 +77,9 @@ class Choice(object):
         # self.hidden_choices()
         # self.ctl.draw(auto_re_draw=False)
 
-        self.scroll = Scroll(self.ctl, scroll_box_start=1,
-                             up_key=None, down_key=None, stop_key=None,btm_text='')
-        
+        self.scroll = Scroll(self.ctl, scroll_box_start=1, default_scroll_start=self.default_index,
+                             up_key=None, down_key=None, stop_key=None, btm_text='')
+
         kl = self.scroll.init_kl()
         self.scroll.draw()
         kl.bind_key(Key.UP, Key.DOWN, self.change_current, decorator=False)
@@ -95,35 +95,35 @@ class Choice(object):
 
     def change_current(self, kl, event):
         temp = self.current
-        loop_tigger=False
+        loop_tigger = False
         if event.key == Key.UP:
             temp -= 1
         elif event.key == Key.DOWN:
             temp += 1
         if temp < 0:
             if self.loop:
-                loop_tigger=True
-                temp=len(self.choices) - 1
+                loop_tigger = True
+                temp = len(self.choices) - 1
             else:
-                temp=0
+                temp = 0
         if temp >= len(self.choices):
             if self.loop:
-                loop_tigger=True
+                loop_tigger = True
                 temp = 0
             else:
                 temp = len(self.choices) - 1
         self.ctl.find_view_by_id(
             'icon%d' % self.current).set_visibility(Visibility.invisible)
         self.update_style(self.ctl.find_view_by_id('value%d' %
-                          self.current), self.choices_style)
+                                                   self.current), self.choices_style)
 
         self.current = temp
         self.ctl.find_view_by_id(
             'icon%d' % self.current).set_visibility(Visibility.visible)
         self.update_style(self.ctl.find_view_by_id('value%d' %
-                          self.current), self.selected_style)
+                                                   self.current), self.selected_style)
         # self.hidden_choices()
-        self.scroll.loop=loop_tigger
+        self.scroll.loop = loop_tigger
         if event.key == Key.UP:
             self.scroll.up()
         else:
