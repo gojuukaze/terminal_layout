@@ -147,7 +147,8 @@ class TableRow(View, Layout):
 
 class TableLayout(View, Layout):
 
-    def __init__(self, id, width=Width.fill, height=1, visibility=Visibility.visible, overflow_vertical=OverflowVertical.hidden_top):
+    def __init__(self, id, width=Width.fill, height=1, visibility=Visibility.visible,
+                 overflow_vertical=OverflowVertical.none):
         """
 
         :param id:
@@ -166,7 +167,8 @@ class TableLayout(View, Layout):
         self.overflow_vertical = overflow_vertical
 
     @classmethod
-    def quick_init(cls, id, data, width=Width.fill, height=1, visibility=Visibility.visible, overflow_vertical=OverflowVertical.hidden_top):
+    def quick_init(cls, id, data, width=Width.fill, height=1, visibility=Visibility.visible,
+                   overflow_vertical=OverflowVertical.hidden_top):
         """
 
         :param id:
@@ -259,7 +261,9 @@ class TableLayout(View, Layout):
             return
         # 注意，里面这个if只能是 overflow_vertical != hidden_top， 不能改成 overflow_vertical == hidden_top
         # scroll会复用after_draw恢复row的visibility，此时应该是正序的
-        for i, v in enumerate(self.old_row_visibility if self.overflow_vertical != OverflowVertical.hidden_top else reversed(self.old_row_visibility)):
+        for i, v in enumerate(
+                self.old_row_visibility if self.overflow_vertical != OverflowVertical.hidden_top else reversed(
+                    self.old_row_visibility)):
             self.data[i].visibility = v
 
     def clear(self):
