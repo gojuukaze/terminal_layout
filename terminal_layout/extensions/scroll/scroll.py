@@ -30,7 +30,8 @@ class Scroll(object):
     def __init__(self, ctl,
                  stop_key=Key.ESC, up_key=Key.UP, down_key=Key.DOWN,
                  scroll_box_start=0, default_scroll_start=0, loop=False,
-                 btm_text='', more=False, callback=None, re_draw_after_scroll=True):
+                 btm_text='', more=False,
+                 callback=None, re_draw_after_scroll=True, re_draw_after_stop=False):
         """
         :param ctl: ctl
         :param overflow: hidden or scroll
@@ -45,25 +46,26 @@ class Scroll(object):
         :param more: 类似于man的效果。Ture会自动添加 btm_text
         :param callback: 滚动后的回调
         :param re_draw_after_scroll: 滚动后执行重绘。为false时你需要自己调用re_draw
+        :param re_draw_after_stop:
 
 
         current_scroll_start 当前显示的滚动区域的第一行, 详细说明如下
 
 
-          row_0 
-         ------------------------   
+          row_0
+         ------------------------
         | row_1                  |  <= terminal, height=4
         | row_2                  |
         | row_3                  |
         | row_4                  |
-         ------------------------    
+         ------------------------
 
         外框表示terminal，其高度为4。row 1-4 显示在terminal中。
-        此时current_scroll_start = 1 
+        此时current_scroll_start = 1
         若 loop=False ，触发down时 current_scroll_start不变 （ 注意不会+1 !!）
-        若 loop=True ，触发down时 current_scroll_start=0 
+        若 loop=True ，触发down时 current_scroll_start=0
 
-        --- 
+        ---
 
         假设terminal高度为4，table有5行，
         初始化时 current_scroll_start=4，首次绘制时 current_scroll_start 会被设为1
@@ -137,7 +139,7 @@ class Scroll(object):
 
     def _stop(self, kl, event):
         self.stop(kl)
-        if self.re_draw_after_scroll:
+        if self.re_draw_after_stop:
             self.ctl.draw()
         self._callback(ScrollEvent.stop)
 
