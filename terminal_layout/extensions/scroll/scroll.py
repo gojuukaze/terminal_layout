@@ -124,7 +124,7 @@ class Scroll(object):
         self._callback(ScrollEvent.up)
 
     def up(self):
-        self.update(self.current_scroll_start-1)
+        self.update(self.current_scroll_start - 1)
 
     def _down(self, kl, event):
         self.down()
@@ -133,7 +133,7 @@ class Scroll(object):
         self._callback(ScrollEvent.down)
 
     def down(self):
-        self.update(self.current_scroll_start+1)
+        self.update(self.current_scroll_start + 1)
 
     def _stop(self, kl, event):
         self.stop(kl)
@@ -152,7 +152,7 @@ class Scroll(object):
     def update(self, new_current_scroll_start, is_first=False):
         _, h = self.ctl.get_terminal_size()
         # 最后一行需要显示光标，因此-1
-        h -= 1+self.scroll_box_start
+        h -= 1 + self.scroll_box_start
 
         table = self.ctl.get_layout().view
 
@@ -162,7 +162,7 @@ class Scroll(object):
             h -= 1
             scroll_box_end -= 1
 
-        scroll_box_h = scroll_box_end-self.scroll_box_start
+        scroll_box_h = scroll_box_end - self.scroll_box_start
 
         for r in table.data:
             if r.visibility == Visibility.gone:
@@ -175,10 +175,10 @@ class Scroll(object):
             # 首次绘制时，不会出现 scroll_start<self.scroll_box_start
             # 因此进这里一定是按了up键
             if self.loop:
-                scroll_start = scroll_box_end-h
+                scroll_start = scroll_box_end - h
             else:
                 scroll_start = self.scroll_box_start
-        elif scroll_start+h > scroll_box_end:
+        elif scroll_start + h > scroll_box_end:
             # 进这里说明是按down键，或者首次绘制时
             if self.loop and not is_first:
                 scroll_start = self.scroll_box_start
@@ -194,11 +194,11 @@ class Scroll(object):
             if not left_h:
                 break
 
-            scroll_end = scroll_start+i+1
+            scroll_end = scroll_start + i + 1
             if r.visibility != Visibility.gone:
                 left_h -= 1
 
-        while left_h and scroll_start-1 >= self.scroll_box_start:
+        while left_h and scroll_start - 1 >= self.scroll_box_start:
             scroll_start -= 1
             if table.data[scroll_start].visibility != Visibility.gone:
                 left_h -= 1
@@ -219,9 +219,11 @@ class Scroll(object):
                 r._set_is_show(False)
 
         if self.btm_text:
-            btm =table.data[-1]
+            btm = table.data[-1]
             table.old_row_visibility.append(btm.visibility)
             if self.more and scroll_end >= scroll_box_end:
-                btm.data[0].text='-- end --'
+                btm.data[0].text = '-- end --'
             else:
-                btm.data[0].text='-- more --'
+                btm.data[0].text = '-- more --'
+
+        return (self.scroll_box_start, scroll_box_end), (scroll_start, scroll_end), h
