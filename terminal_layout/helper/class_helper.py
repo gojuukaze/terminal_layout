@@ -1,6 +1,16 @@
 import sys
 import inspect
 
+"""
+instance_variables
+
+-----------------------------         ------------------------------                        
+|def __init__(self, a, b):  |         | @instance_variables        |
+|    self.a=a               |   ==>   | def __init__(self, a, b):  |
+|    self.b=b               |         |     pass                   |
+-----------------------------         ------------------------------ 
+
+"""
 if sys.version_info >= (3, 0):
     from functools import wraps
 
@@ -22,7 +32,8 @@ if sys.version_info >= (3, 0):
                                 setattr(self, k, v)
                     else:
                         setattr(self, k, p.default)
-
+            
+            f(self, *args, **kwargs)
         return wrapper
 else:
     def instance_variables(func):
@@ -47,25 +58,25 @@ else:
 
         return return_func
 
+# 这个应该是py2的代码，不知道之前为啥统一用了这个
+# def instance_variables(func):
+#     def return_func(*args, **kwargs):
+#         self_var = args[0]
 
-def instance_variables(func):
-    def return_func(*args, **kwargs):
-        self_var = args[0]
+#         arg_spec = inspect.getargspec(func)
+#         argument_names = arg_spec[0][1:]
+#         defaults = arg_spec[3]
+#         if defaults is not None:
+#             default_arg_dict = dict(zip(reversed(argument_names), reversed(defaults)))
+#             self_var.__dict__.update(default_arg_dict)
 
-        arg_spec = inspect.getargspec(func)
-        argument_names = arg_spec[0][1:]
-        defaults = arg_spec[3]
-        if defaults is not None:
-            default_arg_dict = dict(zip(reversed(argument_names), reversed(defaults)))
-            self_var.__dict__.update(default_arg_dict)
+#         arg_dict = dict(zip(argument_names, args[1:]))
+#         self_var.__dict__.update(arg_dict)
 
-        arg_dict = dict(zip(argument_names, args[1:]))
-        self_var.__dict__.update(arg_dict)
+#         valid_keywords = set(kwargs) & set(argument_names)
+#         kwarg_dict = {k: kwargs[k] for k in valid_keywords}
+#         self_var.__dict__.update(kwarg_dict)
 
-        valid_keywords = set(kwargs) & set(argument_names)
-        kwarg_dict = {k: kwargs[k] for k in valid_keywords}
-        self_var.__dict__.update(kwarg_dict)
+#         func(*args, **kwargs)
 
-        func(*args, **kwargs)
-
-    return return_func
+#     return return_func

@@ -3,12 +3,29 @@
 import sys
 
 from terminal_layout.ansi import Cursor, clear_line, Style
+from terminal_layout.helper.helper import get_terminal_size
 from terminal_layout.view.base import View
-from terminal_layout.view.params import Visibility, Gravity, Orientation, Width
+from terminal_layout.view.params import Visibility, Gravity, Orientation, Width, OverflowVertical
 from terminal_layout.view.text_view import TextView
 
 
-class TableRow(View):
+class Layout(object):
+    def add_view(self, v):
+        v.parent = self
+        self.data.append(v)
+
+    def add_views(self, *views):
+        for v in views:
+            v.parent = self
+        self.data += views
+
+    def add_view_list(self, views):
+        for v in views:
+            v.parent = self
+        self.data += views
+
+
+class TableRow(View, Layout):
     __slots__ = ('back', 'child_width')
 
     def __init__(self, id, width=Width.fill, height=1, back=None, visibility=Visibility.visible, gravity=Gravity.left):
@@ -35,7 +52,7 @@ class TableRow(View):
         """
 
         :param id:
-        :param data:
+        :param data: view or [view]
         :param width:
         :param height:
         :param back:
@@ -47,24 +64,16 @@ class TableRow(View):
         """
 
         row = cls(id, width, height, back, visibility, gravity)
-        row.data = data
+        if isinstance(data, list):
+            row.add_view_list(data)
+        if isinstance(data, View):
+            row.add_view(data)
         return row
 
     def add_view(self, v):
         if not isinstance(v, TextView):
             raise TypeError('only support add TextView')
-        v.parent = self
-        self.data.append(v)
-
-    def add_views(self, *views):
-        for v in views:
-            v.parent = self
-        self.data += views
-
-    def add_view_list(self, views):
-        for v in views:
-            v.parent = self
-        self.data += views
+        super(TableRow, self).add_view(v)
 
     def draw(self):
         if self.visibility == Visibility.visible:
@@ -136,9 +145,10 @@ class TableRow(View):
         return self.real_width
 
 
-class TableLayout(View):
+class TableLayout(View, Layout):
 
-    def __init__(self, id, width=Width.fill, height=1, visibility=Visibility.visible):
+    def __init__(self, id, width=Width.fill, height=1, visibility=Visibility.visible,
+                 overflow_vertical=OverflowVertical.none):
         """
 
         :param id:
@@ -151,15 +161,18 @@ class TableLayout(View):
         :type visibility:str
         """
 
-        super(TableLayout, self).__init__(id, width, height, visibility, Gravity.left)
+        super(TableLayout, self).__init__(
+            id, width, height, visibility, Gravity.left)
         self.data = []  # type: list[TableRow]
+        self.overflow_vertical = overflow_vertical
 
     @classmethod
-    def quick_init(cls, id, data, width=Width.fill, height=1, visibility=Visibility.visible):
+    def quick_init(cls, id, data, width=Width.fill, height=1, visibility=Visibility.visible,
+                   overflow_vertical=OverflowVertical.hidden_top):
         """
 
         :param id:
-        :param data:
+        :param data: view or [view]
         :param width:
         :param height:
         :param visibility:
@@ -168,23 +181,12 @@ class TableLayout(View):
         :rtype:TableLayout
         """
 
-        table = cls(id, width, height, visibility)
-        table.data = data
+        table = cls(id, width, height, visibility, overflow_vertical)
+        if isinstance(data, list):
+            table.add_view_list(data)
+        if isinstance(data, View):
+            table.add_view(data)
         return table
-
-    def add_view(self, v):
-        v.parent = self
-        self.data.append(v)
-
-    def add_views(self, *views):
-        for v in views:
-            v.parent = self
-        self.data += views
-
-    def add_view_list(self, views):
-        for v in views:
-            v.parent = self
-        self.data += views
 
     def update_width(self, parent_width):
         """
@@ -210,7 +212,37 @@ class TableLayout(View):
 
         return self.real_width
 
+    def hidden(self):
+        h = self.terminal_h
+        if not h:
+            _, h = get_terminal_size()
+        # 最后一行需要显示光标，因此-1
+        h -= 1
+
+        for r in self.data if self.overflow_vertical == OverflowVertical.hidden_btm else reversed(self.data):
+            self.old_row_visibility.append(r.visibility)
+            if h > 0:
+                if not r.visibility == Visibility.gone:
+                    h -= 1
+                    r._set_is_show(True)
+                else:
+                    r._set_is_show(False)
+            else:
+                r.visibility = Visibility.gone
+                r._set_is_show(False)
+
+    old_row_visibility = None
+
+    def befor_draw(self):
+        if self.overflow_vertical == OverflowVertical.none:
+            return
+        self.old_row_visibility = []
+        self.hidden()
+
     def draw(self):
+
+        self.befor_draw()
+
         self.real_height = 0
         is_first = True
         for r in self.data:
@@ -221,6 +253,18 @@ class TableLayout(View):
                     is_first = False
                 r.draw()
                 self.real_height += 1
+
+        self.after_draw()
+
+    def after_draw(self):
+        if not self.old_row_visibility:
+            return
+        # 注意，里面这个if只能是 overflow_vertical != hidden_top， 不能改成 overflow_vertical == hidden_top
+        # scroll会复用after_draw恢复row的visibility，此时应该是正序的
+        for i, v in enumerate(
+                self.old_row_visibility if self.overflow_vertical != OverflowVertical.hidden_top else reversed(
+                    self.old_row_visibility)):
+            self.data[i].visibility = v
 
     def clear(self):
         while self.real_height:
@@ -245,7 +289,8 @@ class LinearLayout(View):
         :type gravity:str
         """
 
-        super(LinearLayout, self).__init__(id, width, height, visibility, gravity)
+        super(LinearLayout, self).__init__(
+            id, width, height, visibility, gravity)
         if orientation == Orientation.vertical:
             self.end_code = '\n'
         elif orientation == Orientation.horizon:

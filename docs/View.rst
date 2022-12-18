@@ -3,7 +3,7 @@ View
 
 ``View`` 的概念继承自安卓，一共有两种类型的View，分别是 ``Layout`` 与 ``Widget`` 。
 
-此项目 ``Widget`` 只有 ``TextView`` ,目前支持的 ``Layout`` 有 ``TableLayout`` , ``TableRow``
+此项目 ``Widget`` 只有 ``TextView`` ;  ``Layout`` 有 ``TableLayout`` , ``TableRow``
 
 
 
@@ -53,6 +53,13 @@ View
 
         向view中每个位置插入一个view
 
+    .. py:method:: remove()
+
+        从父view中移除自身
+
+    .. py:method:: remove_view_by_id(id)
+
+        删除view
 
 Layout
 -------
@@ -66,7 +73,7 @@ TableLayout
 
 .. py:class:: TableLayout
 
-    .. py:method:: __init__(id, width=Width.fill, height=1, visibility=Visibility.visible)
+    .. py:method:: __init__(id, width=Width.fill, height=1, visibility=Visibility.visible, overflow_vertical=OverflowVertical.none)
 
         init，**需要注意TableLayout的gravity总是为left**
 
@@ -119,6 +126,16 @@ TableRow
     .. py:method:: add_view_list(view_list)
 
         向view中添加多个view，只支持添加TextView
+
+    .. py:method:: is_show()
+
+        view是否显示出来。
+
+        在 v2.1.4 之后, 如果 terminal 高度时会隐藏不能显示的部分，此时可通过is_show判断view是否显示。
+
+        注意只有使用 ``scroll`` 或 ``overflow_vertical`` 为 ``hidden_top`` 、 ``hidden_btm`` 时这个函数返回值才是有意义的，
+        且只对 ``TableRow`` 有效，对于 ``TextView`` 这个返回值一样是无意义的。
+
 
 TextView
 ----------

@@ -23,7 +23,13 @@ class Overflow(object):
     hidden_right = 'hidden_right'
 
 
-################ linearlayout ###############3
+class OverflowVertical(object):
+    hidden_top = 'hidden_top'
+    hidden_btm = 'hidden_btm'
+    none = 'none'
+
+
+# linearlayout ###############3
 
 class Orientation(object):
     # 水平

@@ -1,6 +1,16 @@
 changelog
 =============
 
+2.1.4
+---------
+* ``TableLayout`` 添加 ``overflow_vertical`` 参数，用于terminal高度不够时隐藏row（默认不隐藏）
+* 运行环境检测，非Terminal下抛出错误 ( `#25 <https://github.com/gojuukaze/terminal_layout/issues/25>`__ )
+* 添加 `scroll <https://github.com/gojuukaze/terminal_layout/tree/master/terminal_layout/extensions/scroll>`__ 扩展，让 ``TableLayout`` 支持滚动 ( `#24 <https://github.com/gojuukaze/terminal_layout/issues/24>`__ )
+* 添加 ``remove``, ``remove_view_by_id`` 函数
+* choice扩展改用scroll实现滚动
+* 添加 ``is_show`` 用于 使用 ``scroll``  或 ``overflow_vertical`` 为 ``hidden_top`` 、 ``hidden_btm`` 时判断 ``TableRow`` 是否隐藏。（  **只能判断TableRow** ）
+* 修改一些小bug
+
 2.1.3
 ---------
 * 解决 ``readkey()`` 函数在 Win PowerShell 下无法识别方向键 bug ( `#22 <https://github.com/gojuukaze/terminal_layout/issues/22>`__ )

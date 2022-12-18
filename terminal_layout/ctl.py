@@ -5,13 +5,8 @@ import platform
 import threading
 import time
 
-try:
-    # py3
-    from os import get_terminal_size
-except:
-    # py2
-    from backports.shutil_get_terminal_size import get_terminal_size
 
+from terminal_layout.helper.helper import get_terminal_size
 from terminal_layout.ansi import term_init
 from terminal_layout.view import *
 from terminal_layout.view.base import View
@@ -24,7 +19,13 @@ class LayoutCtl(object):
     _stop_flag = False
     auto_re_draw = True
 
-    def __init__(self, layout=None):
+    def check(self):
+        if not sys.stdout.isatty():
+            raise RuntimeError('terminal_layout can only run on Terminal')
+
+    def __init__(self, layout=None,skip_check=False):
+        if not skip_check:
+            self.check()
         self.layout = layout  # type:View
         self.refresh_lock = threading.Lock()
         self.init_refresh_thread()
@@ -44,7 +45,8 @@ class LayoutCtl(object):
         建议在draw之前调用
         """
         self.buffering = size
-        sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', self.buffering, encoding='utf-8')
+        sys.stdout = os.fdopen(sys.stdout.fileno(), 'w',
+                               self.buffering, encoding='utf-8')
 
     def is_stop(self):
         return self._stop_flag
@@ -54,18 +56,18 @@ class LayoutCtl(object):
         """
 
         :param layout_class:
-        :param data:
+        :param data: TableRow的data为 [textView, ...] ;
+                     TableLayout的data为 [ [textView], ]
         :return:
         :rtype :LayoutCtl
         """
         if layout_class is TableLayout:
 
             table_layout = TableLayout('root', Width.fill)
-            i = 0
-            for row_data in data:
-                table_row = TableRow.quick_init('root_row_' + str(i), row_data, width=Width.fill)
+            for i, row_data in enumerate(data):
+                table_row = TableRow.quick_init(
+                    'root_row_' + str(i), row_data, width=Width.fill)
                 table_layout.add_view(table_row)
-                i += 1
             return cls(table_layout)
         elif layout_class is TableRow:
             row = TableRow.quick_init('root', data, width=Width.fill)
@@ -89,17 +91,23 @@ class LayoutCtl(object):
         """
         return LayoutProxy(self, self.layout)
 
+    def enable_debug(self, width=50, height=10):
+        self.debug = True
+        self.debug_width = width
+        self.debug_height = height
+
     def get_terminal_size(self):
         if self.debug:
-            self.height = 10
-            self.width = 50
+            self.height = self.debug_height
+            self.width = self.debug_width
+        else:
+            size = get_terminal_size()
+            self.height = size.lines
+            self.width = size.columns
 
-        size = get_terminal_size()
-        self.height = size.lines
-        self.width = size.columns
+            if platform.system() == 'Windows':
+                self.width -= 1
 
-        if platform.system() == 'Windows':
-            self.width -= 1
         return self.width, self.height
 
     def update_width(self):
@@ -111,6 +119,7 @@ class LayoutCtl(object):
         self.auto_re_draw = auto_re_draw
         self.version += 1
         self.update_width()
+        self.layout.set_terminal_size(*self.get_terminal_size())
         self.layout.draw()
 
         sys.stdout.write('\n')
@@ -126,6 +135,8 @@ class LayoutCtl(object):
         self.clear()
 
         self.update_width()
+        self.layout.set_terminal_size(*self.get_terminal_size())
+
         self.layout.draw()
 
         sys.stdout.write('\n')
@@ -211,7 +222,7 @@ class BaseViewProxy(object):
 
     def get(self, k, default):
         """
-        When default == NULL , it is raised an error when the attribute doesn't exist
+        if default == NULL , it is raised an error when the attribute doesn't exist
         如果default为NULL，当不存在变量时会抛错
         """
         if default == NULL:
@@ -254,6 +265,15 @@ class BaseViewProxy(object):
         :rtype: View
         """
         self.get('parent', default)
+
+    def remove(self):
+        """
+        :rtype: bool
+        """
+        return self.view.remove()
+
+    def is_show(self):
+        return self.view.is_show()
 
 
 class TextViewProxy(BaseViewProxy):
@@ -316,4 +336,16 @@ class LayoutProxy(BaseViewProxy):
         self.view.add_view_list(views)
 
     def insert_view(self, i, view):
-        self.view.insert(i, view)
+        return self.view.insert(i, view)
+
+    def remove_view_by_id(self, id):
+        """
+        :rtype: bool
+        """
+        return self.view.remove_view_by_id(id)
+
+    def set_overflow_vertical(self, overflow_vertical, raise_error=False):
+        self.set('overflow_vertical', overflow_vertical, raise_error)
+
+    def get_overflow_vertical(self, default=NULL):
+        return self.get('overflow_vertical', default)

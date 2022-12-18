@@ -25,7 +25,8 @@ class Char(object):
 
     def __init__(self, c):
         if len(c) != 1:
-            raise TypeError('expected a character, but string of length %d found' % len(c))
+            raise TypeError(
+                'expected a character, but string of length %d found' % len(c))
         self.c = c
 
     def __len__(self):
@@ -91,6 +92,7 @@ class String(object):
 
     def __add__(self, other):
         new_str = copy.deepcopy(self)
+        new_str.length = None
         if isinstance(other, str):
             for c in other:
                 new_str.char_list.append(Char(c))
@@ -106,6 +108,7 @@ class String(object):
 
     def __radd__(self, other):
         new_str = copy.deepcopy(self)
+        new_str.length = None
         if isinstance(other, str):
             for c in other:
                 new_str.char_list.insert(0, Char(c))
