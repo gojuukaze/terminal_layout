@@ -122,11 +122,17 @@ class String(object):
 
     def __getitem__(self, item):
         """
+        只支持 s[:i] , s[-i:]  (i>0) 两种形式
+
         >>> s=String('a啊啊')
         >>> s[:2]
         'a'
         >>> s[:3]
         'a啊'
+        >>> s[-1:]
+        ''
+        >>> s[-2:]
+        '啊'
 
         :rtype: str
         """
