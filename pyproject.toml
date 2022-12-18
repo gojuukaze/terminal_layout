@@ -1,6 +1,36 @@
 [build-system]
-requires = [
-    "setuptools>=42",
-    "wheel"
-]
+requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "terminal_layout"
+version = "2.1.4"
+authors = [
+  { name="gojuukaze", email="ikaze_email@163.com" },
+]
+description = "The project help you to quickly build layouts in terminal (命令行ui布局工具)"
+readme = "README.rst"
+requires-python = ">=2.7"
+classifiers = [
+    "Programming Language :: Python :: 2",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Development Status :: 5 - Production/Stable",
+    "Topic :: Terminals",
+]
+
+dependencies = [
+    "colorama==0.4.4",
+    'colored==1.3.93',
+]
+
+[project.urls]
+"Homepage" = "https://github.com/gojuukaze/terminal_layout"
+"Bug Tracker" = "https://github.com/gojuukaze/terminal_layout/issues"
+"Documentation"="https://doc.ikaze.cn/terminal_layout"
+
+[tool.setuptools.packages.find]
+include = ["terminal_layout*"]
+exclude = ["demo", "tests"]
