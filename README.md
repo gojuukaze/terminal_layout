@@ -41,8 +41,13 @@ pip install terminal-layout
 ```
 
 # Dependencies
-* Python 2.7, 3.5+ (maybe 3.4)
+* Python 3.5+ (maybe 3.4)
 * Linux, OS X, and Windows systems.
+
+## Python Support
+| python 2 | 2.1.x |
+| -------- | ----- |
+| pytohn 3 | 3.x   |
 
 # Usage
 
