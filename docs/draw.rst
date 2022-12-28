@@ -196,9 +196,9 @@ v2开始会启动线程自动刷新，因此结束程序时必须手动调用sto
 
 View的属性
 ------------
-View的属性包括： ``width``, ``visibility``, ``gravity``
+View的属性包括： ``width`` , ``visibility`` , ``gravity``
 
-TextView在上述基础上增加了：``text``, ``back``, ``style``, ``fore``, ``weight``
+TextView在上述基础上增加了：``text`` , ``back`` , ``style`` , ``fore`` , ``weight`` , ``weight`` ,
 
 关于属性的说明参照：:doc:`/Properties`
 

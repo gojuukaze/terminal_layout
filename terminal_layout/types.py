@@ -122,31 +122,43 @@ class String(object):
 
     def __getitem__(self, item):
         """
+        只支持 s[:i] , s[-i:]  (i>0) 两种形式
+
         >>> s=String('a啊啊')
         >>> s[:2]
         'a'
         >>> s[:3]
         'a啊'
+        >>> s[-1:]
+        ''
+        >>> s[-2:]
+        '啊'
 
         :rtype: str
         """
         start = item.start or 0
-        if start != 0:
-            raise TypeError('slice start must be 0 or None')
-        stop = item.stop
+        if start > 0:
+            raise TypeError('Slice start must be less than or equal to 0')
+        stop = item.stop or 0
         if stop is None or stop < 0:
-            raise TypeError('slice stop must be positive integer')
+            raise TypeError('Slice start must be greater than or equal to 0')
 
-        s = ''
-        for c in self.char_list:
-            length = len(c)
-            if stop >= length:
-                s += str(c)
+        if start<0:
+            cl=reversed(self.char_list)
+            length=-start
+        else:
+            cl=self.char_list
+            length=stop
+        s=[]
+        for c in cl:
+            tmp = len(c)
+            length-=tmp
+            if length>=0:
+                s.append(str(c))
             else:
                 break
-            stop -= length
 
-        return s
+        return ''.join(s if stop>0 else reversed(s))
 
     def insert_into_char_list(self, i, s):
 

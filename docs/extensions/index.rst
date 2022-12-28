@@ -32,6 +32,6 @@ scroll
 文档查看：https://github.com/gojuukaze/terminal_layout/tree/master/terminal_layout/extensions/scroll
 
 
-.. image:: ../_static/input.gif
+.. image:: ../_static/scroll.gif
 
 
