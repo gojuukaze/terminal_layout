@@ -234,25 +234,24 @@ class LayoutCtl(object):
         return self._stop_flag
 
     @classmethod
-    def quick(cls, layout_class, data):
+    def quick(cls, layout_class, data, id='root', row_id_formatter='{table_id}_row_{index}'):
         """
 
-        :param layout_class:
+        :param layout_class: TableRow or TableLayout
         :param data: TableRow的data为 [textView, ...] ;
                      TableLayout的data为 [ [textView], ]
+
+        :param id: layout的id
+        :param row_id_formatter: 创建TableLayout时设置row的id。
+
         :return:
         :rtype :LayoutCtl
         """
         if layout_class is TableLayout:
-
-            table_layout = TableLayout('root', Width.fill)
-            for i, row_data in enumerate(data):
-                table_row = TableRow.quick_init(
-                    'root_row_' + str(i), row_data, width=Width.fill)
-                table_layout.add_view(table_row)
+            table_layout = TableLayout.quick_init(id, data, row_id_formatter)
             return cls(table_layout)
         elif layout_class is TableRow:
-            row = TableRow.quick_init('root', data, width=Width.fill)
+            row = TableRow.quick_init(id, data)
             return cls(row)
         else:
             raise TypeError("quick not support %s" % (str(layout_class, )))
