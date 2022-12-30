@@ -85,6 +85,22 @@
     ctl.draw()
     ctl.stop()
 
+v3.0.0+ data支持 ``[[TextView]]`` 这样的形式，且可以通过 ``row_id_formatter`` 修改row的默认id。（ ``row_id_formatter`` 说明见下方 **LayoutCtl.quick** 部分）
+
+.. code-block:: python
+
+    from terminal_layout import *
+
+    table = TableLayout.quick_init('root',
+                               [ # table id: root
+                                   [TextView('', '1')], # row id: root_row_0
+                                   [TextView('', '2')]  # row id: root_row_1
+                               ] , 
+                               row_id_formatter='{table_id}_row_{index}'
+                               )
+
+
+
 - LayoutCtl
 
 .. code-block:: python
@@ -162,7 +178,7 @@
         table = TableLayout('id1')
         table.add_view(TextView('', 'text'))
 
-    这样做相当于
+    这样某些情况下做相当于
 
     .. code-block:: python
 
@@ -170,8 +186,28 @@
         row = TableRow.quick_init('', [TextView('', 'text') ] )
         table.add_view(row)
 
-    在某些情况下他们是一样的，而且第一种方式更便捷。但第一种方式将不能正确处理某些 ``TextView`` 自有的属性（非基础 ``View`` 的属性）。
+    但第一种方式将不能正确处理某些 ``TextView`` 的自有属性（非基础 ``View`` 的属性）。
     除非你知道你在做什么，否则建议使用第二种方式。
+
+移除view
+---------------------
+
+- 你可以使用remove或remove_view_by_id移除view
+
+
+.. code-block:: python
+
+    from terminal_layout import *
+    ctl = LayoutCtl.quick(TableLayout,
+                          # table id: root
+                          [
+                              [TextView('title', 'Title', width=Width.wrap)],  # row id: root_row_0
+                              [TextView('data1', '1.', width=3), TextView('data2', 'foo', width=5)],  # row id: root_row_1
+                          ]
+                          )
+    # remove title
+    ctl.remove_view_by_id('title')
+
 
 自动刷新
 -------------

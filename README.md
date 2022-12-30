@@ -45,9 +45,11 @@ pip install terminal-layout
 * Linux, OS X, and Windows systems.
 
 ## Python Support
-| python 2 | 2.1.x |
-| -------- | ----- |
-| pytohn 3 | 3.x   |
+
+| Python | terminal_layout |
+| ------ | --------------- |
+| 2.7    | 2.1.x           |
+| 3.5+   | 3.x             |
 
 # Usage
 
