@@ -6,7 +6,7 @@
 - **LayoutCtl** ：layout管理器，负责绘制所有元素
 - **View** ： 基础控件，Layout 与 TextView 其实都属于 View
 
-  - Layout ： 布局控制器，控制 TextView 显示的位置。 目前支持的Layout有两种 TableLayout(表格布局)， TableRow(行布局) 
+  - Layout ： 布局控制器，控制 TextView 显示的位置。 目前支持的Layout有两种 TableLayout(表格布局)， TableRow(行布局)
 
   - TextView ： 用于显示文字的view。
 
@@ -43,7 +43,8 @@
 
 每次手动创建layout，text_view会很麻烦，这里为 TableRow，TableLayout，LayoutCtl 提供了quick_init()函数帮助快速创建
 
-- TableRow
+TableRow
+~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -59,14 +60,13 @@
 .. note::
    LayoutCtl()接受的参数是View，因此直接把TableRow放到ctl中。
 
-   你也可以把TextView直接放入LayoutCtl()，如：
-
-   .. code-block:: python
+   你也可以把TextView直接放入LayoutCtl()，如::
 
       ctl = LayoutCtl(TextView('title', 'Title', width=10, back=Back.blue))
 
 
-- TableLayout
+TableLayout
+~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -85,8 +85,23 @@
     ctl.draw()
     ctl.stop()
 
-- LayoutCtl
+v3.0.0+ data支持 ``[[TextView]]`` 这样的形式，且可以通过 ``row_id_formatter`` 修改row的默认id。（ ``row_id_formatter`` 说明见下方 **LayoutCtl.quick** 部分）
 
+.. code-block:: python
+
+    from terminal_layout import *
+
+    table = TableLayout.quick_init('root',
+                               [ # table id: root
+                                   [TextView('', '1')], # row id: root_row_0
+                                   [TextView('', '2')]  # row id: root_row_1
+                               ] , 
+                               row_id_formatter='{table_id}_row_{index}'
+                               )
+
+
+LayoutCtl
+~~~~~~~~~~~~~~~~
 .. code-block:: python
 
     from terminal_layout import *
@@ -95,14 +110,21 @@
                           [
                               [TextView('title', 'Title', width=Width.wrap)],  # row id: root_row_0
                               [TextView('data1', '1.', width=3), TextView('data2', 'foo', width=5)],  # row id: root_row_1
-                          ]
+                          ],
+                          id="root",
+                          row_id_formatter='{table_id}_row_{index}'
                           )
     ctl.draw()
     ctl.stop()
 
 .. note::
 
-   对于LayoutCtl.quick()，会自动为layout添加id
+   v3.0.0开始，可以通过 ``id`` 配置最外层的layout id。
+
+   创建 ``TableLayout`` 时可通过 ``row_id_formatter`` 配置 row id。其支持的展位符如下：
+
+   - table_id ：即 id 设置的值
+   - index
 
 修改view的属性
 ----------------
@@ -162,7 +184,7 @@
         table = TableLayout('id1')
         table.add_view(TextView('', 'text'))
 
-    这样做相当于
+    这样某些情况下做相当于
 
     .. code-block:: python
 
@@ -170,8 +192,28 @@
         row = TableRow.quick_init('', [TextView('', 'text') ] )
         table.add_view(row)
 
-    在某些情况下他们是一样的，而且第一种方式更便捷。但第一种方式将不能正确处理某些 ``TextView`` 自有的属性（非基础 ``View`` 的属性）。
+    但第一种方式将不能正确处理某些 ``TextView`` 的自有属性（非基础 ``View`` 的属性）。
     除非你知道你在做什么，否则建议使用第二种方式。
+
+移除view
+---------------------
+
+- 你可以使用remove或remove_view_by_id移除view
+
+
+.. code-block:: python
+
+    from terminal_layout import *
+    ctl = LayoutCtl.quick(TableLayout,
+                          # table id: root
+                          [
+                              [TextView('title', 'Title', width=Width.wrap)],  # row id: root_row_0
+                              [TextView('data1', '1.', width=3), TextView('data2', 'foo', width=5)],  # row id: root_row_1
+                          ]
+                          )
+    # remove title
+    ctl.remove_view_by_id('title')
+
 
 自动刷新
 -------------

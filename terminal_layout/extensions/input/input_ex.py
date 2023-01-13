@@ -10,17 +10,15 @@ import sys
 from terminal_layout.log import logger
 from terminal_layout.ctl import TextViewProxy, LayoutProxy
 
-try:
-    from typing import Union
-except:
-    pass
+from typing import Union
+
 from terminal_layout import *
 
 from terminal_layout.types import String
 
 
 class InputEx(object):
-    view = None  # type:Union[None, TextViewProxy, LayoutProxy]
+    view = None  # type:Union[TextViewProxy, LayoutProxy, None]
     x = -1
     y = -1
     layout_height = 0
@@ -41,16 +39,15 @@ class InputEx(object):
         self.ctl = _ctl
         self.input_buffer = input_buffer
 
-    def get_view_y(self,id,row):
-        y=0
+    def get_view_y(self, id, row):
+        y = 0
         for v in row.data:
             if v.id == id:
                 if v.visibility != Visibility.visible:
                     return True, -1
                 return True, y
             y += v.real_width or 0
-        return False,-1
-
+        return False, -1
 
     def get_view_x_y(self, id):
         """
@@ -65,19 +62,19 @@ class InputEx(object):
         """
         x = 0
         y = 0
-        layout=self.ctl.layout
-        if isinstance(layout,TextView):
-            return -1,-1 if layout.id!=id else x,y
-        if isinstance(layout,TableRow):
-            ok,y=self.get_view_y(id,layout)
-            return x,y
+        layout = self.ctl.layout
+        if isinstance(layout, TextView):
+            return -1, -1 if layout.id != id else x, y
+        if isinstance(layout, TableRow):
+            ok, y = self.get_view_y(id, layout)
+            return x, y
         for row in self.ctl.layout.data:
             if row.visibility == Visibility.gone:
                 continue
             if row.visibility == Visibility.visible:
-                ok,y=self.get_view_y(id,row)
+                ok, y = self.get_view_y(id, row)
                 if ok:
-                    return x,y
+                    return x, y
             x += 1
         return -1, -1
 
@@ -156,7 +153,7 @@ class InputEx(object):
             self.ctl.init_refresh_thread()
             self.ctl.refresh_thread.start()
 
-        return True,str(self.input_s)
+        return True, str(self.input_s)
 
     def move_cursor_to_view(self):
         s = ''
@@ -182,7 +179,8 @@ class InputEx(object):
             if right:
                 list_iter = self.char_list_iter(self.input_char_list_end, True)
             else:
-                list_iter = self.char_list_iter(self.input_char_list_index, False)
+                list_iter = self.char_list_iter(
+                    self.input_char_list_index, False)
 
             new_i = 0
             for i, c in list_iter:
@@ -240,7 +238,8 @@ class InputEx(object):
 
                 self.input_char_list_index += 1
                 if self.input_char_list_index > self.input_char_list_end - 1:
-                    self.input_char_list_end = min(self.input_char_list_index + 1, len(self.input_s.char_list))
+                    self.input_char_list_end = min(
+                        self.input_char_list_index + 1, len(self.input_s.char_list))
 
             elif event.key == Key.BACKSPACE and self.input_char_list_index > 0:
 
@@ -261,7 +260,8 @@ class InputEx(object):
                 if len(c_str.char_list) > left_length:
                     c_str.char_list_slice(stop=left_length)
 
-            self.input_s.insert_into_char_list(self.input_char_list_index, c_str)
+            self.input_s.insert_into_char_list(
+                self.input_char_list_index, c_str)
             self.input_char_list_index += len(c_str.char_list)
             self.input_char_list_end += len(c_str.char_list)
 

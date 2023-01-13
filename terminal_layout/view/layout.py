@@ -167,12 +167,13 @@ class TableLayout(View, Layout):
         self.overflow_vertical = overflow_vertical
 
     @classmethod
-    def quick_init(cls, id, data, width=Width.fill, height=1, visibility=Visibility.visible,
+    def quick_init(cls, id, data, row_id_formatter='{table_id}_row_{index}', width=Width.fill, height=1, visibility=Visibility.visible,
                    overflow_vertical=OverflowVertical.hidden_top):
         """
 
         :param id:
-        :param data: view or [view]
+        :param data: view or [view] or [[TextView]]
+        :param row_id_formatter: data为 [[TextView]] 时，row的id。占位置只支持：table_id, index
         :param width:
         :param height:
         :param visibility:
@@ -183,7 +184,13 @@ class TableLayout(View, Layout):
 
         table = cls(id, width, height, visibility, overflow_vertical)
         if isinstance(data, list):
-            table.add_view_list(data)
+            if isinstance(data[0], TableRow):
+                table.add_view_list(data)
+            else:
+                for i, r in enumerate(data):
+                    row = TableRow.quick_init(
+                        row_id_formatter.format(table_id=id, index=i), r)
+                    table.add_view(row)
         if isinstance(data, View):
             table.add_view(data)
         return table
