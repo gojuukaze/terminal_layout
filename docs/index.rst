@@ -11,10 +11,16 @@ Welcome to terminal_layout's documentation!
 
 .. image:: _static/demo_v2_1.gif
 
+|
+
 .. image:: _static/demo.gif
+
+|
 
 .. image:: https://asciinema.org/a/226120.svg
    :target: https://asciinema.org/a/226120
+
+|
 
 你可以从 :doc:`getStarted` 开始学习如何使用terminal_layout
 

@@ -28,4 +28,6 @@
     ctl.draw()
     ctl.stop()
 
-``LayoutCtl`` , ``TableLayout`` , ``TextView`` 是该项目重要的元素，阅读 :doc:`/draw` ， :doc:`/keyListener` 熟悉如何使用它们
+``LayoutCtl`` , ``TableLayout`` , ``TextView`` 是该项目重要的元素，接下来阅读 :doc:`/draw` 熟悉如何使用它们。
+
+如需监听键盘事件，则阅读： :doc:`/keyListener`

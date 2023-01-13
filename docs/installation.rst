@@ -7,7 +7,7 @@ installation
 
 
 Python Support
-===================
+----------------------
 
 ====== ===============
 Python terminal_layout
